@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+  }
+}
+
+/* Shimmer gradient animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    #174ea6 0%,
+    #1a73e8 25%,
+    #3b82f6 50%,
+    #1a73e8 75%,
+    #174ea6 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-cursor {
+  animation: cursorBlink 0.9s infinite;
+}
+
+/* Infinite loop continuous marquee */
+@keyframes infiniteMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-infinite-loop {
+  display: flex;
+  width: max-content;
+  animation: infiniteMarquee 38s linear infinite;
+  will-change: transform;
+}
+
+.animate-infinite-loop.is-paused {
+  animation-play-state: paused !important;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .text-shimmer {
+    animation: none;
+    background-position: 0 0;
+  }
+  .animate-cursor {
+    animation: none;
+    opacity: 1;
+  }
+  .animate-infinite-loop {
+    animation: none;
+    transform: none;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+}

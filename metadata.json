@@ -1,0 +1,8 @@
+{
+  "name": "Auditoria SEO - Presença Digital & Alta Conversão",
+  "description": "Melhore sua presença no Google com sites de alta conversão e SEO Local. Atraia mais clientes pelo Google Maps e fortaleça sua presença digital.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
