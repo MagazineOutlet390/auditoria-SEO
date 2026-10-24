@@ -6,7 +6,7 @@ export const SITE_CONFIG = {
   phoneDisplay: '(19) 98933-2087',
   phoneRaw: '5519989332087',
   whatsappBaseUrl: 'https://wa.me/5519989332087',
-  heroImage:'/assets/aistudio/img-fundo-auditoria.jpg',
+  heroImage: '/assets/aistudio/img-fundo-auditoria.jpg',
   defaultOgImage: 'https://auditoriaseo.com.br/og-image.png',
   googleMapsProfileUrl: 'https://share.google/LAMoroMJbdrI9QCsk',
   author: 'Wesley - Auditoria SEO',
