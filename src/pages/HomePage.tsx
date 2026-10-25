@@ -1,6 +1,7 @@
 import React from 'react';
 import { SEOHead } from '../components/common/SEOHead';
 import { Hero } from '../components/home/Hero';
+import { LocalSeoSection } from '../components/home/LocalSeoSection';
 import { ServicesSection } from '../components/home/ServicesSection';
 import { HowItWorks } from '../components/home/HowItWorks';
 import { TargetAudience } from '../components/home/TargetAudience';
@@ -19,6 +20,7 @@ export const HomePage: React.FC = () => {
         ogImage="https://auditoriaseo.com.br/og-image.png"
       />
       <Hero />
+      <LocalSeoSection />
       <ServicesSection />
       <HowItWorks />
       <TargetAudience />

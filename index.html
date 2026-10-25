@@ -40,7 +40,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
     <!-- Performance: Preload Above-the-Fold Hero Image for optimal LCP -->
-    <link rel="preload" as="image" href="/assets/aistudio/img-fundo-auditoria.jpg" fetchpriority="high" />
+    <link rel="preload" as="image" type="image/webp" media="(max-width: 767px)" href="/assets/aistudio/img-fundo-auditoria-mobile.webp" fetchpriority="high" />
+    <link rel="preload" as="image" type="image/webp" media="(min-width: 768px)" href="/assets/aistudio/img-fundo-auditoria.webp" fetchpriority="high" />
 
     <!-- Schema.org Organization JSON-LD -->
     <script type="application/ld+json">

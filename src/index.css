@@ -64,6 +64,29 @@
   animation-play-state: paused !important;
 }
 
+/* Target Audience Marquee (~40s per round) */
+@keyframes targetMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-target-marquee {
+  display: flex;
+  width: max-content;
+  animation: targetMarquee 40s linear infinite;
+  will-change: transform;
+}
+
+.animate-target-marquee.is-paused,
+.animate-target-marquee:hover,
+.animate-target-marquee:focus-within {
+  animation-play-state: paused !important;
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .text-shimmer {
@@ -78,7 +101,31 @@
     animation: none;
     transform: none;
   }
+  .animate-target-marquee {
+    animation: none !important;
+    transform: none !important;
+  }
   * {
     scroll-behavior: auto !important;
   }
 }
+
+/* Mobile Hero Glass Panel (under 768px) */
+@media (max-width: 767px) {
+  .mobile-hero-glass {
+    background-color: rgba(255, 255, 255, 0.88);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 0 10px 30px -4px rgba(15, 23, 42, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.06);
+  }
+}
+
+@supports not ((-webkit-backdrop-filter: blur(14px)) or (backdrop-filter: blur(14px))) {
+  @media (max-width: 767px) {
+    .mobile-hero-glass {
+      background-color: rgba(255, 255, 255, 0.96);
+    }
+  }
+}
+
