@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { fetchSanityPostBySlug, fetchSanityPosts } from '../lib/sanity';
 import { SanityPost } from '../types';
 import { SEOHead } from '../components/common/SEOHead';
-import { Clock, User, Calendar, ArrowLeft, ArrowRight, ListTree } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext';
+import { getHreflangs } from '../i18n/routes';
+import { Clock, User, ArrowLeft, ArrowRight, ListTree } from 'lucide-react';
 
 export const BlogPostPage: React.FC = () => {
+  const { lang, t, getLocalizedPath } = useLanguage();
+  const location = useLocation();
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<SanityPost | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<SanityPost[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const bData = t.blog;
 
   useEffect(() => {
     if (!slug) return;
@@ -31,7 +37,7 @@ export const BlogPostPage: React.FC = () => {
   if (loading) {
     return (
       <main className="py-24 max-w-4xl mx-auto px-4 text-center text-slate-500 text-sm">
-        Carregando artigo...
+        {bData.loading}
       </main>
     );
   }
@@ -40,21 +46,22 @@ export const BlogPostPage: React.FC = () => {
     return (
       <main className="py-24 max-w-4xl mx-auto px-4 text-center">
         <SEOHead
-          title="Artigo não encontrado | Auditoria SEO"
-          description="O artigo solicitado não está disponível ou foi movido."
-          canonicalPath="/blog"
+          title={`${bData.notFoundTitle} | Auditoria SEO`}
+          description={bData.notFoundText}
+          canonicalPath={location.pathname}
           noindex={true}
+          currentLang={lang}
         />
-        <h1 className="text-2xl font-bold text-slate-900 mb-4">Artigo não encontrado</h1>
+        <h1 className="text-2xl font-bold text-slate-900 mb-4">{bData.notFoundTitle}</h1>
         <p className="text-slate-600 mb-6 text-sm">
-          O artigo solicitado não está disponível ou a URL foi alterada.
+          {bData.notFoundText}
         </p>
         <Link
-          to="/blog"
+          to={getLocalizedPath('/blog')}
           className="inline-flex items-center gap-2 text-sm font-semibold text-[#1A73E8]"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>Voltar para o blog</span>
+          <span>{bData.notFoundBack}</span>
         </Link>
       </main>
     );
@@ -81,6 +88,7 @@ export const BlogPostPage: React.FC = () => {
         ogImage={articleOgImage}
         publishedTime={post.publishedAt}
         modifiedTime={post.updatedAt || post.publishedAt}
+        currentLang={lang}
       />
 
       {/* Schema.org Article structured data */}
@@ -118,11 +126,11 @@ export const BlogPostPage: React.FC = () => {
       <section className="py-6 border-b border-slate-100 bg-slate-50/50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link
-            to="/blog"
+            to={getLocalizedPath('/blog')}
             className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-[#1A73E8] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Voltar para todos os artigos</span>
+            <span>{bData.backToAll}</span>
           </Link>
         </div>
       </section>
@@ -135,10 +143,10 @@ export const BlogPostPage: React.FC = () => {
           <span aria-hidden="true">·</span>
           <span className="flex items-center gap-1">
             <Clock className="w-3 h-3" />
-            <span>{post.readingTimeMinutes} min de leitura</span>
+            <span>{post.readingTimeMinutes} {bData.minRead}</span>
           </span>
           <span aria-hidden="true">·</span>
-          <span>Publicado por {post.author.name}</span>
+          <span>{post.author.name}</span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.2] mb-6">
@@ -154,7 +162,7 @@ export const BlogPostPage: React.FC = () => {
           <aside className="my-8 p-6 rounded-xl bg-slate-50 border border-slate-200/80">
             <div className="flex items-center gap-2 text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">
               <ListTree className="w-4 h-4 text-[#1A73E8]" />
-              <span>Neste artigo:</span>
+              <span>{bData.inThisArticle}</span>
             </div>
             <ul className="space-y-2 text-sm">
               {headings.map((heading, hIdx) => (
@@ -197,24 +205,24 @@ export const BlogPostPage: React.FC = () => {
         <div className="my-12 p-6 rounded-xl bg-blue-50/60 border border-blue-200/70 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <span className="text-xs font-bold text-[#174EA6] uppercase tracking-wider block mb-1">
-              Próximo passo estratégico
+              {bData.nextStrategicStep}
             </span>
             <p className="text-sm font-semibold text-slate-900">
-              Quer analisar a situação técnica do seu site ou posicionar sua empresa no Google Maps?
+              {bData.nextStrategicText}
             </p>
           </div>
           <Link
-            to="/servicos-seo"
+            to={getLocalizedPath('/servicos-seo')}
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#1A73E8] text-white text-xs font-semibold hover:bg-[#174EA6] whitespace-nowrap shrink-0 transition-colors"
           >
-            <span>Conhecer nossos planos de SEO</span>
+            <span>{bData.nextStrategicCta}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
         {/* Tags */}
         <div className="pt-6 border-t border-slate-200 flex flex-wrap items-center gap-2">
-          <span className="text-xs text-slate-400 mr-2">Tópicos relacionados:</span>
+          <span className="text-xs text-slate-400 mr-2">{bData.relatedTopics}</span>
           {post.tags.map((tag) => (
             <span
               key={tag}
@@ -231,7 +239,7 @@ export const BlogPostPage: React.FC = () => {
         <section className="py-16 bg-slate-50 border-t border-slate-200/80">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <h3 className="text-xl font-bold text-slate-900 mb-8">
-              Artigos Recomendados
+              {bData.recommendedArticles}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {relatedPosts.map((rel) => (
@@ -256,7 +264,7 @@ export const BlogPostPage: React.FC = () => {
                     to={`/blog/${rel.slug.current}`}
                     className="inline-flex items-center gap-1 text-xs font-semibold text-[#1A73E8] hover:text-[#174EA6]"
                   >
-                    <span>Ler artigo</span>
+                    <span>{bData.readArticle}</span>
                     <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>

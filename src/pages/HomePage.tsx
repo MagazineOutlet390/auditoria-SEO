@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { SEOHead } from '../components/common/SEOHead';
 import { Hero } from '../components/home/Hero';
 import { LocalSeoSection } from '../components/home/LocalSeoSection';
@@ -8,16 +9,23 @@ import { TargetAudience } from '../components/home/TargetAudience';
 import { Differentials } from '../components/home/Differentials';
 import { TestimonialsCarousel } from '../components/home/TestimonialsCarousel';
 import { FinalCTA } from '../components/home/FinalCTA';
+import { useLanguage } from '../i18n/LanguageContext';
+import { getHreflangs } from '../i18n/routes';
 
 export const HomePage: React.FC = () => {
+  const { lang, t } = useLanguage();
+  const location = useLocation();
+
   return (
     <main>
       <SEOHead
-        title="Auditoria SEO | Sites de Alta Conversão e SEO Local"
-        description="Melhore sua presença no Google com sites de alta conversão e SEO Local. Atraia mais clientes pelo Google Maps e fortaleça sua presença digital."
-        canonicalPath="/"
+        title={t.meta.homeTitle}
+        description={t.meta.homeDescription}
+        canonicalPath={location.pathname}
         ogType="website"
-        ogImage="https://auditoriaseo.com.br/og-image.png"
+        ogImage="/og-image.png"
+        currentLang={lang}
+        hreflangs={getHreflangs(location.pathname)}
       />
       <Hero />
       <LocalSeoSection />
@@ -30,3 +38,4 @@ export const HomePage: React.FC = () => {
     </main>
   );
 };
+

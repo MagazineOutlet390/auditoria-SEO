@@ -28,32 +28,28 @@ async function generateSitemapAndRobots() {
     fs.mkdirSync(publicDir, { recursive: true });
   }
 
-  // 1. Static Canonical Pages
+  // 1. Static Canonical Pages across PT, ES, and EN
   const canonicalUrls: SitemapUrl[] = [
-    {
-      loc: `${DOMAIN}/`,
-      lastmod: TODAY,
-      changefreq: 'weekly',
-      priority: '1.0',
-    },
-    {
-      loc: `${DOMAIN}/servicos-seo`,
-      lastmod: TODAY,
-      changefreq: 'weekly',
-      priority: '0.9',
-    },
-    {
-      loc: `${DOMAIN}/google-ads`,
-      lastmod: TODAY,
-      changefreq: 'monthly',
-      priority: '0.8',
-    },
-    {
-      loc: `${DOMAIN}/blog`,
-      lastmod: TODAY,
-      changefreq: 'daily',
-      priority: '0.8',
-    },
+    // Portuguese (Default)
+    { loc: `${DOMAIN}/`, lastmod: TODAY, changefreq: 'weekly', priority: '1.0' },
+    { loc: `${DOMAIN}/servicos-seo`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
+    { loc: `${DOMAIN}/google-ads`, lastmod: TODAY, changefreq: 'monthly', priority: '0.8' },
+    { loc: `${DOMAIN}/modernizacao-sites`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
+    { loc: `${DOMAIN}/blog`, lastmod: TODAY, changefreq: 'daily', priority: '0.8' },
+
+    // Spanish (América Latina / Internacional)
+    { loc: `${DOMAIN}/es`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
+    { loc: `${DOMAIN}/es/servicios-seo`, lastmod: TODAY, changefreq: 'weekly', priority: '0.8' },
+    { loc: `${DOMAIN}/es/google-ads`, lastmod: TODAY, changefreq: 'monthly', priority: '0.8' },
+    { loc: `${DOMAIN}/es/modernizacion-sitios`, lastmod: TODAY, changefreq: 'weekly', priority: '0.8' },
+    { loc: `${DOMAIN}/es/blog`, lastmod: TODAY, changefreq: 'daily', priority: '0.7' },
+
+    // English (Global)
+    { loc: `${DOMAIN}/en`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
+    { loc: `${DOMAIN}/en/seo-services`, lastmod: TODAY, changefreq: 'weekly', priority: '0.8' },
+    { loc: `${DOMAIN}/en/google-ads`, lastmod: TODAY, changefreq: 'monthly', priority: '0.8' },
+    { loc: `${DOMAIN}/en/site-modernization`, lastmod: TODAY, changefreq: 'weekly', priority: '0.8' },
+    { loc: `${DOMAIN}/en/blog`, lastmod: TODAY, changefreq: 'daily', priority: '0.7' },
   ];
 
   // 2. Dynamic Blog Article Pages

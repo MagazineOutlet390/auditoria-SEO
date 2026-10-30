@@ -1,40 +1,35 @@
 import React from 'react';
 import { PageHero } from '../common/PageHero';
-import { getWhatsAppLink } from '../../data/siteData';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 export const Hero: React.FC = () => {
+  const { t, currentRoutes, getWhatsAppUrl } = useLanguage();
+  const h = t.home.hero;
+
   return (
     <PageHero
-      kicker="Auditoria SEO & Estratégia Digital"
+      kicker={h.kicker}
       title={
         <>
-          Seu negócio precisa ser encontrado.{' '}
+          {h.titlePart1}{' '}
           <span className="text-shimmer inline">
-            E convencer quem encontra você.
+            {h.titleShimmer}
           </span>
         </>
       }
-      typewriterLabel="Foco em:"
-      typewriterPhrases={[
-        'Visibilidade no Google.',
-        'Mais oportunidades comerciais.',
-        'Presença digital profissional.',
-      ]}
-      subtitle="Landing pages de alta conversão, SEO Local e estratégias digitais para fortalecer sua presença no Google e transformar oportunidades em contatos."
+      typewriterLabel={h.typewriterLabel}
+      typewriterPhrases={h.typewriterPhrases}
+      subtitle={h.subtitle}
       primaryCta={{
-        label: 'Quero melhorar minha presença digital',
-        href: getWhatsAppLink('Olá! Quero melhorar a presença digital do meu negócio com a Auditoria SEO.'),
+        label: h.primaryCta,
+        href: getWhatsAppUrl(t.whatsappMessages.homeHero),
         isExternal: true,
       }}
       secondaryCta={{
-        label: 'Conhecer os serviços',
-        href: '/servicos-seo',
+        label: h.secondaryCta,
+        href: currentRoutes.seoServices,
       }}
-      trustBadges={[
-        'Sem contratos abusivos',
-        'Comunicação direta via WhatsApp',
-        'Atendimento em todo o Brasil',
-      ]}
+      trustBadges={h.trustBadges}
     />
   );
 };

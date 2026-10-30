@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { GOOGLE_ADS_STAGES, GOOGLE_ADS_BOUNDARIES, GOOGLE_ADS_FAQS, getWhatsAppLink } from '../data/siteData';
+import { useLocation } from 'react-router-dom';
+import { GOOGLE_ADS_STAGES, GOOGLE_ADS_BOUNDARIES, GOOGLE_ADS_FAQS } from '../data/siteData';
 import { PageHero } from '../components/common/PageHero';
 import { SEOHead } from '../components/common/SEOHead';
+import { useLanguage } from '../i18n/LanguageContext';
+import { getHreflangs } from '../i18n/routes';
 import { Check, X, ArrowRight, HelpCircle, ChevronDown, ChevronUp, AlertCircle, Target, ShieldCheck, Zap } from 'lucide-react';
 
 export const GoogleAdsPage: React.FC = () => {
+  const { lang, t, getWhatsAppUrl } = useLanguage();
+  const location = useLocation();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const toggleFaq = (idx: number) => {
@@ -18,58 +23,54 @@ export const GoogleAdsPage: React.FC = () => {
     }
   };
 
+  const gData = t.googleAdsPage;
+  const hreflangs = getHreflangs(location.pathname);
+
   return (
     <main className="bg-white">
       {/* Dynamic Route Metadata */}
       <SEOHead
-        title="Google Ads: Configuração e Otimização de Campanhas | Auditoria SEO"
-        description="Configure suas campanhas do Google Ads com uma estrutura profissional, segmentação estratégica e otimização inicial para aproveitar melhor seu investimento em anúncios."
-        canonicalPath="/google-ads"
+        title={t.meta.googleAdsTitle}
+        description={t.meta.googleAdsDescription}
+        canonicalPath={location.pathname}
         ogType="website"
-        ogImage="https://auditoriaseo.com.br/og-image.png"
+        ogImage="/og-image.png"
+        currentLang={lang}
+        hreflangs={hreflangs}
       />
 
       {/* Reusable Hero matching exactly the Home visual identity and background */}
       <PageHero
-        kicker="Google Ads para Negócios Locais"
+        kicker={gData.kicker}
         title={
           <>
-            Estruturação profissional de campanhas.{' '}
+            {gData.titlePart1}{' '}
             <span className="text-shimmer inline">
-              Prontas para gerar contatos no WhatsApp.
+              {gData.titleShimmer}
             </span>
           </>
         }
-        typewriterLabel="Foco em:"
-        typewriterPhrases={[
-          'Zero desperdício de verba.',
-          'Pesquisas com real intenção de compra.',
-          'Conta pronta sem mensalidade recorrente.',
-        ]}
-        subtitle="Configure sua conta do Google Ads do jeito certo desde o primeiro dia. Sem desperdício de verba com cliques curiosos e sem contratos de mensalidade recorrente."
+        typewriterLabel={gData.typewriterLabel}
+        typewriterPhrases={gData.typewriterPhrases}
+        subtitle={gData.subtitle}
         extraBanner={
           <div className="p-4 rounded-xl bg-blue-50/80 border border-blue-200/90 flex items-start gap-3">
             <AlertCircle className="w-5 h-5 text-[#1A73E8] shrink-0 mt-0.5" />
             <div className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-              <strong className="font-semibold text-slate-900">Modelo de Entrega Pontual:</strong> Este serviço contempla a criação, estruturação, configuração inicial e otimização inicial da sua conta e campanhas.{' '}
-              <span className="font-semibold text-[#174EA6]">Não cobramos gestão mensal recorrente.</span> A conta é 100% sua e fica pronta para veicular.
+              <strong className="font-semibold text-slate-900">{gData.extraBannerTitle}</strong> {gData.extraBannerText}
             </div>
           </div>
         }
         primaryCta={{
-          label: 'Solicitar proposta no WhatsApp',
-          href: getWhatsAppLink('Olá! Gostaria de conversar sobre a estruturação de campanhas no Google Ads para o meu negócio.'),
+          label: gData.primaryCta,
+          href: getWhatsAppUrl(t.whatsappMessages.googleAds),
           isExternal: true,
         }}
         secondaryCta={{
-          label: 'Conhecer as etapas',
+          label: gData.secondaryCta,
           onClick: scrollToStages,
         }}
-        trustBadges={[
-          'Sem mensalidade recorrente de gestão',
-          'A conta e os dados são 100% seus',
-          'Segmentação cirúrgica com palavras negativas',
-        ]}
+        trustBadges={gData.trustBadges}
       />
 
       {/* Service Explanation */}
@@ -257,12 +258,12 @@ export const GoogleAdsPage: React.FC = () => {
             Converse diretamente conosco pelo WhatsApp. Entendemos seu nicho de atuação e desenhamos a proposta ideal para colocar suas campanhas no ar.
           </p>
           <a
-            href={getWhatsAppLink('Olá! Gostaria de conversar sobre a estruturação de campanhas no Google Ads para o meu negócio.')}
+            href={getWhatsAppUrl(t.whatsappMessages.googleAds)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-slate-900 bg-white hover:bg-slate-100 rounded-lg shadow-sm transition-all"
           >
-            <span>Solicitar proposta no WhatsApp</span>
+            <span>{gData.bottomCtaButton}</span>
             <ArrowRight className="w-4 h-4 text-[#1A73E8]" />
           </a>
         </div>

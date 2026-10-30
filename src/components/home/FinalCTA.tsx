@@ -1,8 +1,11 @@
 import React from 'react';
-import { getWhatsAppLink } from '../../data/siteData';
 import { ArrowRight, Phone } from 'lucide-react';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 export const FinalCTA: React.FC = () => {
+  const { t, getWhatsAppUrl } = useLanguage();
+  const cta = t.home.finalCta;
+
   return (
     <section className="py-20 bg-slate-900 text-white relative overflow-hidden">
       {/* Background visual geometry */}
@@ -13,23 +16,23 @@ export const FinalCTA: React.FC = () => {
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <span className="text-xs font-semibold tracking-wider text-blue-400 uppercase">
-          Dê o Próximo Passo
+          {cta.eyebrow}
         </span>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-3 mb-6 max-w-3xl mx-auto leading-tight">
-          Pronto para posicionar seu negócio com a autoridade que ele merece no Google?
+          {cta.title}
         </h2>
         <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
-          Vamos conversar diretamente sobre os desafios de visibilidade da sua empresa e definir a melhor estratégia para transformar buscas locais em contatos reais no WhatsApp.
+          {cta.subtitle}
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
-            href={getWhatsAppLink('Olá! Gostaria de uma avaliação inicial para o meu negócio com a Auditoria SEO.')}
+            href={getWhatsAppUrl(t.whatsappMessages.finalCta)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2.5 px-8 py-4 text-base font-semibold text-slate-900 bg-white hover:bg-slate-100 rounded-lg shadow-lg hover:shadow-xl transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
-            <span>Falar com especialista no WhatsApp</span>
+            <span>{cta.primaryButton}</span>
             <ArrowRight className="w-4 h-4 text-[#1A73E8]" />
           </a>
 
@@ -45,3 +48,4 @@ export const FinalCTA: React.FC = () => {
     </section>
   );
 };
+

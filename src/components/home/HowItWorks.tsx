@@ -1,24 +1,27 @@
 import React from 'react';
-import { HOW_IT_WORKS_STEPS } from '../../data/siteData';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 export const HowItWorks: React.FC = () => {
+  const { t } = useLanguage();
+  const hData = t.home.howItWorks;
+
   return (
     <section className="py-20 bg-white border-b border-slate-200/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-16">
           <span className="text-xs font-semibold tracking-wider text-[#1A73E8] uppercase">
-            Metodologia & Transparência
+            {hData.eyebrow}
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2 mb-4">
-            Como funciona o processo de trabalho
+            {hData.title}
           </h2>
           <p className="text-base text-slate-600 leading-relaxed">
-            Um fluxo estruturado e direto ao ponto para que você saiba exatamente o que esperar em cada etapa do seu projeto.
+            {hData.subtitle}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {HOW_IT_WORKS_STEPS.map((item) => (
+          {hData.steps.map((item) => (
             <div
               key={item.step}
               className="relative p-6 rounded-xl border border-slate-200/90 bg-slate-50/50 hover:bg-white hover:border-[#1A73E8]/30 hover:shadow-sm transition-all"

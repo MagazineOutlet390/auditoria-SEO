@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { getWhatsAppLink } from '../../data/siteData';
+import { useLanguage } from '../../i18n/LanguageContext';
+import { getRouteKeyFromPathname } from '../../i18n/routes';
 
 // Custom SVG WhatsApp icon for crisp high-dpi rendering
 const WhatsAppIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
@@ -16,43 +17,49 @@ const WhatsAppIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' 
 
 export const FloatingWhatsApp: React.FC = () => {
   const location = useLocation();
+  const { t, getWhatsAppUrl } = useLanguage();
 
-  // STRICT REQUIREMENT: Only display on Home (/), Serviços de SEO (/servicos-seo), and Google Ads (/google-ads).
-  // NEVER show on /blog or /blog/:slug.
-  const isAllowedPath =
-    location.pathname === '/' ||
-    location.pathname === '/servicos-seo' ||
-    location.pathname === '/google-ads';
+  const routeKey = getRouteKeyFromPathname(location.pathname);
 
-  if (!isAllowedPath) {
+  // STRICT REQUIREMENT: Only display on Home, SEO Services, Google Ads, and Modernization.
+  // NEVER show on blog list or blog post pages.
+  const isAllowed =
+    routeKey === 'home' ||
+    routeKey === 'seoServices' ||
+    routeKey === 'googleAds' ||
+    routeKey === 'modernization';
+
+  if (!isAllowed) {
     return null;
   }
 
   // Contextual messages per page
-  let contextualMessage = 'Olá! Vim pelo site da Auditoria SEO e gostaria de melhorar a presença digital do meu negócio.';
-  if (location.pathname === '/servicos-seo') {
-    contextualMessage = 'Olá! Estava analisando os serviços de SEO no site da Auditoria SEO e gostaria de tirar algumas dúvidas.';
-  } else if (location.pathname === '/google-ads') {
-    contextualMessage = 'Olá! Gostaria de saber mais sobre a estruturação inicial de campanhas Google Ads para meu negócio.';
+  let contextualMessage = t.whatsappMessages.default;
+  if (routeKey === 'seoServices') {
+    contextualMessage = t.whatsappMessages.seoServices;
+  } else if (routeKey === 'googleAds') {
+    contextualMessage = t.whatsappMessages.googleAds;
+  } else if (routeKey === 'modernization') {
+    contextualMessage = t.whatsappMessages.modernization;
   }
 
-  const href = getWhatsAppLink(contextualMessage);
+  const href = getWhatsAppUrl(contextualMessage);
 
   return (
     <aside
-      aria-label="Atendimento via WhatsApp"
+      aria-label={t.nav.whatsappCta}
       className="fixed bottom-6 right-6 z-50 flex items-center"
     >
       <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Falar no WhatsApp com especialista da Auditoria SEO"
+        aria-label={`${t.nav.whatsappCta} - ${t.meta.siteName}`}
         className="group relative flex items-center gap-3 bg-[#25D366] hover:bg-[#20ba59] text-white px-4 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/40"
       >
         <WhatsAppIcon className="w-6 h-6 shrink-0" />
         <span className="hidden sm:inline font-semibold text-sm tracking-tight pr-1 whitespace-nowrap">
-          Falar no WhatsApp
+          {t.nav.whatsappCta}
         </span>
 
         {/* Pulse ring animation */}

@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { fetchSanityPosts } from '../lib/sanity';
 import { SanityPost } from '../types';
 import { SEOHead } from '../components/common/SEOHead';
+import { useLanguage } from '../i18n/LanguageContext';
+import { getHreflangs } from '../i18n/routes';
 import { Clock, User, ArrowRight, SlidersHorizontal } from 'lucide-react';
 
 interface BlogListPageProps {}
 
 export const BlogListPage: React.FC<BlogListPageProps> = () => {
+  const { lang, t } = useLanguage();
+  const location = useLocation();
   const [posts, setPosts] = useState<SanityPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState<string>('Todos');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,10 +25,19 @@ export const BlogListPage: React.FC<BlogListPageProps> = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  const categories = ['Todos', 'SEO Local', 'Landing Pages', 'Google Ads', 'SEO Técnico'];
+  const bData = t.blog;
+  const hreflangs = getHreflangs(location.pathname);
+
+  const categories = [
+    { id: 'all', label: bData.filterAll },
+    { id: 'SEO Local', label: 'SEO Local' },
+    { id: 'Landing Pages', label: 'Landing Pages' },
+    { id: 'Google Ads', label: 'Google Ads' },
+    { id: 'SEO Técnico', label: 'SEO Técnico' },
+  ];
 
   const filteredPosts =
-    selectedCategory === 'Todos'
+    selectedCategory === 'all'
       ? posts
       : posts.filter((p) => p.category === selectedCategory);
 
@@ -32,11 +45,13 @@ export const BlogListPage: React.FC<BlogListPageProps> = () => {
     <main className="bg-white">
       {/* Route-specific SEO Metadata */}
       <SEOHead
-        title="Blog de SEO e Google Ads | Auditoria SEO"
-        description="Aprenda sobre SEO, Google Ads, Google Meu Negócio e estratégias de marketing digital para aumentar sua visibilidade e conquistar mais clientes."
-        canonicalPath="/blog"
+        title={t.meta.blogTitle}
+        description={t.meta.blogDescription}
+        canonicalPath={location.pathname}
         ogType="website"
-        ogImage="https://auditoriaseo.com.br/og-image.png"
+        ogImage="/og-image.png"
+        currentLang={lang}
+        hreflangs={hreflangs}
       />
 
       {/* Blog Hero Header */}
@@ -45,19 +60,19 @@ export const BlogListPage: React.FC<BlogListPageProps> = () => {
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-3">
               <span className="text-xs font-bold sm:font-semibold tracking-wider text-[#EA4335] sm:text-[#1A73E8] uppercase">
-                Artigos & Autoridade Temática
+                {bData.heroKicker}
               </span>
               <span className="text-slate-300">·</span>
               <span className="text-xs text-slate-500 font-medium">
-                Conteúdo Estratégico
+                {bData.heroCategoryBadge}
               </span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-              Estratégias de SEO, Conversão e Tráfego para o Mundo Real
+              {bData.heroTitle}
             </h1>
             <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-              Conteúdos práticos e aprofundados sobre visibilidade no Google, otimização de páginas e geração contínua de oportunidades para o seu negócio.
+              {bData.heroSubtitle}
             </p>
           </div>
         </div>
@@ -68,20 +83,20 @@ export const BlogListPage: React.FC<BlogListPageProps> = () => {
         <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 scrollbar-none">
           <span className="text-xs font-medium text-slate-400 mr-2 flex items-center gap-1 shrink-0">
             <SlidersHorizontal className="w-3.5 h-3.5" />
-            <span>Filtrar:</span>
+            <span>{bData.filterLabel}</span>
           </span>
           {categories.map((cat) => (
             <button
-              key={cat}
+              key={cat.id}
               type="button"
-              onClick={() => setSelectedCategory(cat)}
+              onClick={() => setSelectedCategory(cat.id)}
               className={`px-3.5 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap shrink-0 ${
-                selectedCategory === cat
+                selectedCategory === cat.id
                   ? 'bg-slate-900 text-white shadow-sm'
                   : 'bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200'
               }`}
             >
-              {cat}
+              {cat.label}
             </button>
           ))}
         </div>
@@ -91,11 +106,11 @@ export const BlogListPage: React.FC<BlogListPageProps> = () => {
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {loading ? (
           <div className="py-20 text-center text-slate-400 text-sm">
-            Carregando artigos do blog...
+            {bData.loading}
           </div>
         ) : filteredPosts.length === 0 ? (
           <div className="py-16 text-center text-slate-500 text-sm">
-            Nenhum artigo encontrado para esta categoria no momento.
+            {bData.noPosts}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -111,7 +126,7 @@ export const BlogListPage: React.FC<BlogListPageProps> = () => {
                     <span aria-hidden="true">·</span>
                     <span className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />
-                      <span>{post.readingTimeMinutes} min de leitura</span>
+                      <span>{post.readingTimeMinutes} {bData.minRead}</span>
                     </span>
                   </div>
 
@@ -136,7 +151,7 @@ export const BlogListPage: React.FC<BlogListPageProps> = () => {
                     to={`/blog/${post.slug.current}`}
                     className="inline-flex items-center gap-1 font-semibold text-[#1A73E8] hover:text-[#174EA6]"
                   >
-                    <span>Ler artigo</span>
+                    <span>{bData.readArticle}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>

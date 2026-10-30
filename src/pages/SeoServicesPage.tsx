@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
-import { SEO_PLANS, SEO_FAQS, getWhatsAppLink } from '../data/siteData';
+import { useLocation } from 'react-router-dom';
+import { SEO_PLANS, SEO_FAQS } from '../data/siteData';
 import { PageHero } from '../components/common/PageHero';
 import { SEOHead } from '../components/common/SEOHead';
+import { useLanguage } from '../i18n/LanguageContext';
+import { getHreflangs } from '../i18n/routes';
 import { Check, ArrowRight, HelpCircle, ChevronDown, ChevronUp, Search, TrendingUp, Award } from 'lucide-react';
 
 export const SeoServicesPage: React.FC = () => {
+  const { lang, t, getWhatsAppUrl } = useLanguage();
+  const location = useLocation();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const toggleFaq = (idx: number) => {
@@ -18,49 +23,46 @@ export const SeoServicesPage: React.FC = () => {
     }
   };
 
+  const sData = t.seoServicesPage;
+  const hreflangs = getHreflangs(location.pathname);
+
   return (
     <main className="bg-white">
       {/* Dynamic Route Metadata */}
       <SEOHead
-        title="Serviços de SEO e SEO Local | Auditoria SEO"
-        description="Conheça nossos serviços de SEO, auditoria técnica, estratégia de conteúdo e SEO Local para melhorar a visibilidade da sua empresa no Google e atrair clientes."
-        canonicalPath="/servicos-seo"
+        title={t.meta.seoServicesTitle}
+        description={t.meta.seoServicesDescription}
+        canonicalPath={location.pathname}
         ogType="website"
-        ogImage="https://auditoriaseo.com.br/og-image.png"
+        ogImage="/og-image.png"
+        currentLang={lang}
+        hreflangs={hreflangs}
       />
 
       {/* Reusable Hero matching exactly the Home visual identity and background */}
       <PageHero
-        kicker="Serviços Especializados de SEO"
+        kicker={sData.kicker}
         title={
           <>
-            Estratégias estruturadas para posicionar seu site.{' '}
+            {sData.titlePart1}{' '}
             <span className="text-shimmer inline">
-              Com autoridade técnica e relevância real.
+              {sData.titleShimmer}
             </span>
           </>
         }
-        typewriterLabel="Foco em:"
-        typewriterPhrases={[
-          'Primeira página do Google.',
-          'Tráfego orgânico qualificado.',
-          'Autoridade e relevância permanente.',
-        ]}
-        subtitle="Do diagnóstico técnico profundo à construção contínua de relevância orgânica. Escolha o formato de atuação mais alinhado aos objetivos do seu negócio."
+        typewriterLabel={sData.typewriterLabel}
+        typewriterPhrases={sData.typewriterPhrases}
+        subtitle={sData.subtitle}
         primaryCta={{
-          label: 'Falar com especialista no WhatsApp',
-          href: getWhatsAppLink('Olá! Gostaria de falar sobre os planos de SEO para o meu site.'),
+          label: sData.primaryCta,
+          href: getWhatsAppUrl(t.whatsappMessages.seoServices),
           isExternal: true,
         }}
         secondaryCta={{
-          label: 'Ver planos e preços',
+          label: sData.secondaryCta,
           onClick: scrollToPlans,
         }}
-        trustBadges={[
-          'Valores claros e entregáveis confirmados',
-          'Práticas 100% White Hat SEO',
-          'Sem contratos de fidelidade abusivos',
-        ]}
+        trustBadges={sData.trustBadges}
       />
 
       {/* Pricing and Plans Cards */}
@@ -140,7 +142,7 @@ export const SeoServicesPage: React.FC = () => {
 
                 <div className="pt-6 border-t border-slate-100">
                   <a
-                    href={getWhatsAppLink(plan.whatsappMessage)}
+                    href={getWhatsAppUrl(plan.whatsappMessage)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`flex items-center justify-center gap-2 w-full py-3.5 px-4 rounded-lg font-semibold text-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${
@@ -149,7 +151,7 @@ export const SeoServicesPage: React.FC = () => {
                         : 'bg-slate-900 hover:bg-slate-800 text-white focus-visible:ring-slate-900'
                     }`}
                   >
-                    <span>Contratar no WhatsApp</span>
+                    <span>{sData.contractButton}</span>
                     <ArrowRight className="w-4 h-4" />
                   </a>
                 </div>
@@ -262,12 +264,12 @@ export const SeoServicesPage: React.FC = () => {
             Envie o link do seu site pelo WhatsApp. Faremos uma análise preliminar rápida para recomendar a opção mais adequada para o seu estágio atual.
           </p>
           <a
-            href={getWhatsAppLink('Olá! Gostaria de uma recomendação sobre qual plano de SEO é ideal para o meu site atual.')}
+            href={getWhatsAppUrl(t.whatsappMessages.seoServices)}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-slate-900 bg-white hover:bg-slate-100 rounded-lg shadow-sm transition-all"
           >
-            <span>Falar com especialista no WhatsApp</span>
+            <span>{sData.bottomCtaButton}</span>
             <ArrowRight className="w-4 h-4 text-[#1A73E8]" />
           </a>
         </div>

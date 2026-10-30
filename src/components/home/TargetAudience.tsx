@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TARGET_SEGMENTS } from '../../data/siteData';
+import { useLanguage } from '../../i18n/LanguageContext';
 import { Check, CheckCircle2 } from 'lucide-react';
 
 interface NicheMockupConfig {
@@ -14,72 +14,48 @@ interface NicheMockupConfig {
   whatsappLabel: string;
 }
 
-const NICHE_MOCKUPS: Record<string, NicheMockupConfig> = {
+const NICHE_MOCKUPS: Record<string, Partial<NicheMockupConfig>> = {
   'profissionais-liberais': {
     domain: 'advocacia.com.br',
     brandName: 'SILVA & ASSOCIADOS ADVOCACIA',
-    headline: 'Assessoria Jurídica Estratégica para Empresas',
-    ctaText: 'Agendar Consulta Inicial',
     accentColor: '#1A73E8',
     accentBg: '#eff6ff',
     accentBorder: '#bfdbfe',
-    proofPills: ['Direito Empresarial', 'Contratos Seguros', '15 Anos de Atuação'],
-    whatsappLabel: 'Falar no WhatsApp',
   },
   'clinicas-estetica': {
     domain: 'clinicaestetica.com.br',
     brandName: 'LUMIÈRE ESTÉTICA AVANÇADA',
-    headline: 'Tratamentos Faciais e Corporais com Tecnologia',
-    ctaText: 'Avaliação Personalizada',
     accentColor: '#0284c7',
     accentBg: '#f0f9ff',
     accentBorder: '#bae6fd',
-    proofPills: ['Harmonização & Botox', 'Protocolos Exclusivos', '+1.200 Pacientes'],
-    whatsappLabel: 'Agendar no WhatsApp',
   },
   'academias-estudios': {
     domain: 'studiopilates.com.br',
     brandName: 'VITA PILATES & FITNESS',
-    headline: 'Saúde, Postura e Força com Acompanhamento',
-    ctaText: 'Agendar Aula Experimental',
     accentColor: '#1e40af',
     accentBg: '#eef2ff',
     accentBorder: '#c7d2fe',
-    proofPills: ['Pilates Clínico', 'Fisioterapeutas', 'Máx. 4 por Turma'],
-    whatsappLabel: 'Garantir Vaga no WhatsApp',
   },
-  'dentistas': {
+  dentistas: {
     domain: 'odontopremium.com.br',
     brandName: 'ODONTO PREMIUM CLINIC',
-    headline: 'Implantes Dentários e Ortodontia Digital',
-    ctaText: 'Agendar Avaliação Dentária',
     accentColor: '#2563eb',
     accentBg: '#eff6ff',
     accentBorder: '#bfdbfe',
-    proofPills: ['Implantes Rápidos', 'Alinhadores Invisíveis', 'Laser sem Dor'],
-    whatsappLabel: 'Atendimento no WhatsApp',
   },
-  'medicos': {
+  medicos: {
     domain: 'drfelipe.med.br',
     brandName: 'DR. FELIPE SANTOS · CRM 123456',
-    headline: 'Consulta Médica Especializada e Diagnóstico',
-    ctaText: 'Agendar Consulta Presencial',
     accentColor: '#1d4ed8',
     accentBg: '#f8fafc',
     accentBorder: '#cbd5e1',
-    proofPills: ['Atendimento Humanizado', 'Exames Integrados', 'Espaço Moderno'],
-    whatsappLabel: 'Marcar pelo WhatsApp',
   },
   'arquitetos-engenheiros': {
     domain: 'voxarquitetura.com.br',
     brandName: 'VOX ARQUITETURA & DESIGN',
-    headline: 'Projetos Residenciais e Comerciais Exclusivos',
-    ctaText: 'Solicitar Proposta de Projeto',
     accentColor: '#0369a1',
     accentBg: '#f0f9ff',
     accentBorder: '#bae6fd',
-    proofPills: ['Design Autoral', 'Gestão de Obras', 'Visualização 3D'],
-    whatsappLabel: 'Conversar no WhatsApp',
   },
 };
 
@@ -89,14 +65,35 @@ const WhatsAppIcon: React.FC = () => (
   </svg>
 );
 
+interface LocalizedSegment {
+  id: string;
+  title: string;
+  description: string;
+  benefit: string;
+  mockupHeadline: string;
+  mockupCta: string;
+  mockupPills: string[];
+  mockupWhatsapp: string;
+}
+
 interface NicheCardProps {
-  segment: (typeof TARGET_SEGMENTS)[0];
+  segment: LocalizedSegment;
+  exampleBadge: string;
   isClone?: boolean;
   isMobile?: boolean;
 }
 
-const NicheCard: React.FC<NicheCardProps> = ({ segment, isClone = false, isMobile = false }) => {
-  const mockup = NICHE_MOCKUPS[segment.id] || NICHE_MOCKUPS['profissionais-liberais'];
+const NicheCard: React.FC<NicheCardProps> = ({
+  segment,
+  exampleBadge,
+  isClone = false,
+  isMobile = false,
+}) => {
+  const styleConfig = NICHE_MOCKUPS[segment.id] || NICHE_MOCKUPS['profissionais-liberais'];
+  const accentColor = styleConfig.accentColor || '#1A73E8';
+  const accentBorder = styleConfig.accentBorder || '#bfdbfe';
+  const domain = styleConfig.domain || 'site.com';
+  const brandName = styleConfig.brandName || segment.title;
 
   return (
     <div
@@ -119,48 +116,48 @@ const NicheCard: React.FC<NicheCardProps> = ({ segment, isClone = false, isMobil
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
               <span className="ml-1 text-[9px] font-mono text-slate-600 bg-white px-1.5 py-0.5 rounded border border-slate-200/60 truncate max-w-[120px]">
-                {mockup.domain}
+                {domain}
               </span>
             </div>
 
             {/* Selo pequeno obrigatório */}
             <span className="text-[9px] font-semibold text-[#1A73E8] bg-blue-50/90 px-1.5 py-0.5 rounded border border-blue-200/70 shrink-0">
-              Exemplo de landing page
+              {exampleBadge}
             </span>
           </div>
 
           {/* Mockup Body Content */}
           <div
             className="p-2.5 rounded-lg border bg-white shadow-2xs space-y-2"
-            style={{ borderColor: mockup.accentBorder }}
+            style={{ borderColor: accentBorder }}
           >
             {/* Top Brand / Logo Fictício */}
             <div className="flex items-center justify-between">
               <span
                 className="text-[9px] font-black tracking-wider uppercase truncate"
-                style={{ color: mockup.accentColor }}
+                style={{ color: accentColor }}
               >
-                {mockup.brandName}
+                {brandName}
               </span>
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
             </div>
 
             {/* Headline de Exemplo do Nicho */}
             <p className="text-[11px] font-bold text-[#0F2042] leading-tight line-clamp-2">
-              {mockup.headline}
+              {segment.mockupHeadline}
             </p>
 
             {/* Botão de CTA da Landing Page */}
             <div
               className="w-full py-1.5 px-2 rounded-md text-white text-[10px] font-bold text-center shadow-2xs flex items-center justify-center gap-1"
-              style={{ backgroundColor: mockup.accentColor }}
+              style={{ backgroundColor: accentColor }}
             >
-              <span>{mockup.ctaText}</span>
+              <span>{segment.mockupCta}</span>
             </div>
 
             {/* 2 ou 3 Blocos de Prova / Serviços */}
             <div className="flex flex-wrap gap-1 pt-1">
-              {mockup.proofPills.map((pill, pIdx) => (
+              {segment.mockupPills.map((pill, pIdx) => (
                 <span
                   key={pIdx}
                   className="inline-flex items-center gap-1 text-[8.5px] font-medium text-slate-700 bg-slate-100/90 border border-slate-200/80 px-1.5 py-0.5 rounded"
@@ -175,14 +172,14 @@ const NicheCard: React.FC<NicheCardProps> = ({ segment, isClone = false, isMobil
             <div className="pt-1">
               <div className="w-full py-1 px-2 rounded-md bg-[#25D366] text-white text-[9.5px] font-bold flex items-center justify-center gap-1.5 shadow-2xs">
                 <WhatsAppIcon />
-                <span>{mockup.whatsappLabel}</span>
+                <span>{segment.mockupWhatsapp}</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* ========================================================
-            CONTEÚDO TEXTUAL DO CARD (100% INALTERADO)
+            CONTEÚDO TEXTUAL DO CARD
            ======================================================== */}
         <h3 className="text-base font-bold text-slate-900 mb-1.5">
           {segment.title}
@@ -202,6 +199,7 @@ const NicheCard: React.FC<NicheCardProps> = ({ segment, isClone = false, isMobil
 };
 
 export const TargetAudience: React.FC = () => {
+  const { t } = useLanguage();
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -215,33 +213,22 @@ export const TargetAudience: React.FC = () => {
     return () => mediaQuery.removeEventListener('change', listener);
   }, []);
 
-  // Os 6 nichos exatos solicitados no escopo
-  const targetIds = [
-    'profissionais-liberais',
-    'clinicas-estetica',
-    'academias-estudios',
-    'dentistas',
-    'medicos',
-    'arquitetos-engenheiros',
-  ];
-
-  const sixSegments = targetIds
-    .map((id) => TARGET_SEGMENTS.find((s) => s.id === id))
-    .filter((s): s is (typeof TARGET_SEGMENTS)[0] => s !== undefined);
+  const tData = t.home.targetAudience;
+  const segments = tData.segments;
 
   return (
     <section className="py-20 bg-slate-50 border-b border-slate-200/80 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header (Texto exatamente inalterado) */}
+        {/* Section Header */}
         <div className="max-w-3xl mb-12 sm:mb-16">
           <span className="text-xs font-semibold tracking-wider text-[#1A73E8] uppercase">
-            Públicos Prioritários
+            {tData.eyebrow}
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2 mb-4">
-            Para quem este trabalho é ideal
+            {tData.title}
           </h2>
           <p className="text-base text-slate-600 leading-relaxed">
-            Nossas soluções são desenhadas sob medida para negócios que dependem da decisão de contratação local e da confiança transmitida no ambiente digital.
+            {tData.subtitle}
           </p>
         </div>
 
@@ -265,16 +252,21 @@ export const TargetAudience: React.FC = () => {
             } ${isHovered || isFocused ? 'is-paused' : ''}`}
           >
             {/* Conjunto Principal de Cards */}
-            {sixSegments.map((segment) => (
-              <NicheCard key={segment.id} segment={segment} />
+            {segments.map((segment) => (
+              <NicheCard
+                key={segment.id}
+                segment={segment}
+                exampleBadge={tData.exampleBadge}
+              />
             ))}
 
             {/* Conjunto Duplicado para Loop Infinito (Aria-hidden & não focável) */}
             {!prefersReducedMotion &&
-              sixSegments.map((segment) => (
+              segments.map((segment) => (
                 <NicheCard
                   key={`clone-${segment.id}`}
                   segment={segment}
+                  exampleBadge={tData.exampleBadge}
                   isClone={true}
                 />
               ))}
@@ -285,10 +277,11 @@ export const TargetAudience: React.FC = () => {
             MOBILE: Carrossel Horizontal Nativo com Scroll-Snap (82vw)
            ======================================================== */}
         <div className="flex md:hidden overflow-x-auto snap-x snap-mandatory gap-4 pb-4 px-4 -mx-4 scrollbar-none">
-          {sixSegments.map((segment) => (
+          {segments.map((segment) => (
             <NicheCard
               key={`mobile-${segment.id}`}
               segment={segment}
+              exampleBadge={tData.exampleBadge}
               isMobile={true}
             />
           ))}
@@ -297,3 +290,4 @@ export const TargetAudience: React.FC = () => {
     </section>
   );
 };
+
