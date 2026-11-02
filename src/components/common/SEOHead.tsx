@@ -7,6 +7,7 @@ export interface SEOHeadProps {
   canonicalPath?: string;
   ogType?: 'website' | 'article';
   ogImage?: string;
+  ogImageAlt?: string;
   publishedTime?: string;
   modifiedTime?: string;
   noindex?: boolean;
@@ -23,6 +24,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
   canonicalPath = '/',
   ogType = 'website',
   ogImage = DEFAULT_OG_IMAGE,
+  ogImageAlt,
   publishedTime,
   modifiedTime,
   noindex = false,
@@ -105,6 +107,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     const cleanPath = canonicalPath.startsWith('/') ? canonicalPath : `/${canonicalPath}`;
     const canonicalUrl = `${DOMAIN}${cleanPath === '/' ? '' : cleanPath}`;
     const fullOgImageUrl = ogImage.startsWith('http') ? ogImage : `${DOMAIN}${ogImage}`;
+    const imageAltText = ogImageAlt || title;
 
     // Standard SEO Tags
     setMetaTag('name', 'description', description);
@@ -126,6 +129,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     setMetaTag('property', 'og:type', ogType);
     setMetaTag('property', 'og:url', canonicalUrl);
     setMetaTag('property', 'og:image', fullOgImageUrl);
+    setMetaTag('property', 'og:image:alt', imageAltText);
     setMetaTag('property', 'og:image:width', '1200');
     setMetaTag('property', 'og:image:height', '630');
     setMetaTag('property', 'og:site_name', 'Auditoria SEO');
@@ -142,7 +146,8 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     setMetaTag('name', 'twitter:title', title);
     setMetaTag('name', 'twitter:description', description);
     setMetaTag('name', 'twitter:image', fullOgImageUrl);
-  }, [title, description, canonicalPath, ogType, ogImage, publishedTime, modifiedTime, noindex, currentLang, hreflangs]);
+    setMetaTag('name', 'twitter:image:alt', imageAltText);
+  }, [title, description, canonicalPath, ogType, ogImage, ogImageAlt, publishedTime, modifiedTime, noindex, currentLang, hreflangs]);
 
   return null;
 };

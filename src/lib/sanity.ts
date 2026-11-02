@@ -1,10 +1,27 @@
 import { SanityPost } from '../types';
 
+const envProjectId = (
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SANITY_PROJECT_ID) ||
+  (typeof process !== 'undefined' && process.env?.VITE_SANITY_PROJECT_ID) ||
+  ''
+).trim();
+
+const envDataset = (
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SANITY_DATASET) ||
+  (typeof process !== 'undefined' && process.env?.VITE_SANITY_DATASET) ||
+  'production'
+).trim();
+
 export const SANITY_CONFIG = {
-  projectId: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SANITY_PROJECT_ID) || (typeof process !== 'undefined' && process.env?.VITE_SANITY_PROJECT_ID) || '',
-  dataset: (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SANITY_DATASET) || (typeof process !== 'undefined' && process.env?.VITE_SANITY_DATASET) || 'production',
+  projectId: envProjectId,
+  dataset: envDataset,
   apiVersion: '2024-03-01',
-  isConfigured: Boolean((typeof import.meta !== 'undefined' && import.meta.env?.VITE_SANITY_PROJECT_ID) || (typeof process !== 'undefined' && process.env?.VITE_SANITY_PROJECT_ID)),
+  isConfigured: Boolean(
+    envProjectId &&
+    envProjectId !== 'MY_SANITY_PROJECT_ID' &&
+    envProjectId !== 'your-project-id' &&
+    envProjectId.length >= 4
+  ),
 };
 
 export const SANITY_SCHEMA_DEFINITION = `

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 import { fetchSanityPostBySlug, fetchSanityPosts } from '../lib/sanity';
 import { SanityPost } from '../types';
 import { SEOHead } from '../components/common/SEOHead';
@@ -69,13 +70,19 @@ export const BlogPostPage: React.FC = () => {
 
   // Extract headings for Table of Contents
   const headings = post.body
-    .filter((line) => line.startsWith('### '))
-    .map((line) => line.replace('### ', ''));
+    .filter((line) => line.trim().startsWith('### '))
+    .map((line) => line.trim().replace('### ', ''));
 
-  const articleTitle = `${post.seoTitle || post.title} | Auditoria SEO`;
+  const articleTitle = post.seoTitle
+    ? (post.seoTitle.includes('Auditoria SEO') ? post.seoTitle : `${post.seoTitle} | Auditoria SEO`)
+    : `${post.title} | Auditoria SEO`;
   const articleDescription = post.metaDescription || post.excerpt;
   const canonicalPath = `/blog/${post.slug.current}`;
   const articleOgImage = post.mainImage?.asset?.url || 'https://auditoriaseo.com.br/og-image.png';
+  const articleOgImageAlt = post.mainImage?.alt || post.title;
+  const absoluteOgImageUrl = articleOgImage.startsWith('http')
+    ? articleOgImage
+    : `https://auditoriaseo.com.br${articleOgImage.startsWith('/') ? articleOgImage : `/${articleOgImage}`}`;
 
   return (
     <main className="bg-white">
@@ -85,7 +92,8 @@ export const BlogPostPage: React.FC = () => {
         description={articleDescription}
         canonicalPath={canonicalPath}
         ogType="article"
-        ogImage={articleOgImage}
+        ogImage={absoluteOgImageUrl}
+        ogImageAlt={articleOgImageAlt}
         publishedTime={post.publishedAt}
         modifiedTime={post.updatedAt || post.publishedAt}
         currentLang={lang}
@@ -100,7 +108,7 @@ export const BlogPostPage: React.FC = () => {
             '@type': 'BlogPosting',
             headline: post.title,
             description: articleDescription,
-            image: articleOgImage,
+            image: absoluteOgImageUrl,
             author: {
               '@type': 'Person',
               name: post.author.name,
@@ -194,11 +202,13 @@ export const BlogPostPage: React.FC = () => {
           </aside>
         )}
 
-        {/* Body content rendering */}
+        {/* Body content rendering with DOMPurify sanitization */}
         <div className="prose prose-slate max-w-none text-base sm:text-lg text-slate-700 leading-relaxed space-y-6 pt-4">
           {post.body.map((paragraph, pIdx) => {
-            if (paragraph.startsWith('### ')) {
-              const text = paragraph.replace('### ', '');
+            const trimmed = paragraph.trim();
+
+            if (trimmed.startsWith('### ')) {
+              const text = trimmed.replace('### ', '');
               const hIndex = headings.indexOf(text);
               return (
                 <h2
@@ -210,13 +220,48 @@ export const BlogPostPage: React.FC = () => {
                 </h2>
               );
             }
-            if (paragraph.startsWith('<')) {
-              return <div key={pIdx} dangerouslySetInnerHTML={{ __html: paragraph }} />;
+
+            if (trimmed.startsWith('#### ')) {
+              const text = trimmed.replace('#### ', '');
+              return (
+                <h3
+                  key={pIdx}
+                  className="text-lg sm:text-xl font-bold text-slate-900 pt-4 pb-1"
+                >
+                  {text}
+                </h3>
+              );
             }
+
+            const cleanHtml = DOMPurify.sanitize(trimmed, {
+              ADD_TAGS: ['figure', 'figcaption'],
+              ADD_ATTR: ['target', 'rel', 'class', 'loading', 'fetchpriority', 'width', 'height', 'id'],
+            });
+
+            const isBlockElement =
+              trimmed.startsWith('<figure') ||
+              trimmed.startsWith('<div') ||
+              trimmed.startsWith('<table') ||
+              trimmed.startsWith('<blockquote') ||
+              trimmed.startsWith('<ul') ||
+              trimmed.startsWith('<ol') ||
+              trimmed.startsWith('<p');
+
+            if (isBlockElement) {
+              return (
+                <div
+                  key={pIdx}
+                  dangerouslySetInnerHTML={{ __html: cleanHtml }}
+                />
+              );
+            }
+
             return (
-              <p key={pIdx} className="leading-relaxed">
-                {paragraph}
-              </p>
+              <p
+                key={pIdx}
+                className="leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: cleanHtml }}
+              />
             );
           })}
         </div>
