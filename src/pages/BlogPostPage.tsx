@@ -153,6 +153,23 @@ export const BlogPostPage: React.FC = () => {
           {post.title}
         </h1>
 
+        {post.mainImage?.asset?.url && (
+          <figure className="my-8">
+            <img
+              src={post.mainImage.asset.url}
+              alt={post.mainImage.alt || post.title}
+              width={1672}
+              height={941}
+              loading="eager"
+              fetchPriority="high"
+              className="w-full h-auto rounded-2xl border border-slate-200/90 shadow-sm object-cover"
+            />
+            <figcaption className="mt-2 text-xs text-slate-400 text-center">
+              Ilustração gerada por IA.
+            </figcaption>
+          </figure>
+        )}
+
         <p className="text-lg sm:text-xl text-slate-600 leading-relaxed pb-8 border-b border-slate-200">
           {post.excerpt}
         </p>
@@ -193,6 +210,9 @@ export const BlogPostPage: React.FC = () => {
                 </h2>
               );
             }
+            if (paragraph.startsWith('<')) {
+              return <div key={pIdx} dangerouslySetInnerHTML={{ __html: paragraph }} />;
+            }
             return (
               <p key={pIdx} className="leading-relaxed">
                 {paragraph}
@@ -218,6 +238,47 @@ export const BlogPostPage: React.FC = () => {
             <span>{bData.nextStrategicCta}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
+        </div>
+
+        {/* Author Box */}
+        <div className="my-10 p-6 sm:p-8 bg-slate-50 rounded-2xl border border-slate-200/90 flex flex-col sm:flex-row items-center sm:items-start gap-5">
+          <img
+            src={post.author.avatar || '/images/blog/wesley-vieira-autor.jpg'}
+            alt={`Foto de ${post.author.name}, fundador da Auditoria SEO`}
+            width={96}
+            height={96}
+            loading="lazy"
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover shrink-0 border-2 border-white shadow-sm"
+          />
+          <div className="text-center sm:text-left flex-1">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
+              <h3 className="text-base font-bold text-slate-900">
+                Sobre o Autor: {post.author.name}
+              </h3>
+              <div className="flex items-center justify-center sm:justify-start gap-3 text-xs">
+                <a
+                  href="https://www.instagram.com/wesley.google_ads/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#1A73E8] hover:underline font-semibold"
+                >
+                  Instagram
+                </a>
+                <span className="text-slate-300">·</span>
+                <a
+                  href="https://www.linkedin.com/in/wesley-vieira-1907572b9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#1A73E8] hover:underline font-semibold"
+                >
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Fundador e responsável pela Auditoria SEO, agência de marketing digital especializada em Google Ads e SEO. Mais de 4 anos como gestor de tráfego e SEO, certificado pelo Google.
+            </p>
+          </div>
         </div>
 
         {/* Tags */}
