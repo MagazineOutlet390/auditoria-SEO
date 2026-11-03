@@ -1,0 +1,897 @@
+PROJETO: CRIAÇÃO DE UM SILO SEMÂNTICO SOBRE GOOGLE MEU NEGÓCIO, PERFIL DA EMPRESA NO GOOGLE E GOOGLE MAPS
+
+1. CONTEXTO DO PROJETO
+
+Você está trabalhando no site da Auditoria SEO:
+
+https://www.auditoriaseo.com.br
+
+O objetivo é construir uma estrutura de autoridade temática sobre:
+
+- Google Meu Negócio;
+- Perfil da Empresa no Google;
+- Google Maps;
+- SEO Local;
+- Posicionamento de empresas nas pesquisas locais.
+
+O projeto terá cinco artigos no total.
+
+Já existe um artigo publicado, que deverá ser aproveitado como o primeiro conteúdo do silo. Portanto, NÃO crie outro artigo com a mesma intenção de busca.
+
+Artigo existente:
+
+Título: Como colocar empresa no topo do Google Maps com SEO Local.
+
+URL:
+https://www.auditoriaseo.com.br/blog/como-colocar-empresa-topo-google-maps-seo-local
+
+Esse artigo será o conteúdo principal sobre ranqueamento e posicionamento no Google Maps.
+
+A tarefa consiste em:
+
+1. Analisar o artigo existente.
+2. Planejar a arquitetura semântica dos cinco conteúdos.
+3. Criar mais quatro artigos complementares.
+4. Integrar os cinco artigos por meio de links internos contextuais.
+5. Utilizar a página inicial da Auditoria SEO como centro estratégico do silo.
+6. Inserir chamadas comerciais e botões de WhatsApp nos cinco artigos.
+7. Configurar os metadados individuais de cada artigo.
+8. Utilizar imagens relevantes e distintas para cada publicação.
+
+O resultado deve ser um conjunto editorial coerente, com profundidade, utilidade prática e foco comercial.
+
+---
+
+2. RESTRIÇÃO ABSOLUTA: PRESERVAR O RESTANTE DO SITE
+
+Esta tarefa deve se limitar aos cinco artigos e aos elementos estritamente necessários para integrá-los.
+
+NÃO altere:
+
+- Layout geral do site.
+- Página inicial, exceto se for necessário inserir uma seção de links para o silo e isso for previamente autorizado.
+- Cabeçalho ou rodapé global.
+- Menu principal.
+- Estilos globais.
+- Configurações globais de SEO.
+- Outras páginas e artigos não relacionados.
+- Configurações de hospedagem.
+- Integrações existentes.
+- Componentes compartilhados sem necessidade comprovada.
+- Dependências e configurações gerais do projeto.
+
+Não faça refatorações ou atualizações técnicas fora do escopo.
+
+Antes de começar, examine a arquitetura atual do projeto e identifique como os artigos são criados, publicados e vinculados.
+
+Utilize os padrões de componentes, estilos e estrutura já existentes.
+
+Se alguma alteração global for indispensável, explique o motivo e aguarde autorização.
+
+---
+
+3. ARQUITETURA DEFINITIVA DOS CINCO ARTIGOS
+
+Cada artigo deve ter uma intenção de busca própria.
+
+Não permita que os conteúdos concorram entre si pelas mesmas palavras-chave principais.
+
+ARTIGO 1 — JÁ EXISTENTE
+
+Título de referência:
+
+Como colocar empresa no topo do Google Maps com SEO Local.
+
+URL:
+
+/blog/como-colocar-empresa-topo-google-maps-seo-local
+
+Palavra-chave principal:
+
+como colocar empresa no topo do Google Maps
+
+Termos secundários:
+
+- como ranquear no Google Maps;
+- como aparecer no topo do Google Maps;
+- posicionamento no Google Maps;
+- ranqueamento local;
+- Google Meu Negócio;
+- Perfil da Empresa no Google;
+- SEO Local.
+
+Intenção de busca:
+
+Informacional e prática. O leitor quer melhorar a posição da empresa no Google Maps.
+
+Escopo exclusivo:
+
+Explicar como funciona o posicionamento local, quais fatores influenciam a visibilidade, como avaliar concorrentes e quais ações ajudam a melhorar o posicionamento.
+
+Abordar os fatores oficiais de relevância, distância e destaque.
+
+Não transformar este artigo em um tutorial completo de preenchimento de todos os campos do perfil, pois esse será o assunto do artigo 2.
+
+Não transformar o artigo em um guia completo sobre avaliações, pois esse será o assunto do artigo 3.
+
+Ação necessária
+
+Localize e leia o artigo existente integralmente.
+
+Não o reescreva automaticamente.
+
+Primeiro faça uma auditoria de qualidade, profundidade, intenção de busca, otimização semântica e oportunidades de integração com os novos conteúdos.
+
+Preserve as partes úteis e bem construídas.
+
+Faça somente as melhorias justificadas e necessárias para integrar o artigo ao silo, evitando perda de conteúdo ou alterações editoriais desnecessárias.
+
+---
+
+ARTIGO 2 — NOVO
+
+Título de referência:
+
+Como otimizar o Google Meu Negócio: guia completo para melhorar seu Perfil da Empresa no Google.
+
+Slug sugerido:
+
+/blog/como-otimizar-google-meu-negocio
+
+Palavra-chave principal:
+
+como otimizar o Google Meu Negócio
+
+Termos secundários:
+
+- otimizar Perfil da Empresa no Google;
+- configuração Google Meu Negócio;
+- como preencher Google Meu Negócio;
+- categorias do Google Meu Negócio;
+- descrição da empresa no Google;
+- fotos no Google Maps;
+- serviços no Perfil da Empresa.
+
+Intenção de busca:
+
+Informacional e tutorial.
+
+O leitor já conhece o Perfil da Empresa no Google e deseja configurá-lo e otimizá-lo corretamente.
+
+Escopo exclusivo:
+
+Desenvolver um passo a passo de otimização do perfil, abordando:
+
+- Nome correto da empresa.
+- Categoria principal e categorias adicionais.
+- Descrição comercial.
+- Endereço e área de atendimento.
+- Horários de funcionamento.
+- Telefone e site.
+- Serviços e produtos, quando aplicáveis.
+- Fotos e vídeos.
+- Atributos disponíveis.
+- Informações comerciais completas e atualizadas.
+- Verificação do perfil.
+- Manutenção e atualização das informações.
+
+Explicar a diferença entre empresas com endereço físico aberto ao público e empresas que atendem no endereço do cliente.
+
+Mostrar como evitar erros que podem causar problemas de conformidade ou suspensão.
+
+Não recomendar adicionar palavras-chave artificialmente ao nome comercial.
+
+Não recomendar criar vários perfis para a mesma empresa sem que as diretrizes permitam.
+
+Não transformar este conteúdo em um artigo de ranqueamento geral. Seu foco é a otimização e a configuração do perfil.
+
+---
+
+ARTIGO 3 — NOVO
+
+Título de referência:
+
+Como conseguir avaliações no Google e fortalecer sua empresa no Google Maps.
+
+Slug sugerido:
+
+/blog/como-conseguir-avaliacoes-google
+
+Palavra-chave principal:
+
+como conseguir avaliações no Google
+
+Termos secundários:
+
+- avaliações Google Meu Negócio;
+- avaliações Perfil da Empresa no Google;
+- como pedir avaliação no Google;
+- reputação no Google Maps;
+- responder avaliações Google;
+- avaliações negativas Google;
+- link para avaliação Google.
+
+Intenção de busca:
+
+Informacional e prática.
+
+O leitor quer aumentar o volume de avaliações legítimas e melhorar a reputação da empresa.
+
+Escopo exclusivo:
+
+- Importância das avaliações para a confiança do consumidor.
+- Como criar e compartilhar o link de avaliação.
+- Como solicitar avaliações de clientes reais.
+- Como responder avaliações positivas.
+- Como responder avaliações negativas.
+- Como lidar profissionalmente com reclamações.
+- Como identificar avaliações suspeitas.
+- Como denunciar avaliações que violem políticas.
+- Como incorporar a reputação à estratégia de SEO Local.
+- Boas práticas para construir uma reputação consistente.
+
+É OBRIGATÓRIO respeitar as políticas do Google.
+
+Não recomendar compra de avaliações, troca de avaliações, incentivos financeiros, descontos ou benefícios em troca de avaliações.
+
+Não recomendar selecionar somente clientes satisfeitos para pedir avaliações enquanto se impede que clientes insatisfeitos expressem sua experiência.
+
+Não prometer que determinada quantidade de avaliações garantirá o primeiro lugar no Google Maps.
+
+---
+
+ARTIGO 4 — NOVO
+
+Título de referência:
+
+SEO Local: como fazer sua empresa aparecer nas pesquisas do Google na sua cidade.
+
+Slug sugerido:
+
+/blog/seo-local-como-aparecer-google
+
+Palavra-chave principal:
+
+SEO Local
+
+Termos secundários:
+
+- como aparecer no Google na minha cidade;
+- posicionamento local Google;
+- SEO para empresas locais;
+- Google Maps para empresas;
+- site otimizado para buscas locais;
+- presença digital local;
+- Google Meu Negócio e SEO Local.
+
+Intenção de busca:
+
+Informacional e estratégica.
+
+O leitor quer entender como aumentar a presença digital da empresa em uma cidade ou região.
+
+Escopo exclusivo:
+
+- O que é SEO Local.
+- Como funciona a pesquisa local.
+- Relação entre Google Maps, Pesquisa Google e Perfil da Empresa.
+- Relação entre o site e o perfil comercial.
+- Consistência de nome, endereço e telefone.
+- Páginas locais no site.
+- Conteúdo relevante para regiões atendidas.
+- Links e citações locais.
+- Relevância geográfica.
+- Estratégia de conteúdo local.
+- Como acompanhar resultados.
+- Integração entre SEO Local e Google Ads.
+
+Este artigo deve apresentar uma visão estratégica mais ampla.
+
+Diferentemente do artigo 1, não deve se concentrar em técnicas específicas para colocar um perfil no topo do Maps.
+
+Diferentemente do artigo 2, não deve ser um tutorial de configuração do perfil.
+
+Seu foco é explicar como integrar site, presença comercial e relevância geográfica em uma estratégia de SEO Local.
+
+---
+
+ARTIGO 5 — NOVO
+
+Título de referência:
+
+Google Meu Negócio não aparece no Google Maps? Veja como identificar e corrigir.
+
+Slug sugerido:
+
+/blog/google-meu-negocio-nao-aparece-google-maps
+
+Palavra-chave principal:
+
+Google Meu Negócio não aparece no Google Maps
+
+Termos secundários:
+
+- empresa não aparece no Google Maps;
+- Perfil da Empresa não aparece no Google;
+- meu negócio não aparece na pesquisa;
+- perfil Google não aparece;
+- problemas Google Meu Negócio;
+- perfil suspenso Google;
+- verificar empresa no Google.
+
+Intenção de busca:
+
+Informacional e resolução de problemas.
+
+O leitor está enfrentando um problema específico e procura uma solução.
+
+Escopo exclusivo:
+
+- Perfil recém-criado ainda não aparece.
+- Perfil não verificado.
+- Perfil suspenso ou desativado.
+- Problemas de verificação.
+- Informações comerciais incorretas.
+- Perfil duplicado.
+- Mudanças recentes no endereço ou nome.
+- Perfil que aparece pelo nome, mas não por termos de serviço.
+- Diferença entre não aparecer no Maps e não aparecer organicamente na Pesquisa Google.
+- Como verificar o status do perfil.
+- Como utilizar os canais oficiais de suporte.
+- Como identificar quando o problema é de indexação, elegibilidade, verificação ou posicionamento.
+
+Não afirmar que toda empresa que não aparece está penalizada.
+
+Não confundir ausência de visibilidade para determinada palavra-chave com suspensão do perfil.
+
+Não recomendar criar outro perfil para contornar uma suspensão.
+
+Não prometer recuperação ou reativação garantida.
+
+---
+
+4. SILO SEMÂNTICO E ESTRUTURA DE LINKS INTERNOS
+
+A arquitetura deverá ter como centro a página inicial:
+
+https://www.auditoriaseo.com.br/
+
+Essa página será o centro estratégico do conjunto.
+
+Os cinco artigos deverão apontar para a página inicial utilizando âncoras naturais, contextualizadas e variadas.
+
+Exemplos de âncoras possíveis:
+
+- Auditoria SEO.
+- estratégias de SEO para empresas.
+- serviços de SEO Local.
+- consultoria de posicionamento no Google.
+- otimização da presença digital.
+
+Não repetir mecanicamente a mesma âncora em todos os artigos.
+
+Links entre os cinco artigos
+
+Todos os artigos devem possuir conexões contextuais com os demais conteúdos, sempre que houver relevância editorial.
+
+A estrutura desejada é:
+
+ARTIGO 1 — Ranqueamento no Google Maps
+
+- Link para artigo 2: otimização do perfil.
+- Link para artigo 3: avaliações e reputação.
+- Link para artigo 4: estratégia de SEO Local.
+- Link para artigo 5: diagnóstico de problemas.
+- Link para a página inicial.
+
+ARTIGO 2 — Otimização do Google Meu Negócio
+
+- Link para artigo 1: ranqueamento no Maps.
+- Link para artigo 3: avaliações.
+- Link para artigo 4: SEO Local.
+- Link para artigo 5: problemas e correções.
+- Link para a página inicial.
+
+ARTIGO 3 — Avaliações no Google
+
+- Link para artigo 1: posicionamento no Maps.
+- Link para artigo 2: otimização do perfil.
+- Link para artigo 4: SEO Local.
+- Link para artigo 5: diagnóstico.
+- Link para a página inicial.
+
+ARTIGO 4 — SEO Local
+
+- Link para artigo 1: posicionamento no Maps.
+- Link para artigo 2: otimização do perfil.
+- Link para artigo 3: avaliações.
+- Link para artigo 5: problemas de visibilidade.
+- Link para a página inicial.
+
+ARTIGO 5 — Problemas no Google Maps
+
+- Link para artigo 1: ranqueamento.
+- Link para artigo 2: otimização.
+- Link para artigo 3: avaliações.
+- Link para artigo 4: SEO Local.
+- Link para a página inicial.
+
+IMPORTANTE:
+
+Os links devem ser inseridos dentro do contexto dos parágrafos, com textos-âncora semanticamente relevantes.
+
+Não crie blocos artificiais com links repetidos apenas para cumprir uma quantidade.
+
+Quando um artigo fizer referência a outro assunto, o link deve ajudar o leitor a aprofundar o conhecimento.
+
+Não utilize URLs inventadas.
+
+Antes de inserir qualquer link, confirme que a página existe e que o endereço está correto.
+
+Se algum artigo ainda não estiver publicado, prepare a estrutura de links para inserção posterior. Não publique links quebrados.
+
+Página inicial como centro estratégico
+
+Avalie se a página inicial possui conteúdo e contexto suficientes para receber os links do silo.
+
+Se necessário, apresente uma sugestão de pequeno bloco editorial para conectar a página inicial ao tema SEO Local e aos artigos.
+
+Não altere a página inicial automaticamente.
+
+Aguarde autorização para qualquer modificação nela.
+
+---
+
+5. CONVERSÃO COMERCIAL E BOTÕES DE WHATSAPP
+
+Os cinco artigos devem oferecer naturalmente os serviços da Auditoria SEO.
+
+A intenção não é transformar os artigos em anúncios, mas mostrar que existe uma solução profissional para empresas que desejam melhorar sua presença no Google Maps.
+
+Cada artigo deve ter:
+
+1. Uma chamada comercial contextualizada no meio do conteúdo.
+2. Um CTA de conversão no final do artigo.
+3. Botão visual de WhatsApp.
+4. Mensagem pré-preenchida coerente com o assunto daquele artigo.
+
+Texto de botão sugerido:
+
+Falar com um especialista em SEO Local
+
+Outras variações permitidas:
+
+- Solicitar análise do meu Google Meu Negócio.
+- Quero melhorar minha posição no Google Maps.
+- Quero otimizar meu Perfil da Empresa.
+- Preciso melhorar minha presença no Google.
+- Solicitar uma avaliação profissional.
+
+Utilize o número e o link de WhatsApp que já estiverem configurados no site da Auditoria SEO.
+
+Não invente telefone ou endereço de WhatsApp.
+
+Se não encontrar um contato existente, deixe um marcador de configuração pendente e informe isso no relatório.
+
+As mensagens pré-preenchidas devem ser diferentes conforme o artigo.
+
+Exemplos:
+
+Artigo 1:
+Olá! Gostaria de saber como melhorar o posicionamento da minha empresa no Google Maps.
+
+Artigo 2:
+Olá! Gostaria de solicitar uma avaliação para otimizar meu Perfil da Empresa no Google.
+
+Artigo 3:
+Olá! Quero melhorar a reputação e as avaliações da minha empresa no Google.
+
+Artigo 4:
+Olá! Tenho interesse em uma estratégia de SEO Local para minha empresa.
+
+Artigo 5:
+Olá! Minha empresa está enfrentando problemas de visibilidade no Google Maps e gostaria de uma avaliação.
+
+Os CTAs devem utilizar o estilo visual já existente no site, sem modificar estilos globais.
+
+Os botões precisam funcionar tanto em dispositivos móveis quanto em computadores.
+
+Não utilizar promessas como primeira posição garantida, resultado garantido ou recuperação garantida.
+
+---
+
+6. IMAGENS DOS ARTIGOS
+
+Cada artigo deve possuir pelo menos duas imagens relevantes:
+
+1. Imagem principal de capa, posicionada no início do conteúdo.
+2. Imagem ilustrativa no desenvolvimento do artigo, relacionada diretamente ao assunto explicado naquela seção.
+
+As imagens NÃO precisam ser capturas de tela reais.
+
+Podem ser imagens originais produzidas por IA ou imagens adequadas disponíveis na biblioteca de recursos do ambiente, desde que exista autorização de uso.
+
+O próprio Google AI Studio poderá utilizar seus recursos de geração de imagens, se disponíveis.
+
+Diretrizes visuais
+
+- Imagens profissionais e realistas.
+- Aparência editorial e corporativa.
+- Relação visual clara com Google Meu Negócio, Perfil da Empresa, Google Maps e SEO Local.
+- Composição limpa, sem excesso de elementos.
+- Não utilizar imagens genéricas de pessoas sorrindo em escritórios sem relação com o conteúdo.
+- Não incluir textos aleatórios, marcas d'água ou chamadas publicitárias.
+- Não inventar capturas de tela que simulem dados reais.
+- Não criar avaliações falsas, mapas com resultados fictícios apresentados como reais ou painéis falsos do Google.
+- Não reproduzir logotipos ou interfaces do Google de maneira incorreta.
+
+Cada artigo deve ter imagens próprias, evitando utilizar exatamente as mesmas imagens nos cinco conteúdos.
+
+Especificações
+
+Imagem de capa:
+
+- Preferencialmente 1200 × 630 px ou proporção próxima.
+- Formato WebP quando adequado.
+- Nome de arquivo descritivo.
+- ALT descritivo e natural.
+- Otimização de tamanho sem perda perceptível de qualidade.
+
+Imagem interna:
+
+- Proporção 16:9 ou 4:3 conforme a composição.
+- Formato WebP quando adequado.
+- ALT coerente com o conteúdo da seção.
+
+Não utilizar a mesma imagem de capa para todos os artigos.
+
+Cada artigo deve ter sua própria imagem Open Graph, utilizando sua respectiva capa.
+
+Não criar imagens apenas para preencher espaço. Cada imagem deve agregar valor à compreensão do assunto.
+
+---
+
+7. PROTOCOLO EDITORIAL SEO OBRIGATÓRIO
+
+Utilize integralmente o arquivo Master Editorial SEO Protocol fornecido como anexo.
+
+Ele deve ser tratado como padrão editorial obrigatório.
+
+Aplique suas regras de pesquisa, intenção de busca, profundidade, originalidade, E-E-A-T, semântica, imagens, fontes, links internos, SEO técnico e auditoria.
+
+Regras adicionais
+
+Pesquisa
+
+Antes de escrever cada artigo:
+
+- Pesquise a intenção de busca.
+- Analise as páginas que aparecem nos resultados do Google.
+- Identifique perguntas frequentes e dúvidas reais dos usuários.
+- Consulte fontes oficiais.
+- Verifique se as informações estão atualizadas.
+- Identifique lacunas de conteúdo que podem ser preenchidas com informações úteis.
+
+Utilize Google Search Grounding.
+
+Não invente volume de busca, dificuldade de palavra-chave ou dados de ferramentas pagas.
+
+Se não houver dados confiáveis, declare que não foram disponibilizados.
+
+Fontes prioritárias
+
+Priorize fontes oficiais:
+
+1. Ajuda do Perfil da Empresa no Google:
+   https://support.google.com/business/
+
+2. Diretrizes de representação de empresas:
+   https://support.google.com/business/answer/3038177
+
+3. Fatores de classificação local:
+   https://support.google.com/business/answer/7091
+
+4. Políticas de conteúdo e avaliações:
+   https://support.google.com/business/answer/7400114
+
+5. Central da Pesquisa Google:
+   https://developers.google.com/search/docs
+
+6. Documentação de dados estruturados:
+   https://developers.google.com/search/docs/appearance/structured-data/local-business
+
+Também podem ser consultadas fontes especializadas, como Semrush, Ahrefs e outras referências reconhecidas, desde que sejam relevantes e verificáveis.
+
+Não invente referências, estudos, estatísticas ou declarações.
+
+E-E-A-T
+
+Demonstre experiência, especialização, autoridade e confiança de maneira verdadeira.
+
+Autor:
+
+Wesley Vieira.
+
+Empresa:
+
+Auditoria SEO.
+
+Utilize a biografia real já definida no site.
+
+Não invente certificações, clientes, resultados, estudos de caso ou experiências práticas.
+
+Não afirme que o autor realizou testes ou experimentos que não foram fornecidos.
+
+Profundidade
+
+Os artigos devem ser completos, mas não devem ser artificialmente alongados.
+
+Como referência editorial, busque aproximadamente 1.800 a 2.800 palavras por artigo quando o assunto justificar.
+
+A profundidade deve atender à intenção de busca, e não a uma meta arbitrária de palavras.
+
+Evite repetições, introduções genéricas e parágrafos que apenas repetem a palavra-chave.
+
+---
+
+8. CLAREZA SEMÂNTICA SOBRE OS PRODUTOS DO GOOGLE
+
+Esta seção é especialmente importante.
+
+O conteúdo precisa deixar claro para o Google e para o leitor que estamos falando do mesmo ecossistema, mas sem confundir conceitos diferentes.
+
+Explique naturalmente:
+
+- Google Meu Negócio é o nome antigo e ainda muito utilizado nas pesquisas.
+- Perfil da Empresa no Google é a nomenclatura atual do produto.
+- Google Maps é uma plataforma na qual os usuários encontram empresas e estabelecimentos.
+- Pesquisa Google também apresenta resultados locais.
+- SEO Local é a estratégia mais ampla que envolve presença, relevância e visibilidade nas pesquisas geográficas.
+
+Utilize essas expressões de forma natural nos títulos, subtítulos, introduções e desenvolvimento.
+
+Não force a repetição de todas as expressões em todos os parágrafos.
+
+Não trate Google Maps, Perfil da Empresa e SEO Local como sinônimos absolutos.
+
+Sempre que relevante, utilize entidades, termos relacionados e exemplos de empresas locais.
+
+Políticas e precisão técnica
+
+É obrigatório observar:
+
+- Os fatores de relevância, distância e destaque.
+- A impossibilidade de garantir posições no Google Maps.
+- As regras de nome comercial.
+- A escolha correta de categorias.
+- As regras de endereço e área de atendimento.
+- As condições de elegibilidade de empresas.
+- As políticas de avaliações autênticas.
+- Os procedimentos de verificação.
+- As políticas relacionadas a perfis suspensos.
+
+Não ensine práticas que violem as diretrizes do Google.
+
+Não recomende inserir palavras-chave no nome da empresa quando elas não fizerem parte do nome real.
+
+Não recomende comprar avaliações ou manipular reputação.
+
+Não recomende criar perfis duplicados.
+
+Não prometa resultados que dependem de algoritmos e fatores externos.
+
+---
+
+9. METADADOS SEO INDIVIDUAIS
+
+Cada artigo deverá ter seus próprios metadados.
+
+Entregar e implementar individualmente:
+
+- SEO Title.
+- Meta Description.
+- Canonical URL.
+- Open Graph Title.
+- Open Graph Description.
+- Open Graph URL.
+- Open Graph Image.
+- Open Graph Image Alt.
+- Twitter Card.
+- Twitter Title.
+- Twitter Description.
+- Twitter Image.
+
+Cada página deve utilizar a própria imagem de capa no compartilhamento social.
+
+Não utilizar os metadados da página inicial como padrão para os artigos.
+
+Não duplicar tags.
+
+Não alterar as configurações globais de SEO.
+
+Os metadados devem corresponder ao conteúdo efetivamente publicado.
+
+---
+
+10. HTML, ESTRUTURA E DADOS ESTRUTURADOS
+
+Utilize HTML semântico e a arquitetura atual do projeto.
+
+Cada artigo deve possuir:
+
+- Um único H1 principal.
+- Hierarquia correta de H2 e H3.
+- Introdução objetiva.
+- Índice navegável quando apropriado.
+- Conteúdo dividido em seções coerentes.
+- Imagens com ALT.
+- Links internos.
+- Fontes e referências.
+- FAQ quando houver perguntas úteis e relevantes.
+- CTA de WhatsApp.
+- Data de publicação e atualização somente quando correspondentes à realidade.
+- Identificação do autor.
+
+Dados estruturados:
+
+- BlogPosting ou Article, conforme aplicável.
+- BreadcrumbList.
+- Person para autoria, se já não estiver corretamente referenciado.
+- Organization, quando aplicável e sem duplicar a implementação existente.
+
+Não adicionar LocalBusiness automaticamente a todos os artigos.
+
+Não inserir marcações que não correspondam ao conteúdo visível.
+
+FAQ pode fazer parte do conteúdo editorial, mas não prometa resultados especiais no Google por causa de FAQPage.
+
+Valide a sintaxe e evite dados estruturados duplicados.
+
+---
+
+11. IMPLEMENTAÇÃO E ORGANIZAÇÃO DOS ARQUIVOS
+
+Antes de criar os artigos, identifique a estrutura atual do projeto.
+
+Siga o padrão já existente de:
+
+- Rotas.
+- Componentes.
+- Dados de artigos.
+- Imagens.
+- Metadados.
+- Estilos.
+- Sistema de publicação.
+
+Não crie uma segunda estrutura de blog.
+
+Não duplique componentes existentes sem necessidade.
+
+Organize os arquivos de imagem em diretórios coerentes com o padrão atual.
+
+Confirme que os caminhos e URLs das imagens funcionarão após o deploy.
+
+Não deixe imagens apontando para caminhos temporários do ambiente de desenvolvimento.
+
+Não publique arquivos que não estejam disponíveis no projeto final.
+
+---
+
+12. PROCESSO DE EXECUÇÃO EM ETAPAS
+
+Não produza os quatro artigos de maneira apressada em uma única resposta gigantesca.
+
+Trabalhe com o seguinte fluxo:
+
+ETAPA 1 — AUDITORIA E PLANEJAMENTO
+
+- Leia o artigo existente.
+- Analise a página inicial.
+- Identifique a estrutura do blog.
+- Consulte o Master Editorial SEO Protocol.
+- Faça pesquisa de palavras-chave e intenção de busca.
+- Monte a matriz semântica dos cinco artigos.
+- Identifique possíveis sobreposições.
+- Defina as âncoras internas.
+- Verifique o contato de WhatsApp existente.
+- Identifique os recursos de imagem disponíveis.
+
+Entregue um relatório de planejamento antes de iniciar a implementação.
+
+ETAPA 2 — ARTIGO 2
+
+Pesquise, escreva, otimize, crie as imagens e implemente o segundo artigo.
+
+Faça a auditoria individual.
+
+ETAPA 3 — ARTIGO 3
+
+Repita o processo para avaliações e reputação.
+
+ETAPA 4 — ARTIGO 4
+
+Repita o processo para SEO Local.
+
+ETAPA 5 — ARTIGO 5
+
+Repita o processo para diagnóstico de problemas no Google Maps.
+
+ETAPA 6 — INTEGRAÇÃO DO SILO
+
+Depois que os quatro artigos estiverem prontos:
+
+- Revise os cinco conteúdos.
+- Insira os links internos.
+- Revise as âncoras.
+- Verifique a conexão com a página inicial.
+- Revise os CTAs.
+- Confirme que não existem links quebrados.
+- Confirme que cada artigo tem sua intenção de busca própria.
+
+Não inserir links para artigos ainda inexistentes.
+
+---
+
+13. AUDITORIA FINAL OBRIGATÓRIA
+
+Apresente uma auditoria completa ao terminar.
+
+Para cada artigo, informe:
+
+1. Título.
+2. URL.
+3. Palavra-chave principal.
+4. Termos secundários.
+5. Intenção de busca.
+6. SEO Title.
+7. Meta Description.
+8. Canonical.
+9. Imagem de capa.
+10. Imagem interna.
+11. Links internos inseridos.
+12. CTA e botão de WhatsApp.
+13. Fontes consultadas.
+14. Dados estruturados.
+15. Situação técnica.
+
+Verifique também:
+
+- Se os cinco artigos estão interligados.
+- Se todos apontam para a página inicial.
+- Se os textos-âncora são variados e naturais.
+- Se há sobreposição excessiva de palavras-chave.
+- Se algum artigo está competindo com outro pela mesma intenção.
+- Se todas as imagens estão acessíveis.
+- Se todos os metadados são individuais.
+- Se o HTML está correto.
+- Se não houve alterações fora do escopo.
+
+RELATÓRIO DE ENCERRAMENTO
+
+Ao final, apresente:
+
+- Arquitetura final do silo.
+- Relação dos cinco artigos.
+- URLs definitivas.
+- Mapa de links internos.
+- Relação das imagens utilizadas.
+- Metadados individuais.
+- Resultado da auditoria editorial.
+- Resultado da auditoria técnica.
+- Pendências que dependam de autorização ou informação do usuário.
+
+Não declare que o site está indexado ou que os artigos já ranquearam sem evidências.
+
+Não faça deploy ou publicação automática se isso não fizer parte das permissões e do fluxo atual do projeto.
+
+---
+
+OBJETIVO FINAL
+
+Construir um conjunto editorial consistente que faça da Auditoria SEO uma referência temática sobre Google Meu Negócio, Perfil da Empresa no Google, Google Maps e SEO Local.
+
+O leitor deve encontrar respostas práticas, compreender os problemas e perceber que a Auditoria SEO oferece serviços profissionais de otimização e posicionamento local.
+
+O Google deve encontrar uma estrutura clara, conteúdo original, entidades relacionadas, páginas com intenções distintas e uma arquitetura interna coerente.
+
+A prioridade é qualidade editorial, precisão técnica, autoridade temática e geração de oportunidades comerciais. Não produzir conteúdo superficial apenas para preencher cinco URLs.
