@@ -1,1 +1,7 @@
+# Permanent 301 Redirects for Reorganized Pages
+/servicos-seo / 301
+/es/servicios-seo /es 301
+/en/seo-services /en 301
+
+# SPA fallback
 /* /index.html 200

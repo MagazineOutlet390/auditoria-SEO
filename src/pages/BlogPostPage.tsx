@@ -9,7 +9,7 @@ import { getHreflangs } from '../i18n/routes';
 import { Clock, User, ArrowLeft, ArrowRight, ListTree } from 'lucide-react';
 
 export const BlogPostPage: React.FC = () => {
-  const { lang, t, getLocalizedPath } = useLanguage();
+  const { lang, t, currentRoutes, getLocalizedPath } = useLanguage();
   const location = useLocation();
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<SanityPost | null>(null);
@@ -23,17 +23,17 @@ export const BlogPostPage: React.FC = () => {
     setLoading(true);
     window.scrollTo(0, 0);
 
-    fetchSanityPostBySlug(slug)
+    fetchSanityPostBySlug(slug, lang)
       .then((data) => {
         setPost(data);
       })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
 
-    fetchSanityPosts().then((all) => {
+    fetchSanityPosts(lang).then((all) => {
       setRelatedPosts(all.filter((p) => p.slug.current !== slug).slice(0, 2));
     });
-  }, [slug]);
+  }, [slug, lang]);
 
   if (loading) {
     return (
@@ -75,12 +75,20 @@ export const BlogPostPage: React.FC = () => {
 
   const articleTitle = post.seoTitle || `${post.title} | Auditoria SEO`;
   const articleDescription = post.metaDescription || post.excerpt;
-  const canonicalPath = `/blog/${post.slug.current}`;
+  const canonicalPath = lang === 'pt' ? `/blog/${post.slug.current}` : `/${lang}/blog/${post.slug.current}`;
+  const hreflangs = [
+    { lang: 'pt-BR', href: `https://auditoriaseo.com.br/blog/${post.slug.current}` },
+    { lang: 'es', href: `https://auditoriaseo.com.br/es/blog/${post.slug.current}` },
+    { lang: 'en', href: `https://auditoriaseo.com.br/en/blog/${post.slug.current}` },
+    { lang: 'x-default', href: `https://auditoriaseo.com.br/blog/${post.slug.current}` },
+  ];
   const articleOgImage = post.ogImage || post.mainImage?.asset?.url || 'https://auditoriaseo.com.br/og-image.png';
   const articleOgImageAlt = post.mainImage?.alt || post.title;
   const absoluteOgImageUrl = articleOgImage.startsWith('http')
     ? articleOgImage
     : `https://auditoriaseo.com.br${articleOgImage.startsWith('/') ? articleOgImage : `/${articleOgImage}`}`;
+
+  const inLanguage = lang === 'pt' ? 'pt-BR' : (lang === 'es' ? 'es' : 'en');
 
   return (
     <main className="bg-white">
@@ -95,6 +103,7 @@ export const BlogPostPage: React.FC = () => {
         publishedTime={post.publishedAt}
         modifiedTime={post.updatedAt || post.publishedAt}
         currentLang={lang}
+        hreflangs={hreflangs}
       />
 
       {/* Schema.org Article structured data */}
@@ -107,6 +116,7 @@ export const BlogPostPage: React.FC = () => {
             headline: post.title,
             description: articleDescription,
             image: absoluteOgImageUrl,
+            inLanguage: inLanguage,
             author: {
               '@type': 'Person',
               name: post.author.name,
@@ -123,7 +133,7 @@ export const BlogPostPage: React.FC = () => {
             },
             datePublished: post.publishedAt,
             dateModified: post.updatedAt || post.publishedAt,
-            mainEntityOfPage: `https://auditoriaseo.com.br/blog/${post.slug.current}`,
+            mainEntityOfPage: `https://auditoriaseo.com.br${canonicalPath}`,
           }),
         }}
       />
@@ -275,7 +285,7 @@ export const BlogPostPage: React.FC = () => {
             </p>
           </div>
           <Link
-            to={getLocalizedPath('/servicos-seo')}
+            to={currentRoutes.home}
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#1A73E8] text-white text-xs font-semibold hover:bg-[#174EA6] whitespace-nowrap shrink-0 transition-colors"
           >
             <span>{bData.nextStrategicCta}</span>
@@ -296,7 +306,7 @@ export const BlogPostPage: React.FC = () => {
           <div className="text-center sm:text-left flex-1">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
               <h3 className="text-base font-bold text-slate-900">
-                Sobre o Autor: {post.author.name}
+                {lang === 'es' ? 'Sobre el Autor' : (lang === 'en' ? 'About the Author' : 'Sobre o Autor')}: {post.author.name}
               </h3>
               <div className="flex items-center justify-center sm:justify-start gap-3 text-xs">
                 <a
@@ -319,7 +329,11 @@ export const BlogPostPage: React.FC = () => {
               </div>
             </div>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              Fundador e responsável pela Auditoria SEO, agência de marketing digital especializada em Google Ads e SEO. Mais de 4 anos como gestor de tráfego e SEO, certificado pelo Google.
+              {lang === 'es'
+                ? 'Fundador de Auditoria SEO, agencia de marketing digital especializada en Google Ads y SEO. Más de 4 años como gestor de tráfico y SEO, certificado por Google.'
+                : (lang === 'en'
+                  ? 'Founder of Auditoria SEO, digital marketing agency specialized in Google Ads and SEO. Over 4 years as a traffic manager and SEO specialist, certified by Google.'
+                  : 'Fundador e responsável pela Auditoria SEO, agência de marketing digital especializada em Google Ads e SEO. Mais de 4 anos como gestor de tráfego e SEO, certificado pelo Google.')}
             </p>
           </div>
         </div>
@@ -356,7 +370,7 @@ export const BlogPostPage: React.FC = () => {
                       {rel.category}
                     </span>
                     <h4 className="text-base font-bold text-slate-900 mb-2 leading-snug">
-                      <Link to={`/blog/${rel.slug.current}`} className="hover:text-[#1A73E8]">
+                      <Link to={getLocalizedPath(`/blog/${rel.slug.current}`)} className="hover:text-[#1A73E8]">
                         {rel.title}
                       </Link>
                     </h4>
@@ -365,7 +379,7 @@ export const BlogPostPage: React.FC = () => {
                     </p>
                   </div>
                   <Link
-                    to={`/blog/${rel.slug.current}`}
+                    to={getLocalizedPath(`/blog/${rel.slug.current}`)}
                     className="inline-flex items-center gap-1 text-xs font-semibold text-[#1A73E8] hover:text-[#174EA6]"
                   >
                     <span>{bData.readArticle}</span>

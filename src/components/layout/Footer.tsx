@@ -77,8 +77,13 @@ export const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-2 text-sm text-slate-400">
               <li>
-                <Link to={currentRoutes.seoServices} className="hover:text-white transition-colors">
-                  {t.nav.seoServices}
+                <Link to={currentRoutes.home} className="hover:text-white transition-colors">
+                  Agência & Planos de SEO
+                </Link>
+              </li>
+              <li>
+                <Link to={currentRoutes.localSeo} className="hover:text-white transition-colors">
+                  {t.nav.localSeo}
                 </Link>
               </li>
               <li>
@@ -92,13 +97,8 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link to={currentRoutes.home} className="hover:text-white transition-colors">
-                  {t.home.services.landingTitle}
-                </Link>
-              </li>
-              <li>
-                <Link to={currentRoutes.home} className="hover:text-white transition-colors">
-                  {t.home.services.localSeoTitle}
+                <Link to={currentRoutes.blog} className="hover:text-white transition-colors">
+                  {t.nav.blog}
                 </Link>
               </li>
             </ul>

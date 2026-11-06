@@ -1,5 +1,7 @@
 import { SanityPost } from '../types';
+import { Language } from '../i18n/types';
 import { LEGAL_ARTICLES } from './legalArticles';
+import { getArticlesByLanguage, getArticleBySlug } from './blogArticles';
 
 const envProjectId = (
   (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SANITY_PROJECT_ID) ||
@@ -223,7 +225,7 @@ export const FALLBACK_ARTICLES: SanityPost[] = [
       '### Conclusão e Próximos Passos',
       'Otimizar o Perfil da Empresa no Google não é um evento único, mas um processo de higiene cadastral, precisão técnica e compromisso com o consumidor local.',
       'Ao garantir dados consistentes, fotos autênticas, categorias precisas e parâmetros de rastreamento no seu site, você posiciona o seu estabelecimento comercial em vantagem direta contra concorrentes desatentos.',
-      'Se você busca acelerar a presença digital da sua marca com métodos comprovados e segurança jurídica, conheça os <a href="/servicos-seo" class="text-[#1A73E8] font-semibold hover:underline">serviços especializados de SEO</a> da Auditoria SEO.',
+      'Se você busca acelerar a presença digital da sua marca com métodos comprovados e segurança jurídica, conheça os <a href="/" class="text-[#1A73E8] font-semibold hover:underline">serviços especializados de SEO</a> da Auditoria SEO.',
       '### Fontes Consultadas e Referências Oficiais',
       '1. Central de Ajuda do Perfil da Empresa no Google: <a href="https://support.google.com/business/" target="_blank" rel="noopener noreferrer" class="text-[#1A73E8] hover:underline">Documentação Oficial de Gestão e Suporte do Google Business Profile</a>.',
       '2. Google Search Central: <a href="https://support.google.com/business/answer/3038177" target="_blank" rel="noopener noreferrer" class="text-[#1A73E8] hover:underline">Diretrizes para Representação de Empresas no Google</a> (Nomes, Categorias e Endereços).',
@@ -326,7 +328,7 @@ export const FALLBACK_ARTICLES: SanityPost[] = [
       '### Conclusão e Próximos Passos',
       'Construir uma reputação forte e consistente no Google Maps é um trabalho contínuo que une excelente entrega de serviço, processos simplificados de solicitação e respeito intransigente às políticas oficiais.',
       'Para que as avaliações gerem o máximo impacto comercial, certifique-se de que sua ficha esteja com todas as informações básicas alinhadas, seguindo nosso <a href="/blog/como-otimizar-google-meu-negocio" class="text-[#1A73E8] font-semibold hover:underline">passo a passo para otimizar o Perfil da Empresa</a>.',
-      'Para transformar sua visibilidade regional em uma máquina de novos clientes com o suporte da <a href="/" class="text-[#1A73E8] font-semibold hover:underline">Auditoria SEO</a>, conheça nossos <a href="/servicos-seo" class="text-[#1A73E8] font-semibold hover:underline">planos de SEO e consultoria</a>.',
+      'Para transformar sua visibilidade regional em uma máquina de novos clientes com o suporte da <a href="/" class="text-[#1A73E8] font-semibold hover:underline">Auditoria SEO</a>, conheça nossos <a href="/" class="text-[#1A73E8] font-semibold hover:underline">planos de SEO e consultoria</a>.',
       '### Fontes Consultadas e Referências Oficiais',
       '1. Central de Ajuda do Perfil da Empresa no Google: <a href="https://support.google.com/business/answer/7400114" target="_blank" rel="noopener noreferrer" class="text-[#1A73E8] hover:underline">Políticas de Conteúdo e Avaliações de Usuários do Google</a>.',
       '2. Google Business Profile Help: <a href="https://support.google.com/business/answer/3474122" target="_blank" rel="noopener noreferrer" class="text-[#1A73E8] hover:underline">Como Ler e Responder a Avaliações de Clientes</a>.',
@@ -432,7 +434,7 @@ export const FALLBACK_ARTICLES: SanityPost[] = [
       '### Conclusão e Próximos Passos',
       'O SEO Local é o caminho mais sólido e econômico para prestadores de serviços e empresas regionais construírem um fluxo ininterrupto de novos orçamentos sem depender unicamente de leilões pagos cada vez mais concorridos.',
       'Integrar seu site institucional ao Perfil da Empresa, cuidar da consistência dos seus dados cadastrais e oferecer uma experiência ágil no celular é a fórmula para conquistar a liderança de mercado na sua região.',
-      'Para estruturar uma presença digital estratégica com a equipe da <a href="/" class="text-[#1A73E8] font-semibold hover:underline">Auditoria SEO</a>, conheça nossos <a href="/servicos-seo" class="text-[#1A73E8] font-semibold hover:underline">planos estruturados de SEO Local</a> e consultoria para empresas.',
+      'Para estruturar uma presença digital estratégica com a equipe da <a href="/" class="text-[#1A73E8] font-semibold hover:underline">Auditoria SEO</a>, conheça nossos <a href="/seo-local" class="text-[#1A73E8] font-semibold hover:underline">planos estruturados de SEO Local</a> e consultoria para empresas.',
       '### Fontes Consultadas e Referências Oficiais',
       '1. Google Search Central: <a href="https://developers.google.com/search/docs/appearance/structured-data/local-business" target="_blank" rel="noopener noreferrer" class="text-[#1A73E8] hover:underline">Documentação Oficial de Dados Estruturados para Empresas Locais (LocalBusiness)</a>.',
       '2. Google Business Profile Help: <a href="https://support.google.com/business/answer/7091" target="_blank" rel="noopener noreferrer" class="text-[#1A73E8] hover:underline">Fatores de Classificação e Relevância Territorial no Google</a>.',
@@ -529,7 +531,7 @@ export const FALLBACK_ARTICLES: SanityPost[] = [
       '### Conclusão e Próximos Passos',
       'Identificar por que seu Perfil da Empresa não aparece no Google Maps exige discernimento técnico, método investigativo e respeito irrestrito aos regulamentos oficiais.',
       'Ao diagnosticar se a falha decorre de verificação pendente, raio de proximidade, duplicidade ou suspensão formal, você poupa tempo e adota a medida corretiva exata para restabelecer o fluxo de novos clientes.',
-      'Se você busca uma avaliação técnica imparcial da sua presença digital, solicite uma <a href="/" class="text-[#1A73E8] font-semibold hover:underline">auditoria de presença no Google com a Auditoria SEO</a> e conheça nossos <a href="/servicos-seo" class="text-[#1A73E8] font-semibold hover:underline">serviços especializados de SEO e posicionamento</a>.',
+      'Se você busca uma avaliação técnica imparcial da sua presença digital, solicite uma <a href="/" class="text-[#1A73E8] font-semibold hover:underline">auditoria de presença no Google com a Auditoria SEO</a> e conheça nossos <a href="/" class="text-[#1A73E8] font-semibold hover:underline">serviços especializados de SEO e posicionamento</a>.',
       '### Fontes Consultadas e Referências Oficiais',
       '1. Central de Recursos do Perfil da Empresa no Google: <a href="https://support.google.com/business/workflow/13565250" target="_blank" rel="noopener noreferrer" class="text-[#1A73E8] hover:underline">Ferramenta Oficial de Recursos e Apelações de Perfis Suspensos</a>.',
       '2. Google Business Profile Help: <a href="https://support.google.com/business/answer/3038177" target="_blank" rel="noopener noreferrer" class="text-[#1A73E8] hover:underline">Diretrizes de Qualidade e Conformidade Cadastral do Google</a>.',
@@ -653,7 +655,7 @@ export const FALLBACK_ARTICLES: SanityPost[] = [
       '### Conclusão e Próximos Passos',
       'Encontrar um domínio expirado de qualidade com backlinks de sites de grande porte não é fruto de sorte ou automação cega: é um trabalho investigativo que combina mineração de dados, rigor técnico e honestidade metodológica.',
       'Antes de registrar qualquer endereço, reserve tempo para investigar cada snapshot no Wayback Machine, inspecione a autenticidade dos links e certifique-se de que o projeto planejado respeita as diretrizes de qualidade do Google.',
-      'Se o seu objetivo é acelerar a visibilidade da sua empresa com bases técnicas sólidas, conheça os serviços estruturados da <a href="/" class="text-[#1A73E8] font-semibold hover:underline">Auditoria SEO</a> e confira nossos <a href="/servicos-seo" class="text-[#1A73E8] font-semibold hover:underline">Planos Especializados de SEO</a> e SEO Local.',
+      'Se o seu objetivo é acelerar a visibilidade da sua empresa com bases técnicas sólidas, conheça os serviços estruturados da <a href="/" class="text-[#1A73E8] font-semibold hover:underline">Auditoria SEO</a> e confira nossos <a href="/" class="text-[#1A73E8] font-semibold hover:underline">Planos Especializados de SEO</a> e <a href="/seo-local" class="text-[#1A73E8] font-semibold hover:underline">SEO Local</a>.',
       '### Fontes Consultadas e Referências Oficiais',
       '1. Google Search Central: <a href="https://developers.google.com/search/docs/essentials/spam-policies#expired-domain-abuse" target="_blank" rel="noopener noreferrer" class="text-[#1A73E8] hover:underline">Spam Policies for Google Web Search — Expired Domain Abuse</a> (Março de 2024).',
       '2. Registro.br (NIC.br): <a href="https://registro.br" target="_blank" rel="noopener noreferrer" class="text-[#1A73E8] hover:underline">Regulamento e Calendário Oficial do Processo de Liberação de Domínios .br</a>.',
@@ -738,7 +740,7 @@ export const FALLBACK_ARTICLES: SanityPost[] = [
       '### Conclusão e Próximos Passos',
       'O posicionamento no Google Maps não decorre de fórmulas mágicas ou atalhos duvidosos: é o resultado da aplicação metódica dos fatores oficiais de Relevância, Distância e Destaque divulgados pelo próprio Google.',
       'Ao alinhar a consistência do seu NAP, otimizar minuciosamente o Perfil da Empresa e construir uma rotina contínua de coleta de feedbacks reais, sua empresa se estabelece como a escolha natural para os clientes da sua região.',
-      'Se você deseja um plano de ação estruturado com a <a href="/" class="text-[#1A73E8] font-semibold hover:underline">consultoria técnica da Auditoria SEO</a>, conheça nossos <a href="/servicos-seo" class="text-[#1A73E8] font-semibold hover:underline">serviços especializados de SEO Local</a> e fale conosco.',
+      'Se você deseja um plano de ação estruturado com a <a href="/" class="text-[#1A73E8] font-semibold hover:underline">consultoria técnica da Auditoria SEO</a>, conheça nossos <a href="/seo-local" class="text-[#1A73E8] font-semibold hover:underline">serviços especializados de SEO Local</a> e fale conosco.',
       '### Fontes Consultadas e Referências Oficiais',
       '1. Google Business Profile Help: <a href="https://support.google.com/business/answer/7091" target="_blank" rel="noopener noreferrer" class="text-[#1A73E8] hover:underline">Como o Google Determina a Classificação Local: Relevância, Distância e Destaque</a>.',
       '2. Google Search Central: <a href="https://support.google.com/business/answer/3038177" target="_blank" rel="noopener noreferrer" class="text-[#1A73E8] hover:underline">Diretrizes Oficiais para Representação de Empresas no Google</a>.',
@@ -770,6 +772,8 @@ export const FALLBACK_ARTICLES: SanityPost[] = [
       'Mais de 75% dos cliques de busca local ocorrem pelo celular. Se sua página demorar mais de 2.5 segundos para carregar em redes móveis convencionais, grande parte dos usuários voltará para os resultados da busca antes mesmo de ler o título.',
       '### O poder do botão de WhatsApp contextual',
       'Não basta colocar um ícone solto de WhatsApp. O botão deve apresentar uma mensagem de abertura inteligente, para que o cliente sinta facilidade ao iniciar a conversa já informando seu interesse específico.',
+      '### Como transformar seu site em uma máquina de conversão',
+      'Para empresários que desejam modernizar sua presença digital com infraestrutura rápida e design orientado a vendas, conheça as soluções de <a href="/modernizacao-sites" class="text-[#1A73E8] font-semibold hover:underline">modernização de sites</a> e os planos estratégicos da <a href="/" class="text-[#1A73E8] font-semibold hover:underline">Auditoria SEO</a>.',
     ],
   },
   {
@@ -795,13 +799,16 @@ export const FALLBACK_ARTICLES: SanityPost[] = [
       'Usar correspondência ampla sem controle automatizado é a forma mais rápida de gastar verba com pesquisas sem correlação com intenção de compra. A estruturação inicial deve focar em termos de intenção transacional e comercial.',
       '### Por que a estrutura inicial bem-feita não depende de gestão diária',
       'Para prestadores de serviços locais com raio geográfico definido, uma conta bem estruturada, com lances ajustados e tags de conversão ativas, opera de maneira estável e eficiente sem a necessidade de mensalidades pesadas de gestão.',
+      '### Próximos passos para otimizar seus anúncios',
+      'Se você busca planejar campanhas lucrativas sem desperdício de orçamento, conheça nosso serviço de <a href="/google-ads" class="text-[#1A73E8] font-semibold hover:underline">configuração profissional de Google Ads</a> e impulsione sua autoridade com as estratégias de <a href="/seo-local" class="text-[#1A73E8] font-semibold hover:underline">SEO Local</a>.',
     ],
   },
 ];
 
-export async function fetchSanityPosts(): Promise<SanityPost[]> {
+export async function fetchSanityPosts(lang: Language = 'pt'): Promise<SanityPost[]> {
+  const fallback = getArticlesByLanguage(lang);
   if (!SANITY_CONFIG.isConfigured) {
-    return FALLBACK_ARTICLES;
+    return fallback;
   }
 
   const query = encodeURIComponent(`*[_type == "post"] | order(publishedAt desc) {
@@ -826,20 +833,24 @@ export async function fetchSanityPosts(): Promise<SanityPost[]> {
     const res = await fetch(url, { headers: { Accept: 'application/json' } });
     if (!res.ok) {
       console.warn('Sanity fetch returned status', res.status, 'using fallback content');
-      return FALLBACK_ARTICLES;
+      return fallback;
     }
     const data = await res.json();
     if (Array.isArray(data.result) && data.result.length > 0) {
       return data.result;
     }
-    return FALLBACK_ARTICLES;
+    return fallback;
   } catch (err) {
     console.warn('Failed to fetch from Sanity CMS, fallback active:', err);
-    return FALLBACK_ARTICLES;
+    return fallback;
   }
 }
 
-export async function fetchSanityPostBySlug(slug: string): Promise<SanityPost | null> {
-  const all = await fetchSanityPosts();
+export async function fetchSanityPostBySlug(slug: string, lang: Language = 'pt'): Promise<SanityPost | null> {
+  const localized = getArticleBySlug(slug, lang);
+  if (localized) {
+    return localized;
+  }
+  const all = await fetchSanityPosts(lang);
   return all.find((p) => p.slug?.current === slug) || null;
 }

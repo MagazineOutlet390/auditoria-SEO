@@ -3,7 +3,8 @@ import { Language, RouteMapping } from './types';
 export const ROUTES_BY_LANG: Record<Language, RouteMapping> = {
   pt: {
     home: '/',
-    seoServices: '/servicos-seo',
+    localSeo: '/seo-local',
+    seoServices: '/',
     googleAds: '/google-ads',
     modernization: '/modernizacao-sites',
     blog: '/blog',
@@ -11,7 +12,8 @@ export const ROUTES_BY_LANG: Record<Language, RouteMapping> = {
   },
   es: {
     home: '/es',
-    seoServices: '/es/servicios-seo',
+    localSeo: '/es/seo-local',
+    seoServices: '/es',
     googleAds: '/es/google-ads',
     modernization: '/es/modernizacion-sitios',
     blog: '/es/blog',
@@ -19,7 +21,8 @@ export const ROUTES_BY_LANG: Record<Language, RouteMapping> = {
   },
   en: {
     home: '/en',
-    seoServices: '/en/seo-services',
+    localSeo: '/en/local-seo',
+    seoServices: '/en',
     googleAds: '/en/google-ads',
     modernization: '/en/site-modernization',
     blog: '/en/blog',
@@ -41,22 +44,30 @@ export function getLanguageFromPathname(pathname: string): Language {
 }
 
 /**
- * Find route key (e.g. 'home', 'seoServices', etc.) for a given pathname
+ * Find route key (e.g. 'home', 'localSeo', etc.) for a given pathname
  */
 export function getRouteKeyFromPathname(pathname: string): keyof RouteMapping {
   // Normalize trailing slash (unless root)
   const clean = pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
 
-  if (clean === '' || clean === '/' || clean === '/es' || clean === '/en') {
-    return 'home';
-  }
-
   if (
+    clean === '' ||
+    clean === '/' ||
+    clean === '/es' ||
+    clean === '/en' ||
     clean === '/servicos-seo' ||
     clean === '/es/servicios-seo' ||
     clean === '/en/seo-services'
   ) {
-    return 'seoServices';
+    return 'home';
+  }
+
+  if (
+    clean === '/seo-local' ||
+    clean === '/es/seo-local' ||
+    clean === '/en/local-seo'
+  ) {
+    return 'localSeo';
   }
 
   if (

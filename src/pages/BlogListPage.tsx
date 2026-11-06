@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { fetchSanityPosts } from '../lib/sanity';
 import { SanityPost } from '../types';
@@ -10,7 +10,7 @@ import { Clock, User, ArrowRight, SlidersHorizontal } from 'lucide-react';
 interface BlogListPageProps {}
 
 export const BlogListPage: React.FC<BlogListPageProps> = () => {
-  const { lang, t } = useLanguage();
+  const { lang, t, getLocalizedPath } = useLanguage();
   const location = useLocation();
   const [posts, setPosts] = useState<SanityPost[]>([]);
   const [loading, setLoading] = useState(true);
@@ -18,24 +18,47 @@ export const BlogListPage: React.FC<BlogListPageProps> = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setLoading(true);
 
-    fetchSanityPosts()
+    fetchSanityPosts(lang)
       .then((data) => setPosts(data))
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
-  }, []);
+  }, [lang]);
 
   const bData = t.blog;
   const hreflangs = getHreflangs(location.pathname);
 
-  const categories = [
-    { id: 'all', label: bData.filterAll },
-    { id: 'SEO para Advogados', label: 'SEO para Advogados' },
-    { id: 'SEO Local', label: 'SEO Local' },
-    { id: 'Landing Pages', label: 'Landing Pages' },
-    { id: 'Google Ads', label: 'Google Ads' },
-    { id: 'SEO Técnico', label: 'SEO Técnico' },
-  ];
+  const categories = useMemo(() => {
+    if (lang === 'es') {
+      return [
+        { id: 'all', label: bData.filterAll },
+        { id: 'SEO para Abogados', label: 'SEO para Abogados' },
+        { id: 'SEO Local', label: 'SEO Local' },
+        { id: 'Páginas de Destino', label: 'Páginas de Destino' },
+        { id: 'Google Ads', label: 'Google Ads' },
+        { id: 'SEO Técnico', label: 'SEO Técnico' },
+      ];
+    }
+    if (lang === 'en') {
+      return [
+        { id: 'all', label: bData.filterAll },
+        { id: 'SEO for Lawyers', label: 'SEO for Lawyers' },
+        { id: 'Local SEO', label: 'Local SEO' },
+        { id: 'Landing Pages', label: 'Landing Pages' },
+        { id: 'Google Ads', label: 'Google Ads' },
+        { id: 'Technical SEO', label: 'Technical SEO' },
+      ];
+    }
+    return [
+      { id: 'all', label: bData.filterAll },
+      { id: 'SEO para Advogados', label: 'SEO para Advogados' },
+      { id: 'SEO Local', label: 'SEO Local' },
+      { id: 'Landing Pages', label: 'Landing Pages' },
+      { id: 'Google Ads', label: 'Google Ads' },
+      { id: 'SEO Técnico', label: 'SEO Técnico' },
+    ];
+  }, [lang, bData.filterAll]);
 
   const filteredPosts =
     selectedCategory === 'all'
@@ -132,7 +155,7 @@ export const BlogListPage: React.FC<BlogListPageProps> = () => {
                   </div>
 
                   <h2 className="text-xl font-bold text-slate-900 mb-3 hover:text-[#1A73E8] transition-colors leading-snug">
-                    <Link to={`/blog/${post.slug.current}`}>
+                    <Link to={getLocalizedPath(`/blog/${post.slug.current}`)}>
                       {post.title}
                     </Link>
                   </h2>
@@ -149,7 +172,7 @@ export const BlogListPage: React.FC<BlogListPageProps> = () => {
                   </div>
 
                   <Link
-                    to={`/blog/${post.slug.current}`}
+                    to={getLocalizedPath(`/blog/${post.slug.current}`)}
                     className="inline-flex items-center gap-1 font-semibold text-[#1A73E8] hover:text-[#174EA6]"
                   >
                     <span>{bData.readArticle}</span>

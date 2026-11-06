@@ -5,6 +5,7 @@ import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { FloatingWhatsApp } from './components/common/FloatingWhatsApp';
 import { HomePage } from './pages/HomePage';
+import { LocalSeoPage } from './pages/LocalSeoPage';
 import { SeoServicesPage } from './pages/SeoServicesPage';
 import { GoogleAdsPage } from './pages/GoogleAdsPage';
 import { ModernizationPage } from './pages/ModernizationPage';
@@ -24,7 +25,8 @@ export default function App() {
             <Routes>
               {/* Portuguese (Default) */}
               <Route path="/" element={<HomePage />} />
-              <Route path="/servicos-seo" element={<SeoServicesPage />} />
+              <Route path="/seo-local" element={<LocalSeoPage />} />
+              <Route path="/servicos-seo" element={<Navigate to="/" replace />} />
               <Route path="/google-ads" element={<GoogleAdsPage />} />
               <Route path="/modernizacao-sites" element={<ModernizationPage />} />
               <Route path="/blog" element={<BlogListPage />} />
@@ -32,7 +34,8 @@ export default function App() {
 
               {/* Spanish (Español) */}
               <Route path="/es" element={<HomePage />} />
-              <Route path="/es/servicios-seo" element={<SeoServicesPage />} />
+              <Route path="/es/seo-local" element={<LocalSeoPage />} />
+              <Route path="/es/servicios-seo" element={<Navigate to="/es" replace />} />
               <Route path="/es/google-ads" element={<GoogleAdsPage />} />
               <Route path="/es/modernizacion-sitios" element={<ModernizationPage />} />
               <Route path="/es/blog" element={<BlogListPage />} />
@@ -40,7 +43,8 @@ export default function App() {
 
               {/* English */}
               <Route path="/en" element={<HomePage />} />
-              <Route path="/en/seo-services" element={<SeoServicesPage />} />
+              <Route path="/en/local-seo" element={<LocalSeoPage />} />
+              <Route path="/en/seo-services" element={<Navigate to="/en" replace />} />
               <Route path="/en/google-ads" element={<GoogleAdsPage />} />
               <Route path="/en/site-modernization" element={<ModernizationPage />} />
               <Route path="/en/blog" element={<BlogListPage />} />

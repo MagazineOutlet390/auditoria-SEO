@@ -43,7 +43,8 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const getLocalizedPath = (path: string): string => {
     const routes = ROUTES_BY_LANG[lang];
     if (path === '/' || path === '') return routes.home;
-    if (path === '/servicos-seo' || path === '/servicios-seo' || path === '/seo-services') return routes.seoServices;
+    if (path === '/servicos-seo' || path === '/servicios-seo' || path === '/seo-services') return routes.home;
+    if (path === '/seo-local' || path === '/local-seo') return routes.localSeo;
     if (path === '/google-ads') return routes.googleAds;
     if (path === '/modernizacao-sites' || path === '/modernizacion-sitios' || path === '/site-modernization') return routes.modernization;
     if (path === '/blog') return routes.blog;
@@ -58,7 +59,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const routes = ROUTES_BY_LANG[lang];
     return [
       { name: t.nav.home, path: routes.home },
-      { name: t.nav.seoServices, path: routes.seoServices },
+      { name: t.nav.localSeo, path: routes.localSeo },
       { name: t.nav.googleAds, path: routes.googleAds },
       { name: t.nav.modernization, path: routes.modernization },
       { name: t.nav.blog, path: routes.blog },

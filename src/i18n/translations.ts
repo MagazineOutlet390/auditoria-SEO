@@ -5,6 +5,8 @@ export interface SiteTranslations {
     siteName: string;
     homeTitle: string;
     homeDescription: string;
+    localSeoTitle: string;
+    localSeoDescription: string;
     seoServicesTitle: string;
     seoServicesDescription: string;
     googleAdsTitle: string;
@@ -16,6 +18,7 @@ export interface SiteTranslations {
   };
   nav: {
     home: string;
+    localSeo: string;
     seoServices: string;
     googleAds: string;
     modernization: string;
@@ -309,8 +312,10 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
   pt: {
     meta: {
       siteName: 'Auditoria SEO',
-      homeTitle: 'Auditoria SEO | Sites de Alta Conversão e SEO Local',
-      homeDescription: 'Melhore sua presença no Google com sites de alta conversão e SEO Local. Atraia mais clientes pelo Google Maps e fortaleça sua presença digital.',
+      homeTitle: 'Auditoria SEO | Agência de SEO, Otimização de Sites e Consultoria',
+      homeDescription: 'Agência de SEO especializada em auditoria técnica, consultoria estratégica, otimização de sites e posicionamento orgânico no Google. Atraia clientes qualificados.',
+      localSeoTitle: 'SEO Local e Google Meu Negócio: Destaque no Google Maps | Auditoria SEO',
+      localSeoDescription: 'Otimize seu Perfil da Empresa no Google (Google Meu Negócio) e conquiste o topo do Google Maps com estratégias avançadas de SEO Local para empresas.',
       seoServicesTitle: 'Serviços de SEO e SEO Local | Auditoria SEO',
       seoServicesDescription: 'Conheça nossos serviços de SEO, auditoria técnica, estratégia de conteúdo e SEO Local para melhorar a visibilidade da sua empresa no Google e atrair clientes.',
       googleAdsTitle: 'Google Ads: Configuração e Otimização de Campanhas | Auditoria SEO',
@@ -322,6 +327,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
     },
     nav: {
       home: 'Início',
+      localSeo: 'SEO Local',
       seoServices: 'Serviços de SEO',
       googleAds: 'Google Ads',
       modernization: 'Modernização de Sites',
@@ -986,8 +992,10 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
   es: {
     meta: {
       siteName: 'Auditoria SEO',
-      homeTitle: 'Auditoría SEO | Sitios de Alta Conversión y SEO Local',
-      homeDescription: 'Mejore su presencia en Google con sitios de alta conversión y SEO Local. Atraiga más clientes a través de Google Maps y fortalezca su presencia digital.',
+      homeTitle: 'Auditoría SEO | Agencia de SEO, Optimización Web y Consultoría',
+      homeDescription: 'Agencia de SEO especializada en auditoría técnica, consultoría estratégica, optimización web y posicionamiento orgánico en Google.',
+      localSeoTitle: 'SEO Local y Perfil de Empresa en Google: Google Maps | Auditoría SEO',
+      localSeoDescription: 'Optimice su Perfil de Empresa en Google y alcance las primeras posiciones en Google Maps con estrategias avanzadas de SEO Local para negocios.',
       seoServicesTitle: 'Servicios de SEO y SEO Local | Auditoría SEO',
       seoServicesDescription: 'Conozca nuestros servicios de SEO, auditoría técnica, estrategia de contenido y SEO Local para mejorar la visibilidad de su empresa en Google.',
       googleAdsTitle: 'Google Ads: Configuración y Optimización de Campañas | Auditoría SEO',
@@ -999,6 +1007,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
     },
     nav: {
       home: 'Inicio',
+      localSeo: 'SEO Local',
       seoServices: 'Servicios de SEO',
       googleAds: 'Google Ads',
       modernization: 'Modernización Web',
@@ -1663,8 +1672,10 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
   en: {
     meta: {
       siteName: 'Auditoria SEO',
-      homeTitle: 'Auditoria SEO | High-Converting Websites & Local SEO',
-      homeDescription: 'Improve your Google presence with high-converting websites and Local SEO. Attract more clients through Google Maps and strengthen your digital authority.',
+      homeTitle: 'Auditoria SEO | SEO Agency, Website Optimization & Consulting',
+      homeDescription: 'Specialized SEO agency delivering technical SEO audits, strategic consulting, website optimization, and sustainable Google organic growth.',
+      localSeoTitle: 'Local SEO & Google Business Profile: Google Maps Ranking | Auditoria SEO',
+      localSeoDescription: 'Optimize your Google Business Profile and dominate Google Maps with proven local SEO strategies for businesses and regional brands.',
       seoServicesTitle: 'SEO & Local SEO Services | Auditoria SEO',
       seoServicesDescription: 'Discover our specialized SEO services, technical audits, content strategies, and Local SEO to elevate your company visibility on Google.',
       googleAdsTitle: 'Google Ads: Campaign Setup & Strategic Optimization | Auditoria SEO',
@@ -1676,6 +1687,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
     },
     nav: {
       home: 'Home',
+      localSeo: 'Local SEO',
       seoServices: 'SEO Services',
       googleAds: 'Google Ads',
       modernization: 'Website Modernization',

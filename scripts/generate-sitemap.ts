@@ -32,21 +32,21 @@ async function generateSitemapAndRobots() {
   const canonicalUrls: SitemapUrl[] = [
     // Portuguese (Default)
     { loc: `${DOMAIN}/`, lastmod: TODAY, changefreq: 'weekly', priority: '1.0' },
-    { loc: `${DOMAIN}/servicos-seo`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
+    { loc: `${DOMAIN}/seo-local`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
     { loc: `${DOMAIN}/google-ads`, lastmod: TODAY, changefreq: 'monthly', priority: '0.8' },
     { loc: `${DOMAIN}/modernizacao-sites`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
     { loc: `${DOMAIN}/blog`, lastmod: TODAY, changefreq: 'daily', priority: '0.8' },
 
     // Spanish (América Latina / Internacional)
-    { loc: `${DOMAIN}/es`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
-    { loc: `${DOMAIN}/es/servicios-seo`, lastmod: TODAY, changefreq: 'weekly', priority: '0.8' },
+    { loc: `${DOMAIN}/es`, lastmod: TODAY, changefreq: 'weekly', priority: '1.0' },
+    { loc: `${DOMAIN}/es/seo-local`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
     { loc: `${DOMAIN}/es/google-ads`, lastmod: TODAY, changefreq: 'monthly', priority: '0.8' },
     { loc: `${DOMAIN}/es/modernizacion-sitios`, lastmod: TODAY, changefreq: 'weekly', priority: '0.8' },
     { loc: `${DOMAIN}/es/blog`, lastmod: TODAY, changefreq: 'daily', priority: '0.7' },
 
     // English (Global)
-    { loc: `${DOMAIN}/en`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
-    { loc: `${DOMAIN}/en/seo-services`, lastmod: TODAY, changefreq: 'weekly', priority: '0.8' },
+    { loc: `${DOMAIN}/en`, lastmod: TODAY, changefreq: 'weekly', priority: '1.0' },
+    { loc: `${DOMAIN}/en/local-seo`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
     { loc: `${DOMAIN}/en/google-ads`, lastmod: TODAY, changefreq: 'monthly', priority: '0.8' },
     { loc: `${DOMAIN}/en/site-modernization`, lastmod: TODAY, changefreq: 'weekly', priority: '0.8' },
     { loc: `${DOMAIN}/en/blog`, lastmod: TODAY, changefreq: 'daily', priority: '0.7' },
@@ -70,8 +70,25 @@ async function generateSitemapAndRobots() {
         postDate = new Date(post.publishedAt).toISOString().split('T')[0];
       }
 
+      // Portuguese
       canonicalUrls.push({
         loc: `${DOMAIN}/blog/${slug}`,
+        lastmod: postDate,
+        changefreq: 'monthly',
+        priority: '0.7',
+      });
+
+      // Spanish
+      canonicalUrls.push({
+        loc: `${DOMAIN}/es/blog/${slug}`,
+        lastmod: postDate,
+        changefreq: 'monthly',
+        priority: '0.7',
+      });
+
+      // English
+      canonicalUrls.push({
+        loc: `${DOMAIN}/en/blog/${slug}`,
         lastmod: postDate,
         changefreq: 'monthly',
         priority: '0.7',
@@ -88,6 +105,18 @@ async function generateSitemapAndRobots() {
 
       canonicalUrls.push({
         loc: `${DOMAIN}/blog/${slug}`,
+        lastmod: postDate,
+        changefreq: 'monthly',
+        priority: '0.7',
+      });
+      canonicalUrls.push({
+        loc: `${DOMAIN}/es/blog/${slug}`,
+        lastmod: postDate,
+        changefreq: 'monthly',
+        priority: '0.7',
+      });
+      canonicalUrls.push({
+        loc: `${DOMAIN}/en/blog/${slug}`,
         lastmod: postDate,
         changefreq: 'monthly',
         priority: '0.7',
@@ -136,8 +165,12 @@ Sitemap: ${DOMAIN}/sitemap.xml
   if (fs.existsSync(distDir)) {
     const distSitemapPath = path.join(distDir, 'sitemap.xml');
     const distRobotsPath = path.join(distDir, 'robots.txt');
+    const distRedirectsPath = path.join(distDir, '_redirects');
     fs.writeFileSync(distSitemapPath, sitemapXml, 'utf-8');
     fs.writeFileSync(distRobotsPath, robotsTxt, 'utf-8');
+    if (fs.existsSync(publicRobotsPath.replace('robots.txt', '_redirects'))) {
+      fs.copyFileSync(publicRobotsPath.replace('robots.txt', '_redirects'), distRedirectsPath);
+    }
     console.log(`[SEO-GEN] Arquivos copiados também para a pasta de distribuição: ${distDir}`);
   }
 

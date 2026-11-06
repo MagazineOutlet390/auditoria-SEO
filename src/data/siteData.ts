@@ -14,8 +14,9 @@ export const SITE_CONFIG = {
 
 export const NAV_LINKS = [
   { name: 'Início', path: '/' },
-  { name: 'Serviços de SEO', path: '/servicos-seo' },
+  { name: 'SEO Local', path: '/seo-local' },
   { name: 'Google Ads', path: '/google-ads' },
+  { name: 'Modernização de Sites', path: '/modernizacao-sites' },
   { name: 'Blog', path: '/blog' },
 ];
 
