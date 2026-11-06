@@ -73,12 +73,10 @@ export const BlogPostPage: React.FC = () => {
     .filter((line) => line.trim().startsWith('### '))
     .map((line) => line.trim().replace('### ', ''));
 
-  const articleTitle = post.seoTitle
-    ? (post.seoTitle.includes('Auditoria SEO') ? post.seoTitle : `${post.seoTitle} | Auditoria SEO`)
-    : `${post.title} | Auditoria SEO`;
+  const articleTitle = post.seoTitle || `${post.title} | Auditoria SEO`;
   const articleDescription = post.metaDescription || post.excerpt;
   const canonicalPath = `/blog/${post.slug.current}`;
-  const articleOgImage = post.mainImage?.asset?.url || 'https://auditoriaseo.com.br/og-image.png';
+  const articleOgImage = post.ogImage || post.mainImage?.asset?.url || 'https://auditoriaseo.com.br/og-image.png';
   const articleOgImageAlt = post.mainImage?.alt || post.title;
   const absoluteOgImageUrl = articleOgImage.startsWith('http')
     ? articleOgImage

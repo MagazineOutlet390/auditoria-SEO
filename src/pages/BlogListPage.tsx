@@ -30,6 +30,7 @@ export const BlogListPage: React.FC<BlogListPageProps> = () => {
 
   const categories = [
     { id: 'all', label: bData.filterAll },
+    { id: 'SEO para Advogados', label: 'SEO para Advogados' },
     { id: 'SEO Local', label: 'SEO Local' },
     { id: 'Landing Pages', label: 'Landing Pages' },
     { id: 'Google Ads', label: 'Google Ads' },

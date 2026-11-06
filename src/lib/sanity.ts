@@ -1,4 +1,5 @@
 import { SanityPost } from '../types';
+import { LEGAL_ARTICLES } from './legalArticles';
 
 const envProjectId = (
   (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SANITY_PROJECT_ID) ||
@@ -107,6 +108,7 @@ export default {
 `;
 
 export const FALLBACK_ARTICLES: SanityPost[] = [
+  ...LEGAL_ARTICLES,
   {
     _id: 'post-como-otimizar-google-meu-negocio',
     title: 'Como otimizar o Google Meu Negócio: guia completo para melhorar seu Perfil da Empresa no Google',
