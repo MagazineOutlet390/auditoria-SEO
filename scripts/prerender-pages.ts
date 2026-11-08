@@ -229,16 +229,25 @@ async function prerenderAllPages() {
 
     // Open Graph
     const ogLocale = p.lang === 'pt' ? 'pt_BR' : (p.lang === 'es' ? 'es_ES' : 'en_US');
-    setMeta(doc, 'property', 'og:title', p.ogTitle || p.title);
-    setMeta(doc, 'property', 'og:description', p.ogDescription || p.description);
+    const imageMimeType = p.ogImage?.endsWith('.png') ? 'image/png' : (p.ogImage?.endsWith('.webp') ? 'image/webp' : 'image/jpeg');
     setMeta(doc, 'property', 'og:type', p.ogType || 'website');
     setMeta(doc, 'property', 'og:url', canonicalUrl);
+    setMeta(doc, 'property', 'og:title', p.ogTitle || p.title);
+    setMeta(doc, 'property', 'og:description', p.ogDescription || p.description);
     setMeta(doc, 'property', 'og:image', p.ogImage || `${DOMAIN}/og-image.png`);
+    setMeta(doc, 'property', 'og:image:secure_url', p.ogImage || `${DOMAIN}/og-image.png`);
+    setMeta(doc, 'property', 'og:image:type', imageMimeType);
     setMeta(doc, 'property', 'og:image:width', '1200');
     setMeta(doc, 'property', 'og:image:height', '630');
     setMeta(doc, 'property', 'og:image:alt', p.ogImageAlt || p.title);
     setMeta(doc, 'property', 'og:site_name', 'Auditoria SEO');
     setMeta(doc, 'property', 'og:locale', ogLocale);
+
+    if (p.ogType === 'article') {
+      setMeta(doc, 'name', 'author', 'Wesley Vieira');
+      setMeta(doc, 'property', 'article:author', 'Wesley Vieira');
+      setMeta(doc, 'property', 'article:publisher', DOMAIN);
+    }
 
     // Twitter Card
     setMeta(doc, 'name', 'twitter:card', 'summary_large_image');
@@ -247,8 +256,11 @@ async function prerenderAllPages() {
     setMeta(doc, 'name', 'twitter:image', p.ogImage || `${DOMAIN}/og-image.png`);
     setMeta(doc, 'name', 'twitter:image:alt', p.ogImageAlt || p.title);
 
-    // Schema.org BlogPosting for articles
+    // Schema.org BlogPosting for articles: purge any inherited homepage ProfessionalService schema
     if (p.ogType === 'article') {
+      const oldLdScripts = doc.querySelectorAll('script[type="application/ld+json"]');
+      oldLdScripts.forEach((s) => s.remove());
+
       const scriptLd = doc.createElement('script');
       scriptLd.type = 'application/ld+json';
       scriptLd.textContent = JSON.stringify({
@@ -257,6 +269,8 @@ async function prerenderAllPages() {
         headline: p.title,
         description: p.description,
         image: p.ogImage,
+        url: canonicalUrl,
+        mainEntityOfPage: canonicalUrl,
         inLanguage: p.lang === 'pt' ? 'pt-BR' : p.lang,
         author: {
           '@type': 'Person',
@@ -272,7 +286,6 @@ async function prerenderAllPages() {
             url: 'https://auditoriaseo.com.br/icon-512.png',
           },
         },
-        mainEntityOfPage: canonicalUrl,
       });
       doc.head.appendChild(scriptLd);
     }

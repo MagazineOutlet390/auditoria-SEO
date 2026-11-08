@@ -137,16 +137,30 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     setMetaTag('property', 'og:type', ogType);
     setMetaTag('property', 'og:url', canonicalUrl);
     setMetaTag('property', 'og:image', fullOgImageUrl);
+    setMetaTag('property', 'og:image:secure_url', fullOgImageUrl);
+    const imageMimeType = fullOgImageUrl.endsWith('.png') ? 'image/png' : (fullOgImageUrl.endsWith('.webp') ? 'image/webp' : 'image/jpeg');
+    setMetaTag('property', 'og:image:type', imageMimeType);
     setMetaTag('property', 'og:image:alt', imageAltText);
     setMetaTag('property', 'og:image:width', ogImageWidth || '1200');
     setMetaTag('property', 'og:image:height', ogImageHeight || '630');
     setMetaTag('property', 'og:site_name', 'Auditoria SEO');
     setMetaTag('property', 'og:locale', ogLocale);
 
-    // Article Specific Timestamps
+    // Article Specific Timestamps and schema sanitization
     if (ogType === 'article') {
       if (publishedTime) setMetaTag('property', 'article:published_time', publishedTime);
       if (modifiedTime) setMetaTag('property', 'article:modified_time', modifiedTime);
+      setMetaTag('name', 'author', 'Wesley Vieira');
+      setMetaTag('property', 'article:author', 'Wesley Vieira');
+      setMetaTag('property', 'article:publisher', DOMAIN);
+
+      // Purge any conflicting homepage ProfessionalService JSON-LD
+      const scripts = document.querySelectorAll('script[type="application/ld+json"]');
+      scripts.forEach((s) => {
+        if (s.textContent?.includes('ProfessionalService')) {
+          s.parentNode?.removeChild(s);
+        }
+      });
     }
 
     // Twitter Card

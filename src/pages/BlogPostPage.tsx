@@ -137,6 +137,7 @@ export const BlogPostPage: React.FC = () => {
             },
             datePublished: post.publishedAt,
             dateModified: post.updatedAt || post.publishedAt,
+            url: `https://auditoriaseo.com.br${canonicalPath}`,
             mainEntityOfPage: `https://auditoriaseo.com.br${canonicalPath}`,
           }),
         }}
