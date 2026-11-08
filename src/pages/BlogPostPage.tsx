@@ -96,10 +96,14 @@ export const BlogPostPage: React.FC = () => {
       <SEOHead
         title={articleTitle}
         description={articleDescription}
+        ogTitle={post.ogTitle || articleTitle}
+        ogDescription={post.ogDescription || articleDescription}
         canonicalPath={canonicalPath}
         ogType="article"
         ogImage={absoluteOgImageUrl}
         ogImageAlt={articleOgImageAlt}
+        ogImageWidth="1200"
+        ogImageHeight="630"
         publishedTime={post.publishedAt}
         modifiedTime={post.updatedAt || post.publishedAt}
         currentLang={lang}

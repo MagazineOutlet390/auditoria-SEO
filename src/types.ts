@@ -80,6 +80,8 @@ export interface SanityPost {
   };
   seoTitle?: string;
   metaDescription?: string;
+  ogTitle?: string;
+  ogDescription?: string;
   ogImage?: string;
   readingTimeMinutes: number;
 }

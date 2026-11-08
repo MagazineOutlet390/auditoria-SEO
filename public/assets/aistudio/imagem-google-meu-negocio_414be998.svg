@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" font-family="Inter, 'DejaVu Sans', sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EAF2FF"/>
+      <stop offset="1" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#CFE3FF"/>
+      <stop offset="1" stop-color="#EAF3FF"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#0B1F44" flood-opacity="0.18"/>
+    </filter>
+    <filter id="shadowSm" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#0B1F44" flood-opacity="0.18"/>
+    </filter>
+    <clipPath id="mapClip"><rect x="700" y="80" width="820" height="740" rx="40"/></clipPath>
+    <clipPath id="cardTop"><rect x="0" y="0" width="620" height="210" rx="0"/></clipPath>
+    <clipPath id="cardClip"><rect x="0" y="0" width="620" height="680" rx="30"/></clipPath>
+    <path id="pin" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/>
+    <path id="star" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+    <path id="phone" d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+    <path id="route" d="M21.71 11.29l-9-9a.996.996 0 00-1.41 0l-9 9a.996.996 0 000 1.41l9 9c.39.39 1.02.39 1.41 0l9-9a.996.996 0 000-1.41zM14 14.5V12h-4v3H8v-4c0-.55.45-1 1-1h5V7.5l3.5 3.5-3.5 3.5z"/>
+    <path id="globe" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+    <path id="clock" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+    <path id="bookmark" d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
+  </defs>
+
+  <!-- Fundo -->
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="90" cy="820" r="220" fill="#1A73E8" opacity="0.06"/>
+  <circle cx="1540" cy="70" r="180" fill="#1A73E8" opacity="0.06"/>
+
+  <!-- Mapa -->
+  <g clip-path="url(#mapClip)">
+    <rect x="700" y="80" width="820" height="740" fill="#DFE9F5"/>
+    <rect x="1300" y="110" width="200" height="160" rx="26" fill="#CDE8D2"/>
+    <rect x="760" y="640" width="150" height="150" rx="26" fill="#CDE8D2"/>
+    <path d="M1520 580 C1430 610 1385 710 1335 830 L1530 830 Z" fill="#BFD9F4"/>
+    <g stroke="#FFFFFF" fill="none" stroke-linecap="round">
+      <path d="M700 300 L1520 390" stroke-width="30"/>
+      <path d="M700 610 L1520 520" stroke-width="30"/>
+      <path d="M930 80 L1070 820" stroke-width="30"/>
+      <path d="M1290 80 L1220 820" stroke-width="30"/>
+      <path d="M700 460 L1520 250" stroke-width="14"/>
+      <path d="M1100 80 L1500 780" stroke-width="14"/>
+      <path d="M700 760 L1300 700" stroke-width="14"/>
+    </g>
+    <!-- pulso -->
+    <ellipse cx="1160" cy="450" rx="170" ry="54" fill="#1A73E8" opacity="0.12"/>
+    <ellipse cx="1160" cy="450" rx="100" ry="32" fill="#1A73E8" opacity="0.2"/>
+    <!-- pins secundarios -->
+    <g fill="#9AA7B8">
+      <use href="#pin" transform="translate(880 330) scale(2.6)"/>
+      <use href="#pin" transform="translate(1370 330) scale(2.6)"/>
+      <use href="#pin" transform="translate(1340 560) scale(2.6)"/>
+      <use href="#pin" transform="translate(1000 560) scale(2.6)"/>
+    </g>
+    <!-- pin principal -->
+    <g transform="translate(1100 330) scale(5)">
+      <use href="#pin" fill="#EA4335"/>
+      <circle cx="12" cy="9" r="3.2" fill="#FFFFFF"/>
+    </g>
+  </g>
+
+  <!-- Selo: ranking -->
+  <g filter="url(#shadowSm)">
+    <rect x="960" y="150" width="520" height="84" rx="42" fill="#1A73E8"/>
+    <circle cx="1002" cy="192" r="28" fill="#FFFFFF"/>
+    <text x="1002" y="203" text-anchor="middle" font-size="30" font-weight="800" fill="#1A73E8">1º</text>
+    <text x="1048" y="203" font-size="30" font-weight="700" fill="#FFFFFF">Entre os primeiros no Maps</text>
+  </g>
+
+  <!-- Bolha: ligacao -->
+  <g filter="url(#shadowSm)">
+    <circle cx="1010" cy="690" r="58" fill="#34A853"/>
+    <g transform="translate(980 660) scale(2.5)" fill="#FFFFFF"><use href="#phone"/></g>
+  </g>
+
+  <!-- Bolha: avaliacao -->
+  <g filter="url(#shadowSm)">
+    <rect x="1110" y="620" width="380" height="120" rx="26" fill="#FFFFFF"/>
+    <circle cx="1166" cy="680" r="28" fill="#D7E6FF"/>
+    <circle cx="1166" cy="672" r="10" fill="#1A73E8"/>
+    <path d="M1146 700 C1150 686 1182 686 1186 700 Z" fill="#1A73E8"/>
+    <g fill="#FBBC04">
+      <use href="#star" transform="translate(1210 648) scale(1.2)"/>
+      <use href="#star" transform="translate(1240 648) scale(1.2)"/>
+      <use href="#star" transform="translate(1270 648) scale(1.2)"/>
+      <use href="#star" transform="translate(1300 648) scale(1.2)"/>
+      <use href="#star" transform="translate(1330 648) scale(1.2)"/>
+    </g>
+    <text x="1210" y="710" font-size="23" font-weight="600" fill="#0B1F44">Atendimento excelente!</text>
+  </g>
+
+  <!-- Cartao do perfil -->
+  <g transform="translate(110 110)" filter="url(#shadow)">
+    <rect x="0" y="0" width="620" height="680" rx="30" fill="#FFFFFF"/>
+  </g>
+  <g transform="translate(110 110)" clip-path="url(#cardClip)">
+    <!-- Fachada -->
+    <g clip-path="url(#cardTop)">
+      <rect x="0" y="0" width="620" height="210" fill="url(#sky)"/>
+      <rect x="0" y="190" width="620" height="20" fill="#C4D6EE"/>
+      <!-- corpo da loja -->
+      <rect x="110" y="96" width="400" height="104" fill="#F7FAFF"/>
+      <rect x="140" y="120" width="110" height="64" rx="6" fill="#BBD7FF"/>
+      <rect x="370" y="120" width="110" height="64" rx="6" fill="#BBD7FF"/>
+      <rect x="276" y="118" width="68" height="82" rx="6" fill="#1A73E8"/>
+      <circle cx="334" cy="160" r="4" fill="#FFFFFF"/>
+      <!-- toldo -->
+      <g>
+        <rect x="90" y="52" width="60" height="46" fill="#1A73E8"/>
+        <rect x="150" y="52" width="60" height="46" fill="#FFFFFF"/>
+        <rect x="210" y="52" width="60" height="46" fill="#1A73E8"/>
+        <rect x="270" y="52" width="60" height="46" fill="#FFFFFF"/>
+        <rect x="330" y="52" width="60" height="46" fill="#1A73E8"/>
+        <rect x="390" y="52" width="60" height="46" fill="#FFFFFF"/>
+        <rect x="450" y="52" width="80" height="46" fill="#1A73E8"/>
+        <g>
+          <circle cx="120" cy="98" r="30" fill="#1A73E8"/>
+          <circle cx="180" cy="98" r="30" fill="#FFFFFF"/>
+          <circle cx="240" cy="98" r="30" fill="#1A73E8"/>
+          <circle cx="300" cy="98" r="30" fill="#FFFFFF"/>
+          <circle cx="360" cy="98" r="30" fill="#1A73E8"/>
+          <circle cx="420" cy="98" r="30" fill="#FFFFFF"/>
+          <circle cx="490" cy="98" r="40" fill="#1A73E8"/>
+        </g>
+        <rect x="90" y="40" width="440" height="14" rx="7" fill="#0F5BC4"/>
+      </g>
+      <!-- placa aberto -->
+      <g transform="translate(446 140) rotate(-6)">
+        <rect x="0" y="0" width="110" height="44" rx="10" fill="#34A853"/>
+        <text x="55" y="30" text-anchor="middle" font-size="22" font-weight="800" fill="#FFFFFF">ABERTO</text>
+      </g>
+    </g>
+
+    <!-- Nome e avaliacao -->
+    <text x="40" y="268" font-size="40" font-weight="800" fill="#0B1F44">Sua Empresa Local</text>
+    <text x="40" y="318" font-size="30" font-weight="700" fill="#0B1F44">4,9</text>
+    <g fill="#FBBC04">
+      <use href="#star" transform="translate(102 292) scale(1.15)"/>
+      <use href="#star" transform="translate(131 292) scale(1.15)"/>
+      <use href="#star" transform="translate(160 292) scale(1.15)"/>
+      <use href="#star" transform="translate(189 292) scale(1.15)"/>
+      <use href="#star" transform="translate(218 292) scale(1.15)"/>
+    </g>
+    <text x="256" y="318" font-size="24" fill="#5B6B82">(128 avaliações)</text>
+    <text x="40" y="362" font-size="24" fill="#5B6B82">Negócio local · <tspan font-weight="700" fill="#188038">Aberto agora</tspan></text>
+
+    <!-- Botoes -->
+    <g>
+<rect x="40" y="394" width="126" height="64" rx="32" fill="#1A73E8"/>
+<g transform="translate(56 413) scale(1.2)" fill="#FFFFFF"><use href="#phone"/></g>
+<text x="90" y="433" font-size="19" font-weight="700" fill="#FFFFFF">Ligar</text>
+<rect x="178" y="394" width="126" height="64" rx="32" fill="#FFFFFF" stroke="#C5D5EC" stroke-width="2.5"/>
+<g transform="translate(194 413) scale(1.2)" fill="#1A73E8"><use href="#route"/></g>
+<text x="228" y="433" font-size="19" font-weight="700" fill="#1A73E8">Rotas</text>
+<rect x="316" y="394" width="126" height="64" rx="32" fill="#FFFFFF" stroke="#C5D5EC" stroke-width="2.5"/>
+<g transform="translate(332 413) scale(1.2)" fill="#1A73E8"><use href="#globe"/></g>
+<text x="366" y="433" font-size="19" font-weight="700" fill="#1A73E8">Site</text>
+<rect x="454" y="394" width="126" height="64" rx="32" fill="#FFFFFF" stroke="#C5D5EC" stroke-width="2.5"/>
+<g transform="translate(470 413) scale(1.2)" fill="#1A73E8"><use href="#bookmark"/></g>
+<text x="504" y="433" font-size="19" font-weight="700" fill="#1A73E8">Salvar</text>
+    </g>
+
+    <line x1="40" y1="494" x2="580" y2="494" stroke="#E3EAF5" stroke-width="2"/>
+
+    <!-- Informacoes -->
+    <g fill="#1A73E8">
+      <use href="#pin" transform="translate(40 518) scale(1.5)"/>
+      <use href="#clock" transform="translate(40 570) scale(1.5)"/>
+      <use href="#globe" transform="translate(40 622) scale(1.5)"/>
+    </g>
+    <text x="92" y="546" font-size="24" fill="#0B1F44">Rua das Flores, 120 — Centro</text>
+    <text x="92" y="598" font-size="24" fill="#0B1F44"><tspan font-weight="700" fill="#188038">Aberto</tspan> · Fecha às 19h</text>
+    <text x="92" y="650" font-size="24" fill="#1A73E8">suaempresa.com.br</text>
+  </g>
+
+  <!-- Etiqueta do tema -->
+  <g filter="url(#shadowSm)">
+    <rect x="110" y="30" width="470" height="62" rx="31" fill="#FFFFFF"/>
+    <g transform="translate(130 42) scale(1.6)" fill="#EA4335"><use href="#pin"/></g>
+    <text x="180" y="72" font-size="30" font-weight="700" fill="#0B1F44">Google Meu Negócio</text>
+  </g>
+</svg>

@@ -4,10 +4,14 @@ import { Language } from '../../i18n/types';
 export interface SEOHeadProps {
   title: string;
   description: string;
+  ogTitle?: string;
+  ogDescription?: string;
   canonicalPath?: string;
   ogType?: 'website' | 'article';
   ogImage?: string;
   ogImageAlt?: string;
+  ogImageWidth?: string;
+  ogImageHeight?: string;
   publishedTime?: string;
   modifiedTime?: string;
   noindex?: boolean;
@@ -21,10 +25,14 @@ const DEFAULT_OG_IMAGE = `${DOMAIN}/og-image.png`;
 export const SEOHead: React.FC<SEOHeadProps> = ({
   title,
   description,
+  ogTitle,
+  ogDescription,
   canonicalPath = '/',
   ogType = 'website',
   ogImage = DEFAULT_OG_IMAGE,
   ogImageAlt,
+  ogImageWidth = '1200',
+  ogImageHeight = '630',
   publishedTime,
   modifiedTime,
   noindex = false,
@@ -122,16 +130,16 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       });
     }
 
-    // Open Graph / Facebook
+    // Open Graph / Facebook / WhatsApp
     const ogLocale = currentLang === 'pt' ? 'pt_BR' : currentLang === 'es' ? 'es_ES' : 'en_US';
-    setMetaTag('property', 'og:title', title);
-    setMetaTag('property', 'og:description', description);
+    setMetaTag('property', 'og:title', ogTitle || title);
+    setMetaTag('property', 'og:description', ogDescription || description);
     setMetaTag('property', 'og:type', ogType);
     setMetaTag('property', 'og:url', canonicalUrl);
     setMetaTag('property', 'og:image', fullOgImageUrl);
     setMetaTag('property', 'og:image:alt', imageAltText);
-    setMetaTag('property', 'og:image:width', '1200');
-    setMetaTag('property', 'og:image:height', '630');
+    setMetaTag('property', 'og:image:width', ogImageWidth || '1200');
+    setMetaTag('property', 'og:image:height', ogImageHeight || '630');
     setMetaTag('property', 'og:site_name', 'Auditoria SEO');
     setMetaTag('property', 'og:locale', ogLocale);
 
@@ -143,11 +151,11 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
 
     // Twitter Card
     setMetaTag('name', 'twitter:card', 'summary_large_image');
-    setMetaTag('name', 'twitter:title', title);
-    setMetaTag('name', 'twitter:description', description);
+    setMetaTag('name', 'twitter:title', ogTitle || title);
+    setMetaTag('name', 'twitter:description', ogDescription || description);
     setMetaTag('name', 'twitter:image', fullOgImageUrl);
     setMetaTag('name', 'twitter:image:alt', imageAltText);
-  }, [title, description, canonicalPath, ogType, ogImage, ogImageAlt, publishedTime, modifiedTime, noindex, currentLang, hreflangs]);
+  }, [title, description, ogTitle, ogDescription, canonicalPath, ogType, ogImage, ogImageAlt, ogImageWidth, ogImageHeight, publishedTime, modifiedTime, noindex, currentLang, hreflangs]);
 
   return null;
 };

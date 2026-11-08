@@ -459,12 +459,15 @@ export const FALLBACK_ARTICLES: SanityPost[] = [
     },
     mainImage: {
       asset: {
-        url: '/images/blog/capa-google-meu-negocio-nao-aparece-google-maps.webp',
+        url: '/images/blog/og-google-meu-negocio-nao-aparece-google-maps.png',
       },
-      alt: 'Tablet sobre mesa de escritório exibindo mapa digital do Google Maps com marcador de localização em diagnóstico técnico',
+      alt: 'Google Meu Negócio não aparece no Google Maps? Veja como resolver',
     },
-    seoTitle: 'Google Meu Negócio Não Aparece no Google Maps? Como Corrigir | Auditoria SEO',
-    metaDescription: 'Descubra por que sua empresa não aparece no Google Maps: perfil não verificado, suspensão, duplicidades ou raio de distância. Veja o passo a passo para corrigir.',
+    ogImage: '/images/blog/og-google-meu-negocio-nao-aparece-google-maps.png',
+    seoTitle: 'Google Meu Negócio não aparece no Google Maps? Veja como resolver',
+    metaDescription: 'Seu Google Meu Negócio não aparece no Google Maps? Entenda os possíveis motivos e veja como corrigir problemas para melhorar sua visibilidade local.',
+    ogTitle: 'Google Meu Negócio não aparece no Google Maps? Veja como resolver',
+    ogDescription: 'Seu Google Meu Negócio não aparece no Google Maps? Descubra os motivos mais comuns e saiba o que fazer para melhorar sua presença nas pesquisas locais.',
     body: [
       'Poucas situações geram tanta apreensão em um empresário quanto abrir o Google Maps para conferir sua empresa e descobrir que a ficha comercial simplesmente desapareceu do mapa.',
       'O telefone para de tocar, as solicitações de rota caem a zero e as mensagens no WhatsApp murcham da noite para o dia. Em momentos de desespero, muitos proprietários cometem erros fatais — como criar uma nova ficha com outro e-mail ou alterar dados aleatoriamente —, agravando a penalização junto ao Google.',

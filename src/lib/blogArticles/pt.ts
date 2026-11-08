@@ -136,12 +136,15 @@ export const PT_BLOG_ARTICLES: SanityPost[] = [
     },
     mainImage: {
       asset: {
-        url: '/images/blog/capa-google-meu-negocio-nao-aparece-google-maps.webp',
+        url: '/images/blog/og-google-meu-negocio-nao-aparece-google-maps.png',
       },
-      alt: 'Tela de pesquisa do Google Maps com alerta de verificação e status cadastral de empresa',
+      alt: 'Google Meu Negócio não aparece no Google Maps? Veja como resolver',
     },
-    seoTitle: 'Google Meu Negócio Não Aparece no Google Maps? Como Corrigir | Auditoria SEO',
-    metaDescription: 'Descubra por que sua empresa não aparece no Google Maps: perfil não verificado, suspensão, duplicidades ou raio de distância. Veja o passo a passo para corrigir.',
+    ogImage: '/images/blog/og-google-meu-negocio-nao-aparece-google-maps.png',
+    seoTitle: 'Google Meu Negócio não aparece no Google Maps? Veja como resolver',
+    metaDescription: 'Seu Google Meu Negócio não aparece no Google Maps? Entenda os possíveis motivos e veja como corrigir problemas para melhorar sua visibilidade local.',
+    ogTitle: 'Google Meu Negócio não aparece no Google Maps? Veja como resolver',
+    ogDescription: 'Seu Google Meu Negócio não aparece no Google Maps? Descubra os motivos mais comuns e saiba o que fazer para melhorar sua presença nas pesquisas locais.',
     body: [
       'Poucos acontecimentos geram tanta apreensão para um empresário quanto perceber que sua ficha comercial sumiu do Google Maps ou não é exibida quando clientes pesquisam pelos seus serviços.',
       'Identificar o motivo exige discernimento técnico: saber diferenciar se a ausência resulta de verificação cadastral pendente, suspensão formal por violação de diretrizes, duplicidade ou filtro de distância.',
