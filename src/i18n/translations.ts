@@ -321,6 +321,7 @@ export interface SiteTranslations {
     noPosts: string;
     minRead: string;
     readArticle: string;
+    imageCaption: string;
     backToAll: string;
     inThisArticle: string;
     nextStrategicStep: string;
@@ -641,7 +642,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
       trustBadges: [
         'Auditoria pontual por R$ 1.447,00',
         'Práticas 100% White Hat SEO',
-        'Sem contratos de fidelidade abusivos',
+        'Sem contratos abusivos',
       ],
       auditScopeKicker: 'Escopo & Priorização',
       auditScopeTitle: 'O que a Auditoria de SEO avalia e como organizamos as prioridades',
@@ -1111,6 +1112,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
       noPosts: 'Nenhum artigo encontrado para esta categoria no momento.',
       minRead: 'min de leitura',
       readArticle: 'Ler artigo',
+      imageCaption: 'Ilustração gerada por IA.',
       backToAll: 'Voltar para todos os artigos',
       inThisArticle: 'Neste artigo:',
       nextStrategicStep: 'Próximo passo estratégico',
@@ -1430,7 +1432,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
       trustBadges: [
         'Auditoría puntual por R$ 1.447,00',
         'Prácticas 100% White Hat SEO',
-        'Sin contratos de permanencia forzosa',
+        'Sin contratos abusivos',
       ],
       auditScopeKicker: 'Alcance & Priorización',
       auditScopeTitle: 'Qué evalúa la Auditoría de SEO y cómo organizamos las prioridades',
@@ -1900,6 +1902,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
       noPosts: 'No se encontraron artículos para esta categoría por el momento.',
       minRead: 'min de lectura',
       readArticle: 'Leer artículo',
+      imageCaption: 'Ilustración generada por IA.',
       backToAll: 'Volver a todos los artículos',
       inThisArticle: 'En este artículo:',
       nextStrategicStep: 'Próximo paso estratégico',
@@ -2219,7 +2222,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
       trustBadges: [
         'One-time audit at R$ 1,447.00',
         '100% White Hat SEO practices',
-        'No abusive lock-in contracts',
+        'No abusive contracts',
       ],
       auditScopeKicker: 'Scope & Prioritization',
       auditScopeTitle: 'What our SEO Audit reviews and how recommendations are prioritized',
@@ -2689,6 +2692,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
       noPosts: 'No articles found in this category at the moment.',
       minRead: 'min read',
       readArticle: 'Read article',
+      imageCaption: 'AI-generated illustration.',
       backToAll: 'Back to all articles',
       inThisArticle: 'In this article:',
       nextStrategicStep: 'Next strategic step',

@@ -186,7 +186,7 @@ export const BlogPostPage: React.FC = () => {
               className="w-full h-auto rounded-2xl border border-slate-200/90 shadow-sm object-cover"
             />
             <figcaption className="mt-2 text-xs text-slate-400 text-center">
-              Ilustração gerada por IA.
+              {bData.imageCaption}
             </figcaption>
           </figure>
         )}

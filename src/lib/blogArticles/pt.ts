@@ -1,7 +1,9 @@
 import { SanityPost } from '../../types';
 import { LEGAL_ARTICLES } from '../legalArticles';
+import { PT_AUDIT_GUIDES } from './auditGuidesPt';
 
 export const PT_BLOG_ARTICLES: SanityPost[] = [
+  ...PT_AUDIT_GUIDES,
   ...LEGAL_ARTICLES,
   {
     _id: 'post-como-criar-google-meu-negocio',
