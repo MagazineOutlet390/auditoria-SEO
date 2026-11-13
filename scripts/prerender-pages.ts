@@ -44,6 +44,26 @@ async function prerenderAllPages() {
     const t = TRANSLATIONS[lang];
     const routes = ROUTES_BY_LANG[lang];
 
+    // Localized Homepages (/es and /en; root '/' already lives at dist/index.html)
+    if (lang !== 'pt') {
+      pages.push({
+        relPath: routes.home,
+        lang,
+        title: t.meta.homeTitle,
+        description: t.meta.homeDescription,
+        ogTitle: t.meta.homeTitle,
+        ogDescription: t.meta.homeDescription,
+        ogImage: `${DOMAIN}/og-image.png`,
+        ogType: 'website',
+        hreflangs: [
+          { lang: 'pt-BR', href: DOMAIN },
+          { lang: 'es', href: `${DOMAIN}/es` },
+          { lang: 'en', href: `${DOMAIN}/en` },
+          { lang: 'x-default', href: DOMAIN },
+        ],
+      });
+    }
+
     // Local SEO Page
     pages.push({
       relPath: routes.localSeo,
@@ -256,7 +276,7 @@ async function prerenderAllPages() {
     setMeta(doc, 'name', 'twitter:image', p.ogImage || `${DOMAIN}/og-image.png`);
     setMeta(doc, 'name', 'twitter:image:alt', p.ogImageAlt || p.title);
 
-    // Schema.org BlogPosting for articles: purge any inherited homepage ProfessionalService schema
+    // Schema.org JSON-LD: ensure strictly single script per page
     if (p.ogType === 'article') {
       const oldLdScripts = doc.querySelectorAll('script[type="application/ld+json"]');
       oldLdScripts.forEach((s) => s.remove());
@@ -286,6 +306,33 @@ async function prerenderAllPages() {
             url: 'https://auditoriaseo.com.br/icon-512.png',
           },
         },
+      });
+      doc.head.appendChild(scriptLd);
+    } else if (p.relPath === '/es' || p.relPath === '/en') {
+      const langData = TRANSLATIONS[p.lang];
+      const oldLdScripts = doc.querySelectorAll('script[type="application/ld+json"]');
+      oldLdScripts.forEach((s) => s.remove());
+
+      const scriptLd = doc.createElement('script');
+      scriptLd.type = 'application/ld+json';
+      scriptLd.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'ProfessionalService',
+        name: 'Auditoria SEO',
+        url: canonicalUrl,
+        inLanguage: p.lang,
+        logo: 'https://auditoriaseo.com.br/icon-512.png',
+        image: 'https://auditoriaseo.com.br/og-image.png',
+        telephone: '+55-19-98933-2087',
+        areaServed: 'BR',
+        description: langData.meta.homeDescription,
+        hasMap: 'https://share.google/LAMoroMJbdrI9QCsk',
+        founder: {
+          '@type': 'Person',
+          name: 'Wesley Vieira',
+          jobTitle: langData.seoServicesPage.specialistRole,
+        },
+        sameAs: ['https://wa.me/5519989332087', 'https://share.google/LAMoroMJbdrI9QCsk'],
       });
       doc.head.appendChild(scriptLd);
     }

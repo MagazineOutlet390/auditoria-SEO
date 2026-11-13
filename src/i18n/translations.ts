@@ -166,11 +166,46 @@ export interface SiteTranslations {
     primaryCta: string;
     secondaryCta: string;
     trustBadges: string[];
+    auditScopeKicker: string;
+    auditScopeTitle: string;
+    auditScopeSubtitle: string;
+    auditScopeCards: Array<{ title: string; description: string }>;
+    processKicker: string;
+    processTitle: string;
+    processSubtitle: string;
+    processSteps: Array<{ step: string; title: string; description: string }>;
+    specialistEyebrow: string;
+    specialistName: string;
+    specialistRole: string;
+    specialistBio: string;
+    specialistMapsLabel: string;
+    specialistWhatsappLabel: string;
     plansHeadingKicker: string;
     plansTitle: string;
     plansSubtitle: string;
+    planCategories: {
+      audit: string;
+      performance: string;
+      elite: string;
+    };
+    investmentLabel: string;
     deliverablesLabel: string;
     contractButton: string;
+    planCopies: Record<
+      string,
+      {
+        name: string;
+        tagline: string;
+        description: string;
+        deliverables: string[];
+      }
+    >;
+    localSeoCard: {
+      eyebrow: string;
+      title: string;
+      description: string;
+      button: string;
+    };
     whyHeadingKicker: string;
     whyTitle: string;
     whySubtitle: string;
@@ -312,8 +347,8 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
   pt: {
     meta: {
       siteName: 'Auditoria SEO',
-      homeTitle: 'Auditoria SEO | Agência de SEO, Otimização de Sites e Consultoria',
-      homeDescription: 'Agência de SEO especializada em auditoria técnica, consultoria estratégica, otimização de sites e posicionamento orgânico no Google. Atraia clientes qualificados.',
+      homeTitle: 'Auditoria SEO | Auditoria Técnica de Sites e Consultoria',
+      homeDescription: 'Auditoria SEO conduzida por especialista a partir de R$ 1.447. Diagnóstico técnico de indexação, Core Web Vitals, palavras-chave e plano de ação priorizado.',
       localSeoTitle: 'SEO Local e Google Meu Negócio: Destaque no Google Maps | Auditoria SEO',
       localSeoDescription: 'Otimize seu Perfil da Empresa no Google (Google Meu Negócio) e conquiste o topo do Google Maps com estratégias avançadas de SEO Local para empresas.',
       seoServicesTitle: 'Serviços de SEO e SEO Local | Auditoria SEO',
@@ -591,48 +626,153 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
       },
     },
     seoServicesPage: {
-      kicker: 'Serviços Especializados de SEO',
-      titlePart1: 'Estratégias estruturadas para posicionar seu site.',
-      titleShimmer: 'Com autoridade técnica e relevância real.',
-      typewriterLabel: 'Foco em:',
+      kicker: 'Auditoria SEO Conduzida por Especialista',
+      titlePart1: 'Auditoria SEO técnica feita por especialista.',
+      titleShimmer: 'Diagnóstico completo e plano de ação priorizado.',
+      typewriterLabel: 'Análise de:',
       typewriterPhrases: [
-        'Primeira página do Google.',
-        'Tráfego orgânico qualificado.',
-        'Autoridade e relevância permanente.',
+        'SEO técnico, indexação e rastreamento.',
+        'Arquitetura, Core Web Vitals e on-page.',
+        'Palavras-chave e prioridades de execução.',
       ],
-      subtitle: 'Do diagnóstico técnico profundo à construção contínua de relevância orgânica. Escolha o formato de atuação mais alinhado aos objetivos do seu negócio.',
+      subtitle: 'Avaliação individual do seu site conduzida pessoalmente — sem relatórios automáticos genéricos. Você recebe o mapeamento de gargalos de indexação, arquitetura, Core Web Vitals, palavras-chave e um relatório técnico com prioridades de ação por R$ 1.447,00. Envie sua URL pelo WhatsApp ou compare os formatos abaixo.',
       primaryCta: 'Falar com especialista no WhatsApp',
       secondaryCta: 'Ver planos e preços',
       trustBadges: [
-        'Valores claros e entregáveis confirmados',
+        'Auditoria pontual por R$ 1.447,00',
         'Práticas 100% White Hat SEO',
         'Sem contratos de fidelidade abusivos',
       ],
+      auditScopeKicker: 'Escopo & Priorização',
+      auditScopeTitle: 'O que a Auditoria de SEO avalia e como organizamos as prioridades',
+      auditScopeSubtitle: 'Em vez de despejar listas automáticas sem contexto, analisamos os fatores técnicos e orgânicos do seu site e organizamos o relatório por ordem de prioridade.',
+      auditScopeCards: [
+        {
+          title: 'Indexação e Rastreamento',
+          description: 'Mapeamento de erros de rastreamento, falhas de indexação, tags canônicas e diretivas que podem impedir o Google de ler suas páginas.',
+        },
+        {
+          title: 'Arquitetura e Core Web Vitals',
+          description: 'Análise da organização de URLs, estrutura interna, velocidade de carregamento e experiência responsiva em celular e desktop.',
+        },
+        {
+          title: 'Palavras-Chave e On-Page',
+          description: 'Avaliação de metadados, código semântico, estrutura de títulos e oportunidades orgânicas alinhadas à intenção de busca.',
+        },
+        {
+          title: 'Priorização de Ações',
+          description: 'Relatório técnico detalhado em linguagem acessível, separando bloqueios críticos de melhorias graduais conforme o momento do negócio.',
+        },
+      ],
+      processKicker: 'Processo & Responsável',
+      processTitle: 'Como funciona a auditoria e quem conduz o trabalho',
+      processSubtitle: 'Do primeiro contato no WhatsApp até a entrega do relatório técnico priorizado, você sabe exatamente o que acontece em cada etapa.',
+      processSteps: [
+        {
+          step: '01',
+          title: 'Envio da URL e análise preliminar',
+          description: 'Você envia o link do seu site pelo WhatsApp. Fazemos uma leitura inicial rápida para entender seu estágio atual e confirmar o escopo ideal.',
+        },
+        {
+          step: '02',
+          title: 'Auditoria técnica e on-page',
+          description: 'Inspeção individual de rastreamento, indexação, arquitetura, Core Web Vitals, metadados e oportunidades de palavras-chave em conformidade com o Google.',
+        },
+        {
+          step: '03',
+          title: 'Relatório técnico priorizado',
+          description: 'Entrega do diagnóstico detalhado sem jargões obscuros, com as ações organizadas por prioridade para orientar a execução.',
+        },
+        {
+          step: '04',
+          title: 'Definição dos próximos passos',
+          description: 'Com o plano de ação em mãos, você escolhe com liberdade entre aplicar internamente ou seguir com um acompanhamento mensal.',
+        },
+      ],
+      specialistEyebrow: 'Quem conduz a auditoria',
+      specialistName: 'Wesley Vieira',
+      specialistRole: 'Fundador da Auditoria SEO & Especialista em SEO e Tráfego',
+      specialistBio: 'A análise é conduzida diretamente por Wesley Vieira e pela equipe técnica da Auditoria SEO — sem relatórios automatizados genéricos. Nosso foco é explicar com clareza técnica o que precisa ser corrigido e em qual ordem, seguindo práticas 100% White Hat.',
+      specialistMapsLabel: 'Ver ficha oficial no Google Maps',
+      specialistWhatsappLabel: 'Enviar URL no WhatsApp',
       plansHeadingKicker: 'Investimento & Escopo',
-      plansTitle: 'Escolha o formato ideal para o momento do seu negócio',
+      plansTitle: 'Comece pela Auditoria de SEO ou escolha um acompanhamento contínuo',
       plansSubtitle: 'Valores transparentes e entregáveis definidos com precisão, sem surpresas ou cobranças adicionais ocultas.',
+      planCategories: {
+        audit: 'Diagnóstico Pontual',
+        performance: 'Evolução Contínua',
+        elite: 'Solução Completa',
+      },
+      investmentLabel: 'Investimento',
       deliverablesLabel: 'Itens e Entregáveis Inclusos:',
       contractButton: 'Contratar no WhatsApp',
+      planCopies: {
+        'auditoria-seo': {
+          name: 'Auditoria de SEO',
+          tagline: 'Diagnóstico aprofundado para identificar gargalos e oportunidades reais de crescimento.',
+          description: 'Análise detalhada da situação atual do seu site. Mapeia problemas técnicos, falhas de indexação, gargalos de rastreamento e oportunidades de melhoria com plano de ação claro.',
+          deliverables: [
+            'Diagnóstico de SEO Técnico Completo',
+            'Mapeamento de Erros de Indexação e Rastreamento',
+            'Análise de Arquitetura e Velocidade (Core Web Vitals)',
+            'Avaliação de Palavras-Chave e Oportunidades Orgânicas',
+            'Relatório Técnico Detalhado com Priorização de Ações',
+          ],
+        },
+        'seo-performance': {
+          name: 'Plano SEO Performance',
+          tagline: 'Evolução contínua e consistente da sua autoridade orgânica mês a mês.',
+          description: 'Serviço estruturado para crescimento orgânico progressivo com foco na criação de conteúdo qualificado e expansão de relevância.',
+          deliverables: [
+            '4 artigos por mês orientados a intenção de busca',
+            '3 backlinks por mês para construção de autoridade',
+            'Acompanhamento mensal de posicionamento orgânico',
+            'Otimizações contínuas de SEO on-page',
+            'Relatório de evolução de visibilidade',
+          ],
+        },
+        'seo-authority-elite': {
+          name: 'SEO Authority Elite',
+          tagline: 'O plano mais abrangente para fortalecer a presença regional e construir autoridade consistente.',
+          description: 'Solução completa para empresas e profissionais que buscam evolução consistente de marca no Google e ampliação de pontos de contato orgânicos.',
+          deliverables: [
+            'Auditoria Full-Stack e Técnico Avançado',
+            'SEO Semântico e Arquitetura de Silos',
+            'Estratégia de Conteúdo E-E-A-T',
+            'Link Building Premium (Outreach e Authority)',
+            'Otimização Avançada no Google Business Profile',
+            'Otimização de Conversão (CRO)',
+            'Relatórios de Inteligência de Negócio',
+            'Suporte Prioritário',
+          ],
+        },
+      },
+      localSeoCard: {
+        eyebrow: 'Presença Regional & Google Maps',
+        title: 'Atende clientes na sua cidade ou região física?',
+        description: 'Além da auditoria técnica e do SEO orgânico geral para o site, oferecemos soluções especializadas de otimização para o Perfil da Empresa no Google e presença em buscas locais no Google Maps.',
+        button: 'Conhecer Serviços de SEO Local',
+      },
       whyHeadingKicker: 'Fundamentos',
       whyTitle: 'Por que uma estratégia de SEO consistente supera soluções improvisadas',
-      whySubtitle: 'Diferente de anúncios pagos que cessam no momento em que a verba acaba, a autoridade orgânica constrói um ativo patrimonial permanente para o seu domínio.',
+      whySubtitle: 'Diferente de anúncios pagos que param quando a verba acaba, uma base técnica sólida e conteúdos estruturados ajudam a construir presença orgânica contínua para o seu domínio.',
       whyCards: [
         {
           title: 'Tráfego Qualificado e Espontâneo',
-          description: 'Quem pesquisa no Google já possui uma dor e intenção clara. Seu site é apresentado exatamente no momento em que o cliente procura pela solução.',
+          description: 'Quem pesquisa no Google já possui uma necessidade e intenção clara. O trabalho técnico busca alinhar suas páginas ao momento em que o cliente procura pela solução.',
         },
         {
           title: 'Credibilidade e Confiança Natural',
-          description: 'Os usuários reconhecem os resultados orgânicos como recomendações imparciais de relevância pelo Google, conferindo autoridade instantânea ao negócio.',
+          description: 'Resultados orgânicos relevantes e páginas bem estruturadas contribuem para a percepção de credibilidade do negócio diante de quem pesquisa.',
         },
         {
           title: 'Redução do Custo por Aquisição',
-          description: 'Ao somar visitas orgânicas com tráfego pago, sua empresa diversifica canais e reduz a vulnerabilidade diante do aumento no custo dos leilões de anúncios.',
+          description: 'Ao somar visitas orgânicas com tráfego pago, sua empresa diversifica canais e reduz a dependência exclusiva dos leilões de anúncios.',
         },
       ],
       faqKicker: 'Tire suas Dúvidas',
-      faqTitle: 'Perguntas Frequentes sobre os Serviços de SEO',
-      faqSubtitle: 'Respostas técnicas, honestas e sem rodeios para as principais dúvidas sobre nossos planos.',
+      faqTitle: 'Perguntas Frequentes sobre a Auditoria e os Planos de SEO',
+      faqSubtitle: 'Respostas técnicas, honestas e sem rodeios para as principais dúvidas antes de contratar.',
       faqs: [
         {
           question: 'Em quanto tempo vejo resultados com SEO?',
@@ -640,18 +780,22 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
         },
         {
           question: 'Vocês garantem a primeira posição no Google?',
-          answer: 'Não, e nenhuma empresa séria pode garantir isso. O Google utiliza mais de 200 fatores em seus algoritmos que mudam constantemente. Nosso trabalho aplica com rigor técnico as melhores práticas oficiais recomendadas para maximizar sua relevância e autoridade.',
+          answer: 'Não, e nenhuma empresa séria pode garantir isso. O Google utiliza mais de 200 fatores em seus algoritmos que mudam constantemente. Nosso trabalho aplica com rigor técnico as melhores práticas oficiais recomendadas para ampliar sua relevância e autoridade.',
         },
         {
           question: 'Qual a diferença entre a Auditoria e os Planos Mensais?',
-          answer: 'A Auditoria de SEO é um diagnóstico pontual completo para identificar erros e oportunidades com plano de ação. Já os planos mensais (SEO Performance e SEO Authority Elite) são serviços de execução contínua com entregas regulares de artigos, backlinks e otimizações.',
+          answer: 'A Auditoria de SEO (R$ 1.447,00) é um diagnóstico pontual completo para identificar erros e oportunidades com plano de ação. Já os planos mensais (SEO Performance e SEO Authority Elite) são serviços de execução contínua com entregas regulares de artigos, backlinks e otimizações.',
+        },
+        {
+          question: 'Como inicio a Auditoria de SEO e quem realiza a análise?',
+          answer: 'Basta enviar o link do seu site pelo WhatsApp para uma avaliação preliminar rápida. A análise é conduzida diretamente por Wesley Vieira e pela equipe técnica da Auditoria SEO, sem relatórios automáticos genéricos, resultando em um relatório técnico detalhado com priorização de ações.',
         },
         {
           question: 'O que são backlinks e por que eles são importantes?',
           answer: 'Backlinks são links de outros sites apontando para o seu. Para os mecanismos de busca, links de qualidade funcionam como votos de confiança, transferindo autoridade e ajudando suas páginas a conquistarem melhores posições.',
         },
       ],
-      bottomCtaTitle: 'Ainda em dúvida sobre qual plano escolher?',
+      bottomCtaTitle: 'Ainda em dúvida sobre a Auditoria de SEO ou qual plano escolher?',
       bottomCtaSubtitle: 'Envie o link do seu site pelo WhatsApp. Faremos uma análise preliminar rápida para recomendar a opção mais adequada para o seu estágio atual.',
       bottomCtaButton: 'Falar com especialista no WhatsApp',
     },
@@ -992,8 +1136,8 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
   es: {
     meta: {
       siteName: 'Auditoria SEO',
-      homeTitle: 'Auditoría SEO | Agencia de SEO, Optimización Web y Consultoría',
-      homeDescription: 'Agencia de SEO especializada en auditoría técnica, consultoría estratégica, optimización web y posicionamiento orgánico en Google.',
+      homeTitle: 'Auditoría SEO | Auditoría Técnica Web y Consultoría SEO',
+      homeDescription: 'Auditoría SEO realizada por especialista desde R$ 1.447. Diagnóstico técnico de indexación, Core Web Vitals, palabras clave y plan de acción priorizado.',
       localSeoTitle: 'SEO Local y Perfil de Empresa en Google: Google Maps | Auditoría SEO',
       localSeoDescription: 'Optimice su Perfil de Empresa en Google y alcance las primeras posiciones en Google Maps con estrategias avanzadas de SEO Local para negocios.',
       seoServicesTitle: 'Servicios de SEO y SEO Local | Auditoría SEO',
@@ -1271,48 +1415,153 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
       },
     },
     seoServicesPage: {
-      kicker: 'Servicios Especializados de SEO',
-      titlePart1: 'Estrategias estructuradas para posicionar su sitio web.',
-      titleShimmer: 'Con autoridad técnica y relevancia sostenible.',
-      typewriterLabel: 'Enfoque en:',
+      kicker: 'Auditoría SEO Conducida por Especialista',
+      titlePart1: 'Auditoría SEO técnica realizada por especialista.',
+      titleShimmer: 'Diagnóstico completo y plan de acción priorizado.',
+      typewriterLabel: 'Análisis de:',
       typewriterPhrases: [
-        'Primera página de Google.',
-        'Tráfico orgánico calificado.',
-        'Autoridad y relevancia permanente.',
+        'SEO técnico, indexación y rastreo.',
+        'Arquitectura, Core Web Vitals y on-page.',
+        'Palabras clave y prioridades de ejecución.',
       ],
-      subtitle: 'Desde el diagnóstico técnico profundo hasta la construcción continua de relevancia orgánica. Elija el formato más adecuado a sus objetivos.',
+      subtitle: 'Evaluación individual de su sitio web realizada directamente por especialista — sin informes automáticos genéricos. Reciba el mapeo de fallos de indexación, arquitectura, Core Web Vitals, palabras clave y un informe técnico con acciones priorizadas por R$ 1.447,00. Envíe su URL por WhatsApp o compare las opciones.',
       primaryCta: 'Hablar con especialista por WhatsApp',
       secondaryCta: 'Ver planes y alcance',
       trustBadges: [
-        'Valores claros y entregables confirmados',
+        'Auditoría puntual por R$ 1.447,00',
         'Prácticas 100% White Hat SEO',
         'Sin contratos de permanencia forzosa',
       ],
+      auditScopeKicker: 'Alcance & Priorización',
+      auditScopeTitle: 'Qué evalúa la Auditoría de SEO y cómo organizamos las prioridades',
+      auditScopeSubtitle: 'En lugar de entregar listados automáticos sin contexto, analizamos los factores técnicos y orgánicos de su sitio y ordenamos el informe según su impacto práctico.',
+      auditScopeCards: [
+        {
+          title: 'Indexación y Rastreo',
+          description: 'Mapeo de errores de rastreo, fallos de indexación, etiquetas canónicas y directivas que impiden a Google leer sus páginas.',
+        },
+        {
+          title: 'Arquitectura y Core Web Vitals',
+          description: 'Revisión de la estructura de URL, jerarquía interna, velocidad de carga y experiencia adaptativa en móvil y escritorio.',
+        },
+        {
+          title: 'Palabras Clave y On-Page',
+          description: 'Evaluación de metadatos, código semántico, encabezados y oportunidades orgánicas alineadas a la intención de búsqueda.',
+        },
+        {
+          title: 'Priorización de Acciones',
+          description: 'Informe técnico detallado en lenguaje claro, separando bloqueos críticos de mejoras graduales según la etapa de su negocio.',
+        },
+      ],
+      processKicker: 'Proceso & Responsable',
+      processTitle: 'Cómo funciona la auditoría y quién realiza el análisis',
+      processSubtitle: 'Desde el primer mensaje por WhatsApp hasta la entrega del informe técnico priorizado, cada etapa es transparente.',
+      processSteps: [
+        {
+          step: '01',
+          title: 'Envío de URL y lectura inicial',
+          description: 'Envíe el enlace de su sitio por WhatsApp. Realizamos una evaluación preliminar rápida para entender su etapa actual y confirmar el alcance.',
+        },
+        {
+          step: '02',
+          title: 'Auditoría técnica y on-page',
+          description: 'Inspección individual de rastreo, indexación, arquitectura, Core Web Vitals, metadatos y oportunidades de palabras clave según Google.',
+        },
+        {
+          step: '03',
+          title: 'Informe técnico priorizado',
+          description: 'Entrega del diagnóstico en lenguaje accesible y sin jerga innecesaria, con las correcciones ordenadas por prioridad.',
+        },
+        {
+          step: '04',
+          title: 'Definición de próximos pasos',
+          description: 'Con el plan de acción en mano, usted decide libremente si lo ejecuta con su equipo interno o si continúa con acompañamiento mensual.',
+        },
+      ],
+      specialistEyebrow: 'Quién conduce la auditoría',
+      specialistName: 'Wesley Vieira',
+      specialistRole: 'Fundador de Auditoria SEO & Especialista en SEO y Tráfico',
+      specialistBio: 'El análisis es realizado directamente por Wesley Vieira y el equipo técnico de Auditoria SEO, sin reportes automáticos genéricos. Nuestro objetivo es traducir fallos técnicos en un plan claro, ético (100% White Hat) y adaptado a su negocio.',
+      specialistMapsLabel: 'Ver ficha oficial en Google Maps',
+      specialistWhatsappLabel: 'Enviar URL por WhatsApp',
       plansHeadingKicker: 'Inversión & Alcance',
-      plansTitle: 'Elija el formato ideal para la etapa de su negocio',
+      plansTitle: 'Comience por la Auditoría de SEO o elija acompañamiento continuo',
       plansSubtitle: 'Entregables definidos con precisión y transparencia, sin cargos ocultos ni sorpresas.',
+      planCategories: {
+        audit: 'Diagnóstico Puntual',
+        performance: 'Evolución Continua',
+        elite: 'Solución Completa',
+      },
+      investmentLabel: 'Inversión',
       deliverablesLabel: 'Entregables incluidos en el servicio:',
       contractButton: 'Contratar por WhatsApp',
+      planCopies: {
+        'auditoria-seo': {
+          name: 'Auditoria de SEO',
+          tagline: 'Diagnóstico integral para detectar cuellos de botella y oportunidades reales de crecimiento.',
+          description: 'Análisis detallado de la situación actual de su sitio web. Mapea problemas técnicos, fallos de indexación, bloqueos de rastreo y mejoras con un plan de acción claro.',
+          deliverables: [
+            'Diagnóstico completo de SEO Técnico',
+            'Mapeo de errores de indexación y rastreo',
+            'Análisis de arquitectura y velocidad (Core Web Vitals)',
+            'Evaluación de palabras clave y oportunidades orgánicas',
+            'Informe técnico detallado con priorización de acciones',
+          ],
+        },
+        'seo-performance': {
+          name: 'Plano SEO Performance',
+          tagline: 'Evolución continua y consistente de su autoridad orgánica mes a mes.',
+          description: 'Servicio estructurado para crecimiento orgánico progresivo enfocado en contenido cualificado y expansión de relevancia.',
+          deliverables: [
+            '4 artículos al mes orientados a intención de búsqueda',
+            '3 backlinks al mes para construcción de autoridad',
+            'Seguimiento mensual de posicionamiento orgánico',
+            'Optimizaciones continuas de SEO on-page',
+            'Informe de evolución de visibilidad',
+          ],
+        },
+        'seo-authority-elite': {
+          name: 'SEO Authority Elite',
+          tagline: 'El plan más integral para fortalecer la presencia regional y construir autoridad consistente.',
+          description: 'Solución completa para empresas y profesionales que buscan evolución constante de marca en Google y ampliación de puntos de contacto orgánicos.',
+          deliverables: [
+            'Auditoría Full-Stack y Técnica Avanzada',
+            'SEO Semántico y Arquitectura de Silos',
+            'Estrategia de Contenido E-E-A-T',
+            'Link Building Premium (Outreach y Authority)',
+            'Optimización Avanzada en Google Business Profile',
+            'Optimización de Conversión (CRO)',
+            'Informes de Inteligencia de Negocio',
+            'Soporte Prioritario',
+          ],
+        },
+      },
+      localSeoCard: {
+        eyebrow: 'Presencia Regional & Google Maps',
+        title: '¿Atiende clientes en su ciudad o región física?',
+        description: 'Además de la auditoría técnica y el SEO orgánico general del sitio web, ofrecemos soluciones dedicadas para el Perfil de Empresa en Google y visibilidad local en Google Maps.',
+        button: 'Conocer Servicios de SEO Local',
+      },
       whyHeadingKicker: 'Fundamentos',
       whyTitle: 'Por qué una estrategia seria de SEO supera soluciones improvisadas',
-      whySubtitle: 'A diferencia de los anuncios que se detienen cuando se agota el presupuesto, la autoridad orgánica construye un activo digital permanente para su marca.',
+      whySubtitle: 'A diferencia de los anuncios que se detienen cuando se agota el presupuesto, una base técnica sólida y contenido relevante ayudan a construir presencia orgánica continua para su dominio.',
       whyCards: [
         {
           title: 'Tráfico Calificado con Intención Real',
-          description: 'Quien busca en Google ya tiene una necesidad manifiesta. Su negocio se presenta en el momento preciso en que el cliente busca una solución.',
+          description: 'Quien busca en Google ya tiene una necesidad manifiesta. El trabajo técnico busca alinear sus páginas al momento en que el cliente busca una solución.',
         },
         {
           title: 'Credibilidad y Confianza Natural',
-          description: 'Los usuarios reconocen las posiciones orgánicas como recomendaciones imparciales de relevancia, generando autoridad inmediata.',
+          description: 'Resultados orgánicos relevantes y páginas bien estructuradas contribuyen a fortalecer la credibilidad de su negocio ante quien investiga.',
         },
         {
           title: 'Optimización del Costo por Adquisición',
-          description: 'Al sumar visitas orgánicas con publicidad pagada, su empresa diversifica canales y reduce la dependencia de subastas publicitarias.',
+          description: 'Al sumar visitas orgánicas con publicidad pagada, su empresa diversifica canales y reduce la dependencia exclusiva de subastas publicitarias.',
         },
       ],
       faqKicker: 'Preguntas Frecuentes',
-      faqTitle: 'Dudas Frecuentes sobre los Servicios de SEO',
-      faqSubtitle: 'Respuestas técnicas, honestas y directas sobre el funcionamiento de nuestros planes.',
+      faqTitle: 'Dudas Frecuentes sobre la Auditoría y los Servicios de SEO',
+      faqSubtitle: 'Respuestas técnicas, honestas y directas antes de contratar.',
       faqs: [
         {
           question: '¿En cuánto tiempo se observan resultados con SEO?',
@@ -1320,19 +1569,23 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
         },
         {
           question: '¿Garantizan el primer lugar en Google?',
-          answer: 'No, y ninguna empresa seria puede prometerlo. Google evalúa cientos de factores algorítmicos que evolucionan constantemente. Nuestro trabajo aplica con rigor las mejores prácticas oficiales para maximizar su relevancia y visibilidad.',
+          answer: 'No, y ninguna empresa seria puede prometerlo. Google evalúa cientos de factores algorítmicos que evolucionan constantemente. Nuestro trabajo aplica con rigor las mejores prácticas oficiales para ampliar su relevancia y visibilidad.',
         },
         {
           question: '¿Cuál es la diferencia entre la Auditoría y los Planes Mensuales?',
-          answer: 'La Auditoría de SEO es un diagnóstico integral puntual para detectar errores y oportunidades con un plan de acción concreto. Los planes mensuales son servicios de ejecución continuada con publicaciones, backlinks y optimizaciones recurrentes.',
+          answer: 'La Auditoría de SEO (R$ 1.447,00) es un diagnóstico integral puntual para detectar errores y oportunidades con un plan de acción concreto. Los planes mensuales son servicios de ejecución continuada con publicaciones, backlinks y optimizaciones recurrentes.',
+        },
+        {
+          question: '¿Cómo inicio la Auditoría de SEO y quién realiza el análisis?',
+          answer: 'Basta enviar el enlace de su sitio por WhatsApp para una evaluación preliminar rápida. El análisis es conducido directamente por Wesley Vieira y el equipo técnico de Auditoria SEO, sin reportes automáticos genéricos, entregando un informe técnico detallado con priorización de acciones.',
         },
         {
           question: '¿Qué son los backlinks y por qué son importantes?',
           answer: 'Los backlinks son enlaces desde otros sitios web que apuntan hacia el suyo. Para los motores de búsqueda, los enlaces de calidad funcionan como votos de confianza que transmiten autoridad a su dominio.',
         },
       ],
-      bottomCtaTitle: '¿Tiene dudas sobre qué opción es la mejor?',
-      bottomCtaSubtitle: 'Envíe el enlace de su sitio web por WhatsApp. Realizaremos un análisis preliminar para recomendar la alternativa más conveniente.',
+      bottomCtaTitle: '¿Tiene dudas sobre la Auditoría de SEO o qué plan elegir?',
+      bottomCtaSubtitle: 'Envíe el enlace de su sitio web por WhatsApp. Realizaremos un análisis preliminar rápido para recomendar la alternativa más conveniente.',
       bottomCtaButton: 'Hablar con especialista por WhatsApp',
     },
     googleAdsPage: {
@@ -1672,8 +1925,8 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
   en: {
     meta: {
       siteName: 'Auditoria SEO',
-      homeTitle: 'Auditoria SEO | SEO Agency, Website Optimization & Consulting',
-      homeDescription: 'Specialized SEO agency delivering technical SEO audits, strategic consulting, website optimization, and sustainable Google organic growth.',
+      homeTitle: 'Auditoria SEO | Specialist Technical SEO Audit & Consulting',
+      homeDescription: 'Specialist-led technical SEO audit from R$ 1,447. Detailed review of indexing, Core Web Vitals, keywords, and a prioritized action roadmap for your site.',
       localSeoTitle: 'Local SEO & Google Business Profile: Google Maps Ranking | Auditoria SEO',
       localSeoDescription: 'Optimize your Google Business Profile and dominate Google Maps with proven local SEO strategies for businesses and regional brands.',
       seoServicesTitle: 'SEO & Local SEO Services | Auditoria SEO',
@@ -1951,48 +2204,153 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
       },
     },
     seoServicesPage: {
-      kicker: 'Specialized SEO Services',
-      titlePart1: 'Structured strategies to rank your website.',
-      titleShimmer: 'With technical authority and genuine relevance.',
-      typewriterLabel: 'Focus on:',
+      kicker: 'Specialist-Led SEO Audit',
+      titlePart1: 'Human-led technical SEO audit for your site.',
+      titleShimmer: 'Full diagnosis and a prioritized action roadmap.',
+      typewriterLabel: 'Focused on:',
       typewriterPhrases: [
-        'Google first page.',
-        'Qualified organic traffic.',
-        'Permanent authority and relevance.',
+        'Technical SEO, indexing & crawlability.',
+        'Site architecture, Core Web Vitals & on-page.',
+        'Keywords and prioritized next steps.',
       ],
-      subtitle: 'From comprehensive technical audits to ongoing organic relevance building. Choose the engagement model best aligned with your company goals.',
+      subtitle: 'An individual review of your website conducted personally by our specialist — not an automated generic PDF. You receive indexing, crawlability, architecture, Core Web Vitals, and keyword diagnostics plus a prioritized action report for R$ 1,447.00. Send your URL on WhatsApp or compare plans below.',
       primaryCta: 'Speak with a specialist on WhatsApp',
       secondaryCta: 'View plans and pricing',
       trustBadges: [
-        'Clear pricing & confirmed deliverables',
+        'One-time audit at R$ 1,447.00',
         '100% White Hat SEO practices',
         'No abusive lock-in contracts',
       ],
+      auditScopeKicker: 'Scope & Prioritization',
+      auditScopeTitle: 'What our SEO Audit reviews and how recommendations are prioritized',
+      auditScopeSubtitle: 'Instead of exporting raw automated checklists without context, we evaluate your site technical health and order findings by practical priority.',
+      auditScopeCards: [
+        {
+          title: 'Indexing & Crawlability',
+          description: 'Mapping crawl errors, indexing gaps, canonical tags, and technical directives that affect how Google reads your pages.',
+        },
+        {
+          title: 'Architecture & Core Web Vitals',
+          description: 'Review of URL hierarchy, site structure, loading performance, and responsive behavior across mobile and desktop.',
+        },
+        {
+          title: 'On-Page & Keywords',
+          description: 'Assessment of metadata, semantic HTML, heading structure, and organic keyword opportunities aligned to search intent.',
+        },
+        {
+          title: 'Action Prioritization',
+          description: 'Detailed technical report written in plain language, separating critical blockers from incremental fixes suited to your stage.',
+        },
+      ],
+      processKicker: 'Process & Leadership',
+      processTitle: 'How the audit works and who conducts the review',
+      processSubtitle: 'From sending your website link on WhatsApp to receiving the prioritized technical report, every step is transparent.',
+      processSteps: [
+        {
+          step: '01',
+          title: 'URL submission & initial check',
+          description: 'Send your website URL via WhatsApp. We run a quick preliminary look to understand your business stage and confirm the right scope.',
+        },
+        {
+          step: '02',
+          title: 'Manual technical & on-page review',
+          description: 'Individual inspection of crawling, indexing, site architecture, Core Web Vitals, metadata, and keyword opportunities per Google guidelines.',
+        },
+        {
+          step: '03',
+          title: 'Prioritized technical report',
+          description: 'Clear diagnostic delivered without confusing jargon, organizing recommended fixes in order of priority for execution.',
+        },
+        {
+          step: '04',
+          title: 'Next steps alignment',
+          description: 'With the action plan in hand, you choose freely whether to implement internally or continue with monthly SEO execution.',
+        },
+      ],
+      specialistEyebrow: 'Who conducts the audit',
+      specialistName: 'Wesley Vieira',
+      specialistRole: 'Founder of Auditoria SEO & Organic Traffic Strategist',
+      specialistBio: 'Every audit is led directly by Wesley Vieira and the technical team at Auditoria SEO — never generic automated templates. Our goal is to explain clearly what needs fixing and in what order, following 100% White Hat guidelines.',
+      specialistMapsLabel: 'View official Google Maps profile',
+      specialistWhatsappLabel: 'Send URL on WhatsApp',
       plansHeadingKicker: 'Scope & Investment',
-      plansTitle: 'Choose the ideal plan for your current business stage',
+      plansTitle: 'Start with an SEO Audit or choose ongoing execution',
       plansSubtitle: 'Transparent pricing and clearly defined deliverables without hidden surprises or unexpected extra fees.',
+      planCategories: {
+        audit: 'One-Time Diagnostic',
+        performance: 'Ongoing Growth',
+        elite: 'Full Solution',
+      },
+      investmentLabel: 'Investment',
       deliverablesLabel: 'Included deliverables in this plan:',
       contractButton: 'Get Started on WhatsApp',
+      planCopies: {
+        'auditoria-seo': {
+          name: 'Auditoria de SEO',
+          tagline: 'In-depth diagnostic to uncover technical bottlenecks and realistic organic opportunities.',
+          description: 'Detailed assessment of your website current state. Maps technical issues, indexing errors, crawl bottlenecks, and improvements with a clear action plan.',
+          deliverables: [
+            'Full Technical SEO Diagnostic',
+            'Indexing and Crawl Error Mapping',
+            'Architecture and Speed Analysis (Core Web Vitals)',
+            'Keyword and Organic Opportunity Evaluation',
+            'Detailed Technical Report with Action Prioritization',
+          ],
+        },
+        'seo-performance': {
+          name: 'Plano SEO Performance',
+          tagline: 'Steady, consistent evolution of your organic presence month over month.',
+          description: 'Structured ongoing service for progressive organic growth focused on qualified content creation and relevance expansion.',
+          deliverables: [
+            '4 search-intent articles per month',
+            '3 backlinks per month for authority building',
+            'Monthly organic ranking tracking',
+            'Ongoing on-page SEO optimizations',
+            'Visibility evolution report',
+          ],
+        },
+        'seo-authority-elite': {
+          name: 'SEO Authority Elite',
+          tagline: 'Our most comprehensive plan to strengthen regional presence and build consistent domain authority.',
+          description: 'Full-scope solution for companies and professionals seeking steady brand visibility on Google and broader organic touchpoints.',
+          deliverables: [
+            'Advanced Full-Stack & Technical Audit',
+            'Semantic SEO & Silo Architecture',
+            'E-E-A-T Content Strategy',
+            'Premium Link Building (Outreach & Authority)',
+            'Advanced Google Business Profile Optimization',
+            'Conversion Rate Optimization (CRO)',
+            'Business Intelligence Reports',
+            'Priority Support',
+          ],
+        },
+      },
+      localSeoCard: {
+        eyebrow: 'Regional Presence & Google Maps',
+        title: 'Do you serve customers in a specific city or physical region?',
+        description: 'Alongside technical website audits and general organic SEO, we provide dedicated optimization for Google Business Profile and local search visibility on Google Maps.',
+        button: 'Explore Local SEO Services',
+      },
       whyHeadingKicker: 'Core Principles',
       whyTitle: 'Why a consistent SEO strategy outperforms temporary shortcuts',
-      whySubtitle: 'Unlike paid advertising that stops the instant ad spend dries up, organic authority builds an enduring equity asset for your domain.',
+      whySubtitle: 'Unlike paid advertising that stops as soon as ad spend is paused, a solid technical foundation and structured content help build sustained organic visibility for your domain.',
       whyCards: [
         {
           title: 'Qualified Organic Traffic',
-          description: 'Users searching on Google have active purchasing intent. Your business appears right when they are seeking solutions.',
+          description: 'Users searching on Google have active intent. Technical optimization helps align your pages with the moment prospects seek solutions.',
         },
         {
           title: 'Natural Authority & Trust',
-          description: 'Searchers regard top organic listings as impartial badges of authority from Google, instilling immediate customer confidence.',
+          description: 'Relevant organic listings and well-structured pages help reinforce buyer confidence in your business during research.',
         },
         {
           title: 'Reduced Customer Acquisition Cost',
-          description: 'By complementing paid ads with organic rankings, your business diversifies acquisition channels and shields margins.',
+          description: 'By complementing paid ads with organic visibility, your business diversifies acquisition channels and reduces reliance on ad auctions.',
         },
       ],
       faqKicker: 'Frequently Asked Questions',
-      faqTitle: 'Frequently Asked Questions about our SEO Plans',
-      faqSubtitle: 'Honest, technical, and direct answers to common questions about our search engine optimization services.',
+      faqTitle: 'Frequently Asked Questions about the SEO Audit & Plans',
+      faqSubtitle: 'Honest, technical, and direct answers to common questions before getting started.',
       faqs: [
         {
           question: 'How long does it take to see tangible SEO results?',
@@ -2000,19 +2358,23 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
         },
         {
           question: 'Do you guarantee a #1 ranking on Google?',
-          answer: 'No, and no ethical agency can make that promise. Google uses hundreds of algorithmic factors that update constantly. Our team applies industry-standard best practices to maximize your ranking potential and business relevance.',
+          answer: 'No, and no ethical agency can make that promise. Google uses hundreds of algorithmic factors that update constantly. Our team applies industry-standard best practices to improve your technical health and business relevance.',
         },
         {
           question: 'What is the difference between an Audit and Monthly Plans?',
-          answer: 'An SEO Audit is a comprehensive, one-time deep diagnostic mapping all technical bottlenecks and opportunities with an actionable roadmap. Monthly plans involve active execution including content creation, link building, and on-page optimization.',
+          answer: 'An SEO Audit (R$ 1,447.00) is a comprehensive, one-time deep diagnostic mapping technical bottlenecks and opportunities with a prioritized roadmap. Monthly plans involve active ongoing execution including content, backlinks, and optimization.',
+        },
+        {
+          question: 'How do I start the SEO Audit and who conducts it?',
+          answer: 'Simply send your website link via WhatsApp for a quick preliminary check. The audit is conducted directly by Wesley Vieira and the Auditoria SEO technical team — never automated generic PDFs — delivering a prioritized technical report.',
         },
         {
           question: 'What are backlinks and why are they important?',
-          answer: 'Backlinks are inbound links from reputable external websites to yours. Search engines interpret authoritative backlinks as votes of trust, passing domain authority and boosting keyword rankings.',
+          answer: 'Backlinks are inbound links from reputable external websites to yours. Search engines interpret authoritative backlinks as votes of trust, passing domain authority and supporting keyword visibility.',
         },
       ],
-      bottomCtaTitle: 'Still wondering which plan suits you best?',
-      bottomCtaSubtitle: 'Send us your website URL on WhatsApp. We will conduct a quick preliminary audit and recommend the most effective option.',
+      bottomCtaTitle: 'Still wondering if the SEO Audit or a monthly plan fits best?',
+      bottomCtaSubtitle: 'Send us your website URL on WhatsApp. We will conduct a quick preliminary check and recommend the most suitable option for your stage.',
       bottomCtaButton: 'Speak with a specialist on WhatsApp',
     },
     googleAdsPage: {

@@ -62,16 +62,16 @@ export const SEO_PLANS: Plan[] = [
   {
     id: 'seo-authority-elite',
     name: 'SEO Authority Elite',
-    tagline: 'O plano mais abrangente para dominar o nicho local e construir autoridade máxima.',
+    tagline: 'O plano mais abrangente para fortalecer a presença regional e construir autoridade consistente.',
     price: 'R$ 3.247,00',
     priceNumeric: 3247,
-    description: 'Solução completa para empresas e profissionais que buscam consolidação definitiva de marca no Google e multiplicação de pontos de contato.',
+    description: 'Solução completa para empresas e profissionais que buscam evolução consistente de marca no Google e ampliação de pontos de contato orgânicos.',
     deliverables: [
       'Auditoria Full-Stack e Técnico Avançado',
       'SEO Semântico e Arquitetura de Silos',
       'Estratégia de Conteúdo E-E-A-T',
       'Link Building Premium (Outreach e Authority)',
-      'Dominação no Google Business Profile',
+      'Otimização Avançada no Google Business Profile',
       'Otimização de Conversão (CRO)',
       'Relatórios de Inteligência de Negócio',
       'Suporte Prioritário',
@@ -288,6 +288,10 @@ export const SEO_FAQS: FAQItem[] = [
   {
     question: 'Qual a diferença entre a Auditoria e os Planos Mensais?',
     answer: 'A Auditoria de SEO (R$ 1.447) é um diagnóstico pontual completo para identificar erros e oportunidades com plano de ação. Já os planos mensais (SEO Performance e SEO Authority Elite) são serviços de execução contínua com entregas regulares de artigos, backlinks e otimizações.',
+  },
+  {
+    question: 'Como inicio a Auditoria de SEO e quem realiza a análise?',
+    answer: 'Basta enviar o link do seu site pelo WhatsApp para uma avaliação preliminar rápida. A análise é conduzida diretamente por Wesley Vieira e pela equipe técnica da Auditoria SEO, sem relatórios automáticos genéricos, resultando em um relatório técnico detalhado com priorização de ações.',
   },
   {
     question: 'O que são backlinks e por que eles são importantes?',

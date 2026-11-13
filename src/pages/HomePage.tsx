@@ -1,11 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { SEO_PLANS, SEO_FAQS } from '../data/siteData';
+import { SEO_PLANS, SITE_CONFIG } from '../data/siteData';
 import { PageHero } from '../components/common/PageHero';
 import { SEOHead } from '../components/common/SEOHead';
 import { useLanguage } from '../i18n/LanguageContext';
 import { getHreflangs } from '../i18n/routes';
-import { Check, ArrowRight, HelpCircle, ChevronDown, ChevronUp, Search, TrendingUp, Award, MapPin } from 'lucide-react';
+import {
+  Check,
+  ArrowRight,
+  HelpCircle,
+  ChevronDown,
+  ChevronUp,
+  Search,
+  TrendingUp,
+  Award,
+  MapPin,
+  Gauge,
+  FileText,
+  ListOrdered,
+  ExternalLink,
+} from 'lucide-react';
+
+const SCOPE_ICONS = [Search, Gauge, FileText, ListOrdered] as const;
 
 export const HomePage: React.FC = () => {
   const { lang, t, getWhatsAppUrl, currentRoutes } = useLanguage();
@@ -26,6 +42,60 @@ export const HomePage: React.FC = () => {
   const sData = t.seoServicesPage;
   const hreflangs = getHreflangs(location.pathname);
 
+  // Sync a single canonical ProfessionalService JSON-LD script in <head> (prevents duplicates)
+  useEffect(() => {
+    const pageUrl = `https://auditoriaseo.com.br${location.pathname === '/' ? '' : location.pathname}`;
+    const schemaData = {
+      '@context': 'https://schema.org',
+      '@type': 'ProfessionalService',
+      name: 'Auditoria SEO',
+      url: pageUrl,
+      inLanguage: lang === 'pt' ? 'pt-BR' : lang,
+      logo: 'https://auditoriaseo.com.br/icon-512.png',
+      image: 'https://auditoriaseo.com.br/og-image.png',
+      telephone: '+55-19-98933-2087',
+      areaServed: 'BR',
+      description: t.meta.homeDescription,
+      hasMap: SITE_CONFIG.googleMapsProfileUrl,
+      founder: {
+        '@type': 'Person',
+        name: 'Wesley Vieira',
+        jobTitle: sData.specialistRole,
+      },
+      sameAs: [SITE_CONFIG.whatsappBaseUrl, SITE_CONFIG.googleMapsProfileUrl],
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: sData.plansTitle,
+        itemListElement: SEO_PLANS.map((plan) => {
+          const localizedPlan = sData.planCopies[plan.id];
+          return {
+            '@type': 'Offer',
+            price: String(plan.priceNumeric),
+            priceCurrency: 'BRL',
+            itemOffered: {
+              '@type': 'Service',
+              name: localizedPlan?.name || plan.name,
+              description: localizedPlan?.description || plan.description,
+            },
+          };
+        }),
+      },
+    };
+
+    const existingScripts = document.querySelectorAll('script[type="application/ld+json"]');
+    if (existingScripts.length > 0) {
+      existingScripts[0].textContent = JSON.stringify(schemaData);
+      for (let i = 1; i < existingScripts.length; i++) {
+        existingScripts[i].parentNode?.removeChild(existingScripts[i]);
+      }
+    } else {
+      const scriptEl = document.createElement('script');
+      scriptEl.type = 'application/ld+json';
+      scriptEl.textContent = JSON.stringify(schemaData);
+      document.head.appendChild(scriptEl);
+    }
+  }, [lang, location.pathname, t.meta.homeDescription, sData]);
+
   return (
     <main className="bg-white">
       {/* Route-Specific SEO Metadata for Homepage */}
@@ -39,60 +109,7 @@ export const HomePage: React.FC = () => {
         hreflangs={hreflangs}
       />
 
-      {/* Schema.org Structured Data for SEO Agency & Professional Consulting Services */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'ProfessionalService',
-            name: 'Auditoria SEO',
-            url: 'https://auditoriaseo.com.br',
-            logo: 'https://auditoriaseo.com.br/icon-512.png',
-            image: 'https://auditoriaseo.com.br/og-image.png',
-            telephone: '+55-19-98933-2087',
-            areaServed: 'BR',
-            description: t.meta.homeDescription,
-            hasMap: 'https://share.google/LAMoroMJbdrI9QCsk',
-            sameAs: [
-              'https://wa.me/5519989332087',
-              'https://share.google/LAMoroMJbdrI9QCsk'
-            ],
-            hasOfferCatalog: {
-              '@type': 'OfferCatalog',
-              name: 'Serviços de SEO e Otimização Orgânica',
-              itemListElement: [
-                {
-                  '@type': 'Offer',
-                  itemOffered: {
-                    '@type': 'Service',
-                    name: 'Auditoria de SEO Técnico',
-                    description: 'Diagnóstico aprofundado de SEO técnico, rastreabilidade, indexação e Core Web Vitals.',
-                  },
-                },
-                {
-                  '@type': 'Offer',
-                  itemOffered: {
-                    '@type': 'Service',
-                    name: 'Consultoria e Plano SEO Performance',
-                    description: 'Acompanhamento estratégico mensal com foco em evolução contínua da autoridade orgânica.',
-                  },
-                },
-                {
-                  '@type': 'Offer',
-                  itemOffered: {
-                    '@type': 'Service',
-                    name: 'SEO Local e Perfil da Empresa no Google',
-                    description: 'Otimização de fichas comerciais e presença em destaque no Google Maps.',
-                  },
-                },
-              ],
-            },
-          }),
-        }}
-      />
-
-      {/* Hero Section */}
+      {/* 1. Hero Section */}
       <PageHero
         kicker={sData.kicker}
         title={
@@ -118,17 +135,142 @@ export const HomePage: React.FC = () => {
         trustBadges={sData.trustBadges}
       />
 
-      {/* Pricing and Plans Cards */}
+      {/* 2. Audit Scope & Prioritization Section */}
+      <section id="escopo-auditoria" className="py-16 bg-slate-50/80 border-b border-slate-200/80 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mb-10">
+            <span className="text-xs font-semibold tracking-wider text-[#1A73E8] uppercase">
+              {sData.auditScopeKicker}
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2 mb-3">
+              {sData.auditScopeTitle}
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+              {sData.auditScopeSubtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {sData.auditScopeCards.map((card, idx) => {
+              const IconComponent = SCOPE_ICONS[idx % SCOPE_ICONS.length];
+              return (
+                <div
+                  key={idx}
+                  className="p-6 bg-white rounded-xl border border-slate-200/90 shadow-sm flex flex-col"
+                >
+                  <div className="w-9 h-9 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center mb-4">
+                    <IconComponent className="w-4 h-4 text-[#1A73E8]" />
+                  </div>
+                  <h3 className="text-base font-bold text-slate-900 mb-2">
+                    {card.title}
+                  </h3>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    {card.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Process & Specialist Leadership Section */}
+      <section id="processo-auditoria" className="py-16 bg-white border-b border-slate-200/80 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mb-10">
+            <span className="text-xs font-semibold tracking-wider text-[#1A73E8] uppercase">
+              {sData.processKicker}
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2 mb-3">
+              {sData.processTitle}
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+              {sData.processSubtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+            {sData.processSteps.map((item) => (
+              <div
+                key={item.step}
+                className="p-6 bg-slate-50/70 rounded-xl border border-slate-200/90 flex flex-col"
+              >
+                <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-[#1A73E8] text-white text-xs font-bold font-mono mb-4">
+                  {item.step}
+                </span>
+                <h3 className="text-base font-bold text-slate-900 mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Who conducts the work */}
+          <div className="bg-slate-50/90 rounded-2xl p-6 sm:p-8 border border-slate-200/90 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 max-w-3xl">
+              <img
+                src="/images/blog/wesley-vieira-autor.jpg"
+                alt={sData.specialistName}
+                width={80}
+                height={80}
+                loading="lazy"
+                decoding="async"
+                className="w-20 h-20 rounded-full object-cover border-2 border-white shadow-sm shrink-0"
+              />
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#1A73E8]">
+                  {sData.specialistEyebrow}
+                </span>
+                <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 mt-1">
+                  {sData.specialistName}
+                </h3>
+                <p className="text-xs font-semibold text-slate-500 mb-2">
+                  {sData.specialistRole}
+                </p>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  {sData.specialistBio}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0">
+              <a
+                href={getWhatsAppUrl(t.whatsappMessages.seoServices)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] rounded-lg shadow-sm transition-all whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1A73E8]"
+              >
+                <span>{sData.specialistWhatsappLabel}</span>
+                <ArrowRight className="w-4 h-4 shrink-0" />
+              </a>
+              <a
+                href={SITE_CONFIG.googleMapsProfileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-xs font-semibold text-slate-700 hover:text-[#1A73E8] bg-white hover:bg-slate-50 border border-slate-200 rounded-lg transition-all whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1A73E8]"
+              >
+                <span>{sData.specialistMapsLabel}</span>
+                <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Pricing and Plans Cards */}
       <section id="planos" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-20">
         <div className="max-w-3xl mb-12">
           <span className="text-xs font-semibold tracking-wider text-[#1A73E8] uppercase">
-            Investimento & Escopo
+            {sData.plansHeadingKicker}
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2 mb-3">
-            Escolha o formato ideal para o momento do seu negócio
+            {sData.plansTitle}
           </h2>
           <p className="text-sm sm:text-base text-slate-600">
-            Valores transparentes e entregáveis definidos com precisão, sem surpresas ou cobranças adicionais ocultas.
+            {sData.plansSubtitle}
           </p>
         </div>
 
@@ -136,6 +278,11 @@ export const HomePage: React.FC = () => {
           {SEO_PLANS.map((plan) => {
             const isAuditoria = plan.id === 'auditoria-seo';
             const isPerformance = plan.id === 'seo-performance';
+            const localizedPlan = sData.planCopies[plan.id];
+            const planName = localizedPlan?.name || plan.name;
+            const planTagline = localizedPlan?.tagline || plan.tagline;
+            const planDescription = localizedPlan?.description || plan.description;
+            const planDeliverables = localizedPlan?.deliverables || plan.deliverables;
 
             return (
               <div
@@ -152,21 +299,25 @@ export const HomePage: React.FC = () => {
                     {isPerformance && <TrendingUp className="w-5 h-5 text-[#1A73E8]" />}
                     {!isAuditoria && !isPerformance && <Award className="w-5 h-5 text-[#1A73E8]" />}
                     <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
-                      {isAuditoria ? 'Diagnóstico Pontual' : isPerformance ? 'Evolução Contínua' : 'Solução Completa'}
+                      {isAuditoria
+                        ? sData.planCategories.audit
+                        : isPerformance
+                        ? sData.planCategories.performance
+                        : sData.planCategories.elite}
                     </span>
                   </div>
 
                   <h3 className="text-2xl font-extrabold text-slate-900 mb-2">
-                    {plan.name}
+                    {planName}
                   </h3>
                   <p className="text-xs text-slate-500 leading-relaxed mb-6 min-h-[32px]">
-                    {plan.tagline}
+                    {planTagline}
                   </p>
 
                   {/* Price display with tabular figures */}
                   <div className="py-4 px-5 rounded-xl bg-slate-50 border border-slate-100 mb-6">
                     <span className="text-xs font-medium text-slate-500 block mb-1">
-                      Investimento
+                      {sData.investmentLabel}
                     </span>
                     <div className="text-3xl font-extrabold text-slate-900 font-mono tracking-tight">
                       {plan.price}
@@ -174,16 +325,16 @@ export const HomePage: React.FC = () => {
                   </div>
 
                   <p className="text-sm text-slate-600 leading-relaxed mb-6">
-                    {plan.description}
+                    {planDescription}
                   </p>
 
                   {/* Deliverables List */}
                   <div className="space-y-3 mb-8 pt-4 border-t border-slate-100">
                     <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                      Itens e Entregáveis Inclusos:
+                      {sData.deliverablesLabel}
                     </h4>
                     <ul className="space-y-3">
-                      {plan.deliverables.map((item, itemIdx) => (
+                      {planDeliverables.map((item, itemIdx) => (
                         <li key={itemIdx} className="flex items-start gap-2.5 text-sm text-slate-700">
                           <Check className="w-4 h-4 text-[#1A73E8] shrink-0 mt-0.5" />
                           <span className="leading-snug">{item}</span>
@@ -214,93 +365,79 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Contextual Card: Connecting General SEO to Local SEO */}
+      {/* 5. Contextual Card: Connecting General SEO to Local SEO */}
       <section className="py-12 bg-blue-50/50 border-t border-b border-blue-100/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-2xl p-8 border border-blue-100 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="space-y-2 max-w-2xl">
               <div className="inline-flex items-center gap-2 text-xs font-bold text-[#1A73E8] uppercase tracking-wider">
                 <MapPin className="w-4 h-4" />
-                <span>Presença Regional & Google Maps</span>
+                <span>{sData.localSeoCard.eyebrow}</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
-                Atende clientes na sua cidade ou região física?
+                {sData.localSeoCard.title}
               </h3>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Além do SEO orgânico geral, oferecemos soluções especializadas de otimização para o Perfil da Empresa no Google e destaque no Local 3-Pack do Google Maps.
+                {sData.localSeoCard.description}
               </p>
             </div>
             <Link
               to={currentRoutes.localSeo}
               className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] rounded-lg shadow-sm transition-all whitespace-nowrap shrink-0"
             >
-              <span>Conhecer Serviços de SEO Local</span>
+              <span>{sData.localSeoCard.button}</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Why Structured SEO Strategy Section */}
+      {/* 6. Why Structured SEO Strategy Section */}
       <section className="py-16 bg-slate-50 border-b border-slate-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mb-12">
             <span className="text-xs font-semibold tracking-wider text-[#1A73E8] uppercase">
-              Fundamentos
+              {sData.whyHeadingKicker}
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2 mb-4">
-              Por que uma estratégia de SEO consistente supera soluções improvisadas
+              {sData.whyTitle}
             </h2>
             <p className="text-base text-slate-600 leading-relaxed">
-              Diferente de anúncios pagos que cessam no momento em que a verba acaba, a autoridade orgânica constrói um ativo patrimonial permanente para o seu domínio.
+              {sData.whySubtitle}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 bg-white rounded-xl border border-slate-200/90 shadow-sm">
-              <h3 className="text-base font-bold text-slate-900 mb-2">
-                Tráfego Qualificado e Espontâneo
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Quem pesquisa no Google já possui uma dor e intenção clara. Seu site é apresentado exatamente no momento em que o cliente procura pela solução.
-              </p>
-            </div>
-            <div className="p-6 bg-white rounded-xl border border-slate-200/90 shadow-sm">
-              <h3 className="text-base font-bold text-slate-900 mb-2">
-                Credibilidade e Confiança Natural
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Os usuários reconhecem os resultados orgânicos como recomendações imparciais de relevância pelo Google, conferindo autoridade instantânea ao negócio.
-              </p>
-            </div>
-            <div className="p-6 bg-white rounded-xl border border-slate-200/90 shadow-sm">
-              <h3 className="text-base font-bold text-slate-900 mb-2">
-                Redução do Custo por Aquisição
-              </h3>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Ao somar visitas orgânicas com tráfego pago, sua empresa diversifica canais e reduz a vulnerabilidade diante do aumento no custo dos leilões de anúncios.
-              </p>
-            </div>
+            {sData.whyCards.map((card, idx) => (
+              <div key={idx} className="p-6 bg-white rounded-xl border border-slate-200/90 shadow-sm">
+                <h3 className="text-base font-bold text-slate-900 mb-2">
+                  {card.title}
+                </h3>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  {card.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* SEO FAQ Section */}
+      {/* 7. SEO FAQ Section */}
       <section className="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <span className="text-xs font-semibold tracking-wider text-[#1A73E8] uppercase">
-            Tire suas Dúvidas
+            {sData.faqKicker}
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-2 mb-3">
-            Perguntas Frequentes sobre os Serviços de SEO
+            {sData.faqTitle}
           </h2>
           <p className="text-sm sm:text-base text-slate-600">
-            Respostas técnicas, honestas e sem rodeios para as principais dúvidas sobre nossos planos.
+            {sData.faqSubtitle}
           </p>
         </div>
 
         <div className="space-y-4">
-          {SEO_FAQS.map((faq, idx) => {
+          {sData.faqs.map((faq, idx) => {
             const isOpen = openFaq === idx;
             return (
               <div
@@ -334,14 +471,14 @@ export const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Concluding CTA */}
+      {/* 8. Concluding CTA */}
       <section className="py-16 bg-slate-900 text-white text-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white mb-4">
-            Ainda em dúvida sobre qual plano escolher?
+            {sData.bottomCtaTitle}
           </h2>
           <p className="text-sm sm:text-base text-slate-300 max-w-xl mx-auto mb-8">
-            Envie o link do seu site pelo WhatsApp. Faremos uma análise preliminar rápida para recomendar a opção mais adequada para o seu estágio atual.
+            {sData.bottomCtaSubtitle}
           </p>
           <a
             href={getWhatsAppUrl(t.whatsappMessages.seoServices)}
