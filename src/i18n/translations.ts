@@ -349,7 +349,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
     meta: {
       siteName: 'Auditoria SEO',
       homeTitle: 'Auditoria SEO | Auditoria Técnica de Sites e Consultoria',
-      homeDescription: 'Auditoria SEO conduzida por especialista a partir de R$ 1.447. Diagnóstico técnico de indexação, Core Web Vitals, palavras-chave e plano de ação priorizado.',
+      homeDescription: 'Auditoria SEO conduzida por especialista e planos contínuos de SEO sob medida. Diagnóstico técnico de indexação, Core Web Vitals, palavras-chave e estratégia orgânica.',
       localSeoTitle: 'SEO Local e Google Meu Negócio: Destaque no Google Maps | Auditoria SEO',
       localSeoDescription: 'Otimize seu Perfil da Empresa no Google (Google Meu Negócio) e conquiste o topo do Google Maps com estratégias avançadas de SEO Local para empresas.',
       seoServicesTitle: 'Serviços de SEO e SEO Local | Auditoria SEO',
@@ -1139,7 +1139,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
     meta: {
       siteName: 'Auditoria SEO',
       homeTitle: 'Auditoría SEO | Auditoría Técnica Web y Consultoría SEO',
-      homeDescription: 'Auditoría SEO realizada por especialista desde R$ 1.447. Diagnóstico técnico de indexación, Core Web Vitals, palabras clave y plan de acción priorizado.',
+      homeDescription: 'Auditoría SEO realizada por especialista y planes de SEO a medida. Diagnóstico técnico de indexación, Core Web Vitals, palabras clave y estrategia orgánica.',
       localSeoTitle: 'SEO Local y Perfil de Empresa en Google: Google Maps | Auditoría SEO',
       localSeoDescription: 'Optimice su Perfil de Empresa en Google y alcance las primeras posiciones en Google Maps con estrategias avanzadas de SEO Local para negocios.',
       seoServicesTitle: 'Servicios de SEO y SEO Local | Auditoría SEO',
@@ -1929,7 +1929,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
     meta: {
       siteName: 'Auditoria SEO',
       homeTitle: 'Auditoria SEO | Specialist Technical SEO Audit & Consulting',
-      homeDescription: 'Specialist-led technical SEO audit from R$ 1,447. Detailed review of indexing, Core Web Vitals, keywords, and a prioritized action roadmap for your site.',
+      homeDescription: 'Specialist-led technical SEO audits and tailored recurring SEO plans. Comprehensive diagnostics for indexing, Core Web Vitals, keywords, and prioritized growth.',
       localSeoTitle: 'Local SEO & Google Business Profile: Google Maps Ranking | Auditoria SEO',
       localSeoDescription: 'Optimize your Google Business Profile and dominate Google Maps with proven local SEO strategies for businesses and regional brands.',
       seoServicesTitle: 'SEO & Local SEO Services | Auditoria SEO',

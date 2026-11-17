@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { JSDOM } from 'jsdom';
 import { getArticlesByLanguage, getAllArticleSlugs } from '../src/lib/blogArticles';
 import { TRANSLATIONS } from '../src/i18n/translations';
+import { HOME_COMMERCIAL_CONTENT } from '../src/i18n/homeCommercial';
 import { ROUTES_BY_LANG } from '../src/i18n/routes';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -310,6 +311,7 @@ async function prerenderAllPages() {
       doc.head.appendChild(scriptLd);
     } else if (p.relPath === '/es' || p.relPath === '/en') {
       const langData = TRANSLATIONS[p.lang];
+      const commercial = HOME_COMMERCIAL_CONTENT[p.lang];
       const oldLdScripts = doc.querySelectorAll('script[type="application/ld+json"]');
       oldLdScripts.forEach((s) => s.remove());
 
@@ -329,10 +331,32 @@ async function prerenderAllPages() {
         hasMap: 'https://share.google/LAMoroMJbdrI9QCsk',
         founder: {
           '@type': 'Person',
-          name: 'Wesley Vieira',
-          jobTitle: langData.seoServicesPage.specialistRole,
+          name: commercial.methodology.specialistName,
+          jobTitle: commercial.methodology.specialistRole,
         },
         sameAs: ['https://wa.me/5519989332087', 'https://share.google/LAMoroMJbdrI9QCsk'],
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: `${commercial.auditsSection.title} & ${commercial.plansSection.title}`,
+          itemListElement: [
+            ...commercial.auditsSection.items.map((item) => ({
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: item.name,
+                description: item.positioning,
+              },
+            })),
+            ...commercial.plansSection.plans.map((plan) => ({
+              '@type': 'Offer',
+              itemOffered: {
+                '@type': 'Service',
+                name: plan.name,
+                description: plan.description,
+              },
+            })),
+          ],
+        },
       });
       doc.head.appendChild(scriptLd);
     }
