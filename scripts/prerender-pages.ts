@@ -153,6 +153,15 @@ async function prerenderAllPages() {
       const ogImageUrl = rawOgImage.startsWith('http') ? rawOgImage : `${DOMAIN}${rawOgImage}`;
       const ogImageAlt = post.mainImage?.alt || articleTitle;
 
+      const hasEs = getArticlesByLanguage('es').some((a) => a.slug.current === slug);
+      const hasEn = getArticlesByLanguage('en').some((a) => a.slug.current === slug);
+      const articleHreflangs = [
+        { lang: 'pt-BR', href: `${DOMAIN}/blog/${slug}` },
+        ...(hasEs ? [{ lang: 'es', href: `${DOMAIN}/es/blog/${slug}` }] : []),
+        ...(hasEn ? [{ lang: 'en', href: `${DOMAIN}/en/blog/${slug}` }] : []),
+        { lang: 'x-default', href: `${DOMAIN}/blog/${slug}` },
+      ];
+
       pages.push({
         relPath,
         lang,
@@ -163,12 +172,7 @@ async function prerenderAllPages() {
         ogImage: ogImageUrl,
         ogImageAlt,
         ogType: 'article',
-        hreflangs: [
-          { lang: 'pt-BR', href: `${DOMAIN}/blog/${slug}` },
-          { lang: 'es', href: `${DOMAIN}/es/blog/${slug}` },
-          { lang: 'en', href: `${DOMAIN}/en/blog/${slug}` },
-          { lang: 'x-default', href: `${DOMAIN}/blog/${slug}` },
-        ],
+        hreflangs: articleHreflangs,
       });
     }
   }
@@ -241,7 +245,8 @@ async function prerenderAllPages() {
     setMeta(doc, 'name', 'googlebot', 'index, follow');
     setLink(doc, 'canonical', canonicalUrl);
 
-    // Hreflang
+    // Hreflang (clear inherited homepage alternates first)
+    doc.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove());
     if (p.hreflangs) {
       for (const h of p.hreflangs) {
         setHreflang(doc, h.lang, h.href);

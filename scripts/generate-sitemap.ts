@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { SITE_CONFIG } from '../src/data/siteData';
 import { fetchSanityPosts, FALLBACK_ARTICLES } from '../src/lib/sanity';
+import { ARTICLES_BY_LANG } from '../src/lib/blogArticles';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -78,21 +79,25 @@ async function generateSitemapAndRobots() {
         priority: '0.7',
       });
 
-      // Spanish
-      canonicalUrls.push({
-        loc: `${DOMAIN}/es/blog/${slug}`,
-        lastmod: postDate,
-        changefreq: 'monthly',
-        priority: '0.7',
-      });
+      // Spanish (only when translated)
+      if (ARTICLES_BY_LANG.es.some((a) => a.slug?.current === slug)) {
+        canonicalUrls.push({
+          loc: `${DOMAIN}/es/blog/${slug}`,
+          lastmod: postDate,
+          changefreq: 'monthly',
+          priority: '0.7',
+        });
+      }
 
-      // English
-      canonicalUrls.push({
-        loc: `${DOMAIN}/en/blog/${slug}`,
-        lastmod: postDate,
-        changefreq: 'monthly',
-        priority: '0.7',
-      });
+      // English (only when translated)
+      if (ARTICLES_BY_LANG.en.some((a) => a.slug?.current === slug)) {
+        canonicalUrls.push({
+          loc: `${DOMAIN}/en/blog/${slug}`,
+          lastmod: postDate,
+          changefreq: 'monthly',
+          priority: '0.7',
+        });
+      }
     }
   } catch (error) {
     console.warn('[SEO-GEN] Aviso: Erro ao buscar artigos do Sanity, utilizando artigos canônicos locais:', error);
@@ -109,18 +114,22 @@ async function generateSitemapAndRobots() {
         changefreq: 'monthly',
         priority: '0.7',
       });
-      canonicalUrls.push({
-        loc: `${DOMAIN}/es/blog/${slug}`,
-        lastmod: postDate,
-        changefreq: 'monthly',
-        priority: '0.7',
-      });
-      canonicalUrls.push({
-        loc: `${DOMAIN}/en/blog/${slug}`,
-        lastmod: postDate,
-        changefreq: 'monthly',
-        priority: '0.7',
-      });
+      if (ARTICLES_BY_LANG.es.some((a) => a.slug?.current === slug)) {
+        canonicalUrls.push({
+          loc: `${DOMAIN}/es/blog/${slug}`,
+          lastmod: postDate,
+          changefreq: 'monthly',
+          priority: '0.7',
+        });
+      }
+      if (ARTICLES_BY_LANG.en.some((a) => a.slug?.current === slug)) {
+        canonicalUrls.push({
+          loc: `${DOMAIN}/en/blog/${slug}`,
+          lastmod: postDate,
+          changefreq: 'monthly',
+          priority: '0.7',
+        });
+      }
     }
   }
 

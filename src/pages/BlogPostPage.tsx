@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import { fetchSanityPostBySlug, fetchSanityPosts } from '../lib/sanity';
+import { ARTICLES_BY_LANG } from '../lib/blogArticles';
 import { SanityPost } from '../types';
 import { SEOHead } from '../components/common/SEOHead';
 import { useLanguage } from '../i18n/LanguageContext';
@@ -76,10 +77,12 @@ export const BlogPostPage: React.FC = () => {
   const articleTitle = post.seoTitle || `${post.title} | Auditoria SEO`;
   const articleDescription = post.metaDescription || post.excerpt;
   const canonicalPath = lang === 'pt' ? `/blog/${post.slug.current}` : `/${lang}/blog/${post.slug.current}`;
+  const hasEsTranslation = ARTICLES_BY_LANG.es.some((a) => a.slug?.current === post.slug.current);
+  const hasEnTranslation = ARTICLES_BY_LANG.en.some((a) => a.slug?.current === post.slug.current);
   const hreflangs = [
     { lang: 'pt-BR', href: `https://auditoriaseo.com.br/blog/${post.slug.current}` },
-    { lang: 'es', href: `https://auditoriaseo.com.br/es/blog/${post.slug.current}` },
-    { lang: 'en', href: `https://auditoriaseo.com.br/en/blog/${post.slug.current}` },
+    ...(hasEsTranslation ? [{ lang: 'es', href: `https://auditoriaseo.com.br/es/blog/${post.slug.current}` }] : []),
+    ...(hasEnTranslation ? [{ lang: 'en', href: `https://auditoriaseo.com.br/en/blog/${post.slug.current}` }] : []),
     { lang: 'x-default', href: `https://auditoriaseo.com.br/blog/${post.slug.current}` },
   ];
   const articleOgImage = post.ogImage || post.mainImage?.asset?.url || 'https://auditoriaseo.com.br/og-image.png';
