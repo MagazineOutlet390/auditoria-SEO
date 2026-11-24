@@ -24,6 +24,9 @@ interface PageMetadata {
   ogImage?: string;
   ogImageAlt?: string;
   ogType?: 'website' | 'article';
+  publishedAt?: string;
+  updatedAt?: string;
+  faqs?: Array<{ question: string; answer: string }>;
   hreflangs?: Array<{ lang: string; href: string }>;
 }
 
@@ -172,6 +175,9 @@ async function prerenderAllPages() {
         ogImage: ogImageUrl,
         ogImageAlt,
         ogType: 'article',
+        publishedAt: post.publishedAt,
+        updatedAt: post.updatedAt || post.publishedAt,
+        faqs: post.faqs,
         hreflangs: articleHreflangs,
       });
     }
@@ -289,8 +295,7 @@ async function prerenderAllPages() {
 
       const scriptLd = doc.createElement('script');
       scriptLd.type = 'application/ld+json';
-      scriptLd.textContent = JSON.stringify({
-        '@context': 'https://schema.org',
+      const blogPostingObj = {
         '@type': 'BlogPosting',
         headline: p.title,
         description: p.description,
@@ -298,6 +303,8 @@ async function prerenderAllPages() {
         url: canonicalUrl,
         mainEntityOfPage: canonicalUrl,
         inLanguage: p.lang === 'pt' ? 'pt-BR' : p.lang,
+        ...(p.publishedAt ? { datePublished: p.publishedAt } : {}),
+        ...(p.updatedAt ? { dateModified: p.updatedAt } : {}),
         author: {
           '@type': 'Person',
           name: 'Wesley Vieira',
@@ -312,7 +319,31 @@ async function prerenderAllPages() {
             url: 'https://auditoriaseo.com.br/icon-512.png',
           },
         },
-      });
+      };
+      scriptLd.textContent = JSON.stringify(
+        p.faqs && p.faqs.length > 0
+          ? {
+              '@context': 'https://schema.org',
+              '@graph': [
+                blogPostingObj,
+                {
+                  '@type': 'FAQPage',
+                  mainEntity: p.faqs.map((faq) => ({
+                    '@type': 'Question',
+                    name: faq.question,
+                    acceptedAnswer: {
+                      '@type': 'Answer',
+                      text: faq.answer,
+                    },
+                  })),
+                },
+              ],
+            }
+          : {
+              '@context': 'https://schema.org',
+              ...blogPostingObj,
+            }
+      );
       doc.head.appendChild(scriptLd);
     } else if (p.relPath === '/es' || p.relPath === '/en') {
       const langData = TRANSLATIONS[p.lang];

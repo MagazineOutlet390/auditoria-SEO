@@ -84,4 +84,5 @@ export interface SanityPost {
   ogDescription?: string;
   ogImage?: string;
   readingTimeMinutes: number;
+  faqs?: FAQItem[];
 }

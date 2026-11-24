@@ -2,8 +2,10 @@ import { SanityPost } from '../../types';
 import { LEGAL_ARTICLES } from '../legalArticles';
 import { PT_AUDIT_GUIDES } from './auditGuidesPt';
 import { PT_EDITORIAL_CHATGPT_ARTICLE } from './editorialChatgptPt';
+import { PT_CHATGPT_BUSINESS_HUB_ARTICLE } from './comoCadastrarEmpresaChatgptPt';
 
 export const PT_BLOG_ARTICLES: SanityPost[] = [
+  PT_CHATGPT_BUSINESS_HUB_ARTICLE,
   PT_EDITORIAL_CHATGPT_ARTICLE,
   ...PT_AUDIT_GUIDES,
   ...LEGAL_ARTICLES,

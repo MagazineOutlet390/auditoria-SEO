@@ -113,36 +113,80 @@ export const BlogPostPage: React.FC = () => {
         hreflangs={hreflangs}
       />
 
-      {/* Schema.org Article structured data */}
+      {/* Schema.org Article (+ optional FAQPage matching visible Q&A) structured data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
-            headline: post.title,
-            description: articleDescription,
-            image: absoluteOgImageUrl,
-            inLanguage: inLanguage,
-            author: {
-              '@type': 'Person',
-              name: post.author.name,
-              jobTitle: post.author.role,
-            },
-            publisher: {
-              '@type': 'Organization',
-              name: 'Auditoria SEO',
-              url: 'https://auditoriaseo.com.br',
-              logo: {
-                '@type': 'ImageObject',
-                url: 'https://auditoriaseo.com.br/icon-512.png',
-              },
-            },
-            datePublished: post.publishedAt,
-            dateModified: post.updatedAt || post.publishedAt,
-            url: `https://auditoriaseo.com.br${canonicalPath}`,
-            mainEntityOfPage: `https://auditoriaseo.com.br${canonicalPath}`,
-          }),
+          __html: JSON.stringify(
+            post.faqs && post.faqs.length > 0
+              ? {
+                  '@context': 'https://schema.org',
+                  '@graph': [
+                    {
+                      '@type': 'BlogPosting',
+                      headline: post.title,
+                      description: articleDescription,
+                      image: absoluteOgImageUrl,
+                      inLanguage: inLanguage,
+                      author: {
+                        '@type': 'Person',
+                        name: post.author.name,
+                        jobTitle: post.author.role,
+                      },
+                      publisher: {
+                        '@type': 'Organization',
+                        name: 'Auditoria SEO',
+                        url: 'https://auditoriaseo.com.br',
+                        logo: {
+                          '@type': 'ImageObject',
+                          url: 'https://auditoriaseo.com.br/icon-512.png',
+                        },
+                      },
+                      datePublished: post.publishedAt,
+                      dateModified: post.updatedAt || post.publishedAt,
+                      url: `https://auditoriaseo.com.br${canonicalPath}`,
+                      mainEntityOfPage: `https://auditoriaseo.com.br${canonicalPath}`,
+                    },
+                    {
+                      '@type': 'FAQPage',
+                      mainEntity: post.faqs.map((faq) => ({
+                        '@type': 'Question',
+                        name: faq.question,
+                        acceptedAnswer: {
+                          '@type': 'Answer',
+                          text: faq.answer,
+                        },
+                      })),
+                    },
+                  ],
+                }
+              : {
+                  '@context': 'https://schema.org',
+                  '@type': 'BlogPosting',
+                  headline: post.title,
+                  description: articleDescription,
+                  image: absoluteOgImageUrl,
+                  inLanguage: inLanguage,
+                  author: {
+                    '@type': 'Person',
+                    name: post.author.name,
+                    jobTitle: post.author.role,
+                  },
+                  publisher: {
+                    '@type': 'Organization',
+                    name: 'Auditoria SEO',
+                    url: 'https://auditoriaseo.com.br',
+                    logo: {
+                      '@type': 'ImageObject',
+                      url: 'https://auditoriaseo.com.br/icon-512.png',
+                    },
+                  },
+                  datePublished: post.publishedAt,
+                  dateModified: post.updatedAt || post.publishedAt,
+                  url: `https://auditoriaseo.com.br${canonicalPath}`,
+                  mainEntityOfPage: `https://auditoriaseo.com.br${canonicalPath}`,
+                }
+          ),
         }}
       />
 
@@ -249,10 +293,37 @@ export const BlogPostPage: React.FC = () => {
               );
             }
 
-            const cleanHtml = DOMPurify.sanitize(trimmed, {
-              ADD_TAGS: ['figure', 'figcaption'],
-              ADD_ATTR: ['target', 'rel', 'class', 'loading', 'fetchpriority', 'width', 'height', 'id'],
+            DOMPurify.addHook('uponSanitizeElement', (node) => {
+              if (node.nodeName === 'IFRAME') {
+                const src = (node as Element).getAttribute('src') || '';
+                const allowed =
+                  src.startsWith('https://www.youtube.com/embed/') ||
+                  src.startsWith('https://www.youtube-nocookie.com/embed/');
+                if (!allowed && node.parentNode) {
+                  node.parentNode.removeChild(node);
+                }
+              }
             });
+            const cleanHtml = DOMPurify.sanitize(trimmed, {
+              ADD_TAGS: ['figure', 'figcaption', 'iframe'],
+              ADD_ATTR: [
+                'target',
+                'rel',
+                'class',
+                'loading',
+                'fetchpriority',
+                'width',
+                'height',
+                'id',
+                'src',
+                'title',
+                'allow',
+                'allowfullscreen',
+                'referrerpolicy',
+                'frameborder',
+              ],
+            });
+            DOMPurify.removeHook('uponSanitizeElement');
 
             const isBlockElement =
               trimmed.startsWith('<figure') ||
