@@ -118,9 +118,9 @@ export const LocalSeoSection: React.FC = () => {
                         <span className="inline-flex items-center gap-1 text-[11px] font-extrabold text-white bg-[#1A73E8] px-2 py-0.5 rounded-md shadow-2xs">
                           {lData.firstPlace}
                         </span>
-                        <h4 className="text-base font-bold text-[#0F2042]">
+                        <p className="text-base font-bold text-[#0F2042]">
                           Clínica Vida Plena
-                        </h4>
+                        </p>
                       </div>
                       <div className="flex items-center gap-1.5 mt-1 text-xs text-slate-700">
                         <span className="font-bold text-slate-900">4,9</span>
@@ -167,9 +167,9 @@ export const LocalSeoSection: React.FC = () => {
                       <span className="text-[11px] font-bold text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded">
                         2º
                       </span>
-                      <h4 className="text-sm font-semibold text-slate-800">
+                      <p className="text-sm font-semibold text-slate-800">
                         Centro Médico São Lucas
-                      </h4>
+                      </p>
                     </div>
                     <span className="text-[11px] text-slate-600">{lData.closesAt}</span>
                   </div>
@@ -191,9 +191,9 @@ export const LocalSeoSection: React.FC = () => {
                       <span className="text-[11px] font-bold text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded">
                         3º
                       </span>
-                      <h4 className="text-sm font-semibold text-slate-800">
+                      <p className="text-sm font-semibold text-slate-800">
                         Consultório Integrado Saúde
-                      </h4>
+                      </p>
                     </div>
                     <span className="text-[11px] text-slate-600">{lData.openStatus}</span>
                   </div>

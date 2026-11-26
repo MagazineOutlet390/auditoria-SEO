@@ -5,6 +5,3 @@
 /es/servicios-seo/ /es 301
 /en/seo-services /en 301
 /en/seo-services/ /en 301
-
-# SPA fallback
-/* /index.html 200

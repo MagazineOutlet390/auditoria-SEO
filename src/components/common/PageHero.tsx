@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { SITE_CONFIG } from '../../data/siteData';
+import { useLanguage } from '../../i18n/LanguageContext';
 import { ArrowRight, ChevronRight, CheckCircle2 } from 'lucide-react';
 
 export interface PageHeroProps {
@@ -35,8 +36,16 @@ export const PageHero: React.FC<PageHeroProps> = ({
   secondaryCta,
   trustBadges,
   extraBanner,
-  imageAlt = 'Palestrante especialista da Auditoria SEO apresentando estratégias para visibilidade no Google',
+  imageAlt,
 }) => {
+  const { lang } = useLanguage();
+  const resolvedImageAlt =
+    imageAlt ||
+    (lang === 'es'
+      ? 'Especialista de Auditoria SEO presentando estrategias de visibilidad en Google'
+      : lang === 'en'
+      ? 'Auditoria SEO specialist presenting Google search visibility strategies'
+      : 'Palestrante especialista da Auditoria SEO apresentando estratégias para visibilidade no Google');
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -132,7 +141,7 @@ export const PageHero: React.FC<PageHeroProps> = ({
           />
           <img
             src={SITE_CONFIG.heroImage}
-            alt={imageAlt}
+            alt={resolvedImageAlt}
             width={800}
             height={889}
             fetchPriority="high"
@@ -168,7 +177,7 @@ export const PageHero: React.FC<PageHeroProps> = ({
             />
             <img
               src={SITE_CONFIG.heroImage}
-              alt={imageAlt}
+              alt={resolvedImageAlt}
               width={577}
               height={641}
               className="w-full h-full object-cover object-top lg:object-center"

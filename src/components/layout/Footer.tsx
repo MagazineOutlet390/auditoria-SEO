@@ -1,11 +1,27 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { SITE_CONFIG } from '../../data/siteData';
 import { useLanguage } from '../../i18n/LanguageContext';
+import { getEquivalentPath } from '../../i18n/routes';
+import { Language } from '../../i18n/types';
 import { Phone, ShieldCheck, ExternalLink, MapPin } from 'lucide-react';
 
+const FOOTER_LANGS: Array<{ code: Language; label: string; hreflang: string }> = [
+  { code: 'pt', label: 'Português', hreflang: 'pt-BR' },
+  { code: 'es', label: 'Español', hreflang: 'es' },
+  { code: 'en', label: 'English', hreflang: 'en' },
+];
+
 export const Footer: React.FC = () => {
-  const { t, navLinks, currentRoutes, getWhatsAppUrl } = useLanguage();
+  const { lang, t, navLinks, currentRoutes, getWhatsAppUrl } = useLanguage();
+  const location = useLocation();
+
+  const homeServiceLabel =
+    lang === 'es'
+      ? 'Agencia y Planes de SEO'
+      : lang === 'en'
+      ? 'SEO Agency & Consulting Plans'
+      : 'Agência & Planos de SEO';
 
   return (
     <footer className="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800">
@@ -53,9 +69,9 @@ export const Footer: React.FC = () => {
 
           {/* Navigation Links */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold text-white uppercase tracking-wider">
+            <p className="text-xs font-semibold text-white uppercase tracking-wider">
               {t.footer.navHeading}
-            </h4>
+            </p>
             <ul className="space-y-2 text-sm">
               {navLinks.map((link) => (
                 <li key={link.path}>
@@ -72,13 +88,13 @@ export const Footer: React.FC = () => {
 
           {/* Core Services */}
           <div className="space-y-3">
-            <h4 className="text-xs font-semibold text-white uppercase tracking-wider">
+            <p className="text-xs font-semibold text-white uppercase tracking-wider">
               {t.footer.servicesHeading}
-            </h4>
+            </p>
             <ul className="space-y-2 text-sm text-slate-400">
               <li>
                 <Link to={currentRoutes.home} className="hover:text-white transition-colors">
-                  Agência & Planos de SEO
+                  {homeServiceLabel}
                 </Link>
               </li>
               <li>
@@ -107,14 +123,31 @@ export const Footer: React.FC = () => {
 
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} {t.footer.copyright}</p>
-          <div className="flex items-center gap-6">
+          <p>© 2026 {t.footer.copyright}</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <span className="flex items-center gap-1.5 text-slate-400">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
               <span>{t.footer.whiteHat}</span>
             </span>
-            <span className="text-slate-600">·</span>
+            <span className="text-slate-600" aria-hidden="true">·</span>
             <span>{t.footer.coverage}</span>
+            <span className="text-slate-600" aria-hidden="true">·</span>
+            <nav aria-label={t.nav.langSelectAria} className="flex items-center gap-2.5">
+              {FOOTER_LANGS.map((opt) => (
+                <Link
+                  key={opt.code}
+                  to={getEquivalentPath(location.pathname, opt.code)}
+                  hrefLang={opt.hreflang}
+                  className={
+                    opt.code === lang
+                      ? 'text-white font-semibold'
+                      : 'text-slate-400 hover:text-white transition-colors'
+                  }
+                >
+                  {opt.label}
+                </Link>
+              ))}
+            </nav>
           </div>
         </div>
       </div>

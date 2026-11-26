@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { SEOHead } from '../components/common/SEOHead';
 import { Hero } from '../components/home/Hero';
@@ -11,11 +11,31 @@ import { TestimonialsCarousel } from '../components/home/TestimonialsCarousel';
 import { FinalCTA } from '../components/home/FinalCTA';
 import { useLanguage } from '../i18n/LanguageContext';
 import { getHreflangs } from '../i18n/routes';
+import { buildLocalSeoJsonLd } from '../lib/seoSchemas';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
 export const LocalSeoPage: React.FC = () => {
   const { lang, t, currentRoutes } = useLanguage();
   const location = useLocation();
+
+  const jsonLd = useMemo(() => {
+    const pageUrl = `https://auditoriaseo.com.br${location.pathname}`;
+    return buildLocalSeoJsonLd(lang, pageUrl);
+  }, [lang, location.pathname]);
+
+  const bannerPrompt =
+    lang === 'es'
+      ? '¿Busca consultoría global y optimización técnica de sitios web?'
+      : lang === 'en'
+      ? 'Looking for global consulting and technical website optimization?'
+      : 'Procura consultoria global e otimização técnica de sites?';
+
+  const bannerCta =
+    lang === 'es'
+      ? 'Conozca los Planes de SEO de Auditoria SEO'
+      : lang === 'en'
+      ? 'Explore Auditoria SEO Consulting & Plans'
+      : 'Conheça os Planos de SEO da Auditoria SEO';
 
   return (
     <main>
@@ -27,28 +47,7 @@ export const LocalSeoPage: React.FC = () => {
         ogImage="/og-image.png"
         currentLang={lang}
         hreflangs={getHreflangs(location.pathname)}
-      />
-
-      {/* Schema.org Structured Data for Local SEO & Google Business Profile Services */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Service',
-            name: 'SEO Local e Otimização do Perfil da Empresa no Google',
-            serviceType: 'Local SEO, Google Maps Optimization & Google Business Profile Management',
-            provider: {
-              '@type': 'ProfessionalService',
-              name: 'Auditoria SEO',
-              url: 'https://auditoriaseo.com.br',
-              telephone: '+55-19-98933-2087',
-              hasMap: 'https://share.google/LAMoroMJbdrI9QCsk',
-            },
-            areaServed: 'BR',
-            description: t.meta.localSeoDescription,
-          }),
-        }}
+        jsonLd={jsonLd}
       />
 
       {/* Contextual Banner connecting Local SEO to General SEO Services on Homepage */}
@@ -56,15 +55,13 @@ export const LocalSeoPage: React.FC = () => {
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2 text-slate-300">
             <Sparkles className="w-4 h-4 text-[#1A73E8] shrink-0" />
-            <span>
-              Procura consultoria global e otimização técnica de sites?
-            </span>
+            <span>{bannerPrompt}</span>
           </div>
           <Link
             to={currentRoutes.home}
             className="inline-flex items-center gap-1 font-semibold text-[#1A73E8] hover:text-blue-400 transition-colors"
           >
-            <span>Conheça os Planos de SEO da Auditoria SEO</span>
+            <span>{bannerCta}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { REAL_SOCIAL_PROOF_ITEMS, SITE_CONFIG } from '../../data/siteData';
+import { useLanguage } from '../../i18n/LanguageContext';
 import { SocialProofItem } from '../../types';
 import {
   ExternalLink,
@@ -15,6 +16,88 @@ import {
 } from 'lucide-react';
 
 export const TestimonialsCarousel: React.FC = () => {
+  const { lang, t } = useLanguage();
+  const td = t.home.testimonials;
+
+  const ui =
+    lang === 'es'
+      ? {
+          sectionAria: 'Testimonios y Reseñas de Clientes',
+          videosBadge: 'Videos y Ficha Oficial',
+          heading: 'Testimonios y Reseñas Reales',
+          subheading:
+            'Sin reseñas inventadas ni textos genéricos. Vea testimonios en video de clientes y capturas auténticas publicadas directamente en nuestra ficha oficial de Google Maps.',
+          viewGoogleBtn: 'Ver reseñas en Google',
+          scrollLeft: 'Desplazar a la izquierda',
+          scrollRight: 'Desplazar a la derecha',
+          officialFootnoteLabel: 'Canal Oficial y Ficha de Google Maps:',
+          officialFootnoteText:
+            'Videos y capturas de reseñas 100% auténticas de Auditoria SEO.',
+          openFullMaps: 'Acceder al perfil completo en Google Maps',
+          closeModalAria: 'Cerrar vista previa',
+          verifiedReview: 'Reseña verificada',
+          ytCardHeader: 'Testimonio en YouTube',
+          verifiedBadge: 'Verificado',
+          closePlayerAria: 'Cerrar reproductor de video',
+          watchLabel: 'Ver testimonio',
+          mapsCardHeader: 'Reseña de Google Maps',
+          officialBadge: 'Ficha Oficial',
+          zoomLabel: 'Ampliar',
+          checkMapsBtn: 'Verificar en Google',
+          viewProfileShort: 'Ver ficha',
+        }
+      : lang === 'en'
+      ? {
+          sectionAria: 'Client Testimonials and Reviews',
+          videosBadge: 'Videos & Official Profile',
+          heading: 'Verified Reviews & Real Testimonials',
+          subheading:
+            'No fabricated quotes or generic templates. Watch client video testimonials and explore genuine review screenshots directly from our official Google Maps profile.',
+          viewGoogleBtn: 'View reviews on Google',
+          scrollLeft: 'Scroll left',
+          scrollRight: 'Scroll right',
+          officialFootnoteLabel: 'Official Channel & Google Maps Profile:',
+          officialFootnoteText:
+            '100% authentic client videos and verified Google review screenshots from Auditoria SEO.',
+          openFullMaps: 'View full profile on Google Maps',
+          closeModalAria: 'Close preview modal',
+          verifiedReview: 'Verified review',
+          ytCardHeader: 'YouTube Testimonial',
+          verifiedBadge: 'Verified',
+          closePlayerAria: 'Close video player',
+          watchLabel: 'Watch testimonial',
+          mapsCardHeader: 'Google Maps Review',
+          officialBadge: 'Official Profile',
+          zoomLabel: 'Enlarge',
+          checkMapsBtn: 'Verify on Google',
+          viewProfileShort: 'View profile',
+        }
+      : {
+          sectionAria: 'Depoimentos e Avaliações de Clientes',
+          videosBadge: 'Vídeos & Ficha Oficial',
+          heading: 'Depoimentos e Avaliações Reais',
+          subheading:
+            'Sem avaliações inventadas ou textos genéricos. Assista a depoimentos em vídeo de clientes e confira as capturas autênticas publicadas diretamente na nossa ficha oficial do Google Maps.',
+          viewGoogleBtn: 'Ver avaliações no Google',
+          scrollLeft: 'Rolar para a esquerda',
+          scrollRight: 'Rolar para a direita',
+          officialFootnoteLabel: 'Canal Oficial & Ficha Google Maps:',
+          officialFootnoteText:
+            'Vídeos e capturas de avaliações 100% autênticas da Auditoria SEO.',
+          openFullMaps: 'Acessar perfil completo no Google Maps',
+          closeModalAria: 'Fechar modal de visualização',
+          verifiedReview: 'Avaliação verificada',
+          ytCardHeader: 'YouTube Depoimento',
+          verifiedBadge: 'Verificado',
+          closePlayerAria: 'Fechar reprodutor de vídeo',
+          watchLabel: 'Assistir depoimento',
+          mapsCardHeader: 'Google Maps Avaliação',
+          officialBadge: 'Ficha Oficial',
+          zoomLabel: 'Ampliar',
+          checkMapsBtn: 'Conferir na ficha do Google',
+          viewProfileShort: 'Ver ficha',
+        };
+
   const [isUserPaused, setIsUserPaused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -59,7 +142,6 @@ export const TestimonialsCarousel: React.FC = () => {
     activeImagePreview !== null ||
     prefersReducedMotion;
 
-  // Manual scroll stepping
   const handleScrollStep = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
       const step = 360;
@@ -82,7 +164,7 @@ export const TestimonialsCarousel: React.FC = () => {
   return (
     <section
       className="py-20 bg-slate-50 border-b border-slate-200/80 overflow-hidden"
-      aria-label="Depoimentos e Avaliações de Clientes"
+      aria-label={ui.sectionAria}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -90,26 +172,23 @@ export const TestimonialsCarousel: React.FC = () => {
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xs font-semibold tracking-wider text-[#1A73E8] uppercase">
-                Prova Social Autêntica
+                {td.eyebrow}
               </span>
               <span className="text-slate-300">·</span>
               <span className="inline-flex items-center gap-1 text-xs text-slate-500 font-medium">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Vídeos & Ficha Oficial</span>
+                <span>{ui.videosBadge}</span>
               </span>
             </div>
 
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1 mb-3">
-              Depoimentos e Avaliações Reais
+              {ui.heading}
             </h2>
-            <p className="text-base text-slate-600 leading-relaxed">
-              Sem avaliações inventadas ou textos genéricos. Assista a depoimentos em vídeo de clientes e confira as capturas autênticas publicadas diretamente na nossa ficha oficial do Google Maps.
-            </p>
+            <p className="text-base text-slate-600 leading-relaxed">{ui.subheading}</p>
           </div>
 
           {/* Action Button & Carousel Controls */}
           <div className="flex flex-wrap items-center gap-3 shrink-0">
-            {/* Primary Google Maps CTA Button */}
             <a
               href={SITE_CONFIG.googleMapsProfileUrl}
               target="_blank"
@@ -117,16 +196,15 @@ export const TestimonialsCarousel: React.FC = () => {
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] shadow-sm transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1A73E8]"
             >
               <MapPin className="w-4 h-4 shrink-0" />
-              <span>Ver avaliações no Google</span>
+              <span>{ui.viewGoogleBtn}</span>
               <ExternalLink className="w-3.5 h-3.5 opacity-80" />
             </a>
 
-            {/* Manual Navigation and Pause Controls */}
             <div className="flex items-center gap-1.5 bg-white p-1 rounded-lg border border-slate-200/90 shadow-xs">
               <button
                 type="button"
                 onClick={() => handleScrollStep('left')}
-                aria-label="Rolar para a esquerda"
+                aria-label={ui.scrollLeft}
                 className="w-8 h-8 rounded-md flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1A73E8]"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -135,8 +213,8 @@ export const TestimonialsCarousel: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsUserPaused(!isUserPaused)}
-                aria-label={isUserPaused ? 'Iniciar rotação automática' : 'Pausar rotação automática'}
-                title={isUserPaused ? 'Iniciar rotação' : 'Pausar rotação'}
+                aria-label={isUserPaused ? td.resumeRotation : td.pauseRotation}
+                title={isUserPaused ? td.resumeRotation : td.pauseRotation}
                 className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1A73E8] ${
                   isUserPaused
                     ? 'bg-blue-50 text-[#1A73E8] font-medium'
@@ -149,7 +227,7 @@ export const TestimonialsCarousel: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleScrollStep('right')}
-                aria-label="Rolar para a direita"
+                aria-label={ui.scrollRight}
                 className="w-8 h-8 rounded-md flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1A73E8]"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -172,7 +250,6 @@ export const TestimonialsCarousel: React.FC = () => {
               prefersReducedMotion ? '' : 'animate-infinite-loop'
             } ${isPaused ? 'is-paused' : ''}`}
           >
-            {/* Primary Track Items */}
             {REAL_SOCIAL_PROOF_ITEMS.map((item) => (
               <SocialProofCard
                 key={item.id}
@@ -181,10 +258,11 @@ export const TestimonialsCarousel: React.FC = () => {
                 onPlayVideo={handleVideoPlay}
                 onCloseVideo={handleVideoClose}
                 onPreviewImage={setActiveImagePreview}
+                ui={ui}
+                td={td}
               />
             ))}
 
-            {/* Seamless Infinite Clone Items (Screen Reader Hidden) */}
             {!prefersReducedMotion &&
               REAL_SOCIAL_PROOF_ITEMS.map((item) => (
                 <SocialProofCard
@@ -194,6 +272,8 @@ export const TestimonialsCarousel: React.FC = () => {
                   onPlayVideo={handleVideoPlay}
                   onCloseVideo={handleVideoClose}
                   onPreviewImage={setActiveImagePreview}
+                  ui={ui}
+                  td={td}
                   isClone={true}
                 />
               ))}
@@ -203,8 +283,8 @@ export const TestimonialsCarousel: React.FC = () => {
         {/* Section Footnote */}
         <div className="mt-8 pt-4 border-t border-slate-200/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-slate-700">Canal Oficial & Ficha Google Maps:</span>
-            <span>Vídeos e capturas de avaliações 100% autênticas da Auditoria SEO.</span>
+            <span className="font-semibold text-slate-700">{ui.officialFootnoteLabel}</span>
+            <span>{ui.officialFootnoteText}</span>
           </div>
           <a
             href={SITE_CONFIG.googleMapsProfileUrl}
@@ -212,7 +292,7 @@ export const TestimonialsCarousel: React.FC = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-[#1A73E8] hover:text-[#174EA6] font-semibold"
           >
-            <span>Acessar perfil completo no Google Maps</span>
+            <span>{ui.openFullMaps}</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
@@ -231,7 +311,6 @@ export const TestimonialsCarousel: React.FC = () => {
             className="relative bg-white rounded-2xl max-w-lg w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl border border-slate-200"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Modal Header */}
             <div className="p-4 px-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
               <div className="flex items-center gap-2">
                 <div className="w-6 h-6 rounded bg-blue-100 text-[#1A73E8] flex items-center justify-center">
@@ -249,14 +328,13 @@ export const TestimonialsCarousel: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setActiveImagePreview(null)}
-                aria-label="Fechar modal de visualização"
+                aria-label={ui.closeModalAria}
                 className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1A73E8]"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Modal Body - Image */}
             <div className="p-4 overflow-y-auto max-h-[calc(90vh-140px)] bg-slate-100/50 flex flex-col items-center justify-center">
               <img
                 src={activeImagePreview.src}
@@ -270,9 +348,8 @@ export const TestimonialsCarousel: React.FC = () => {
               )}
             </div>
 
-            {/* Modal Footer */}
             <div className="p-4 px-5 bg-white border-t border-slate-100 flex items-center justify-between gap-3">
-              <span className="text-xs text-slate-500">Avaliação verificada</span>
+              <span className="text-xs text-slate-500">{ui.verifiedReview}</span>
               <a
                 href={activeImagePreview.directReviewUrl}
                 target="_blank"
@@ -280,7 +357,7 @@ export const TestimonialsCarousel: React.FC = () => {
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] shadow-xs transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1A73E8]"
               >
                 <MapPin className="w-3.5 h-3.5" />
-                <span>Ver ficha no Google Maps</span>
+                <span>{td.modalOpenSource}</span>
                 <ExternalLink className="w-3 h-3 opacity-90" />
               </a>
             </div>
@@ -303,6 +380,23 @@ interface SocialProofCardProps {
     directReviewUrl: string;
     description?: string;
   }) => void;
+  ui: {
+    ytCardHeader: string;
+    verifiedBadge: string;
+    closePlayerAria: string;
+    watchLabel: string;
+    mapsCardHeader: string;
+    officialBadge: string;
+    zoomLabel: string;
+    checkMapsBtn: string;
+    viewProfileShort: string;
+  };
+  td: {
+    watchVideo: string;
+    enlargeImage: string;
+    openYouTube: string;
+    viewOnMaps: string;
+  };
   isClone?: boolean;
 }
 
@@ -312,6 +406,8 @@ const SocialProofCard: React.FC<SocialProofCardProps> = ({
   onPlayVideo,
   onCloseVideo,
   onPreviewImage,
+  ui,
+  td,
   isClone = false,
 }) => {
   const isVideo = item.type === 'youtube-video';
@@ -323,20 +419,18 @@ const SocialProofCard: React.FC<SocialProofCardProps> = ({
         aria-hidden={isClone}
         className="w-[300px] sm:w-[350px] shrink-0 bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:border-[#1A73E8]/40 hover:shadow-md transition-all flex flex-col justify-between overflow-hidden"
       >
-        {/* Card Header */}
         <div className="p-4 pb-3 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded bg-red-600 flex items-center justify-center text-white">
               <Video className="w-3.5 h-3.5" />
             </div>
             <span className="text-xs font-bold text-slate-900 tracking-tight">
-              YouTube Depoimento
+              {ui.ytCardHeader}
             </span>
           </div>
-          <span className="text-[11px] font-medium text-slate-400">Verificado</span>
+          <span className="text-[11px] font-medium text-slate-400">{ui.verifiedBadge}</span>
         </div>
 
-        {/* Media Viewport */}
         <div className="relative aspect-[9/14] sm:aspect-[9/13] bg-slate-900 overflow-hidden">
           {isCurrentlyPlaying ? (
             <div className="relative w-full h-full">
@@ -350,7 +444,7 @@ const SocialProofCard: React.FC<SocialProofCardProps> = ({
               <button
                 type="button"
                 onClick={onCloseVideo}
-                aria-label="Fechar reprodutor de vídeo"
+                aria-label={ui.closePlayerAria}
                 tabIndex={isClone ? -1 : 0}
                 className="absolute top-2 right-2 p-1.5 rounded-full bg-slate-900/80 text-white hover:bg-slate-900 transition-colors z-10"
               >
@@ -367,26 +461,24 @@ const SocialProofCard: React.FC<SocialProofCardProps> = ({
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
 
-              {/* Play Button Trigger */}
               <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
                 <button
                   type="button"
                   onClick={() => onPlayVideo(item.videoId)}
-                  aria-label={`Assistir ao vídeo: ${item.title}`}
+                  aria-label={`${td.watchVideo}: ${item.title}`}
                   tabIndex={isClone ? -1 : 0}
                   className="w-14 h-14 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center shadow-lg transform group-hover:scale-110 active:scale-95 transition-all focus:outline-none focus-visible:ring-4 focus-visible:ring-red-400/50"
                 >
                   <Play className="w-6 h-6 fill-white ml-0.5" />
                 </button>
                 <span className="mt-3 text-xs font-semibold text-white drop-shadow-sm">
-                  Assistir depoimento
+                  {ui.watchLabel}
                 </span>
               </div>
             </div>
           )}
         </div>
 
-        {/* Card Footer */}
         <div className="p-4 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between text-xs">
           <div>
             <div className="font-bold text-slate-900 leading-snug">{item.title}</div>
@@ -398,8 +490,8 @@ const SocialProofCard: React.FC<SocialProofCardProps> = ({
             rel="noopener noreferrer"
             tabIndex={isClone ? -1 : 0}
             className="text-[#1A73E8] hover:text-[#174EA6] p-1"
-            title="Abrir no YouTube"
-            aria-label="Abrir vídeo diretamente no YouTube"
+            title={td.openYouTube}
+            aria-label={td.openYouTube}
           >
             <ExternalLink className="w-4 h-4" />
           </a>
@@ -408,32 +500,28 @@ const SocialProofCard: React.FC<SocialProofCardProps> = ({
     );
   }
 
-  // Google Maps Review Screenshot Card
   return (
     <article
       aria-hidden={isClone}
       className="w-[300px] sm:w-[350px] shrink-0 bg-white rounded-2xl border border-slate-200/90 shadow-sm hover:border-[#1A73E8]/40 hover:shadow-md transition-all flex flex-col justify-between overflow-hidden"
     >
-      {/* Card Header */}
       <div className="p-4 pb-3 border-b border-slate-100 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-6 h-6 rounded bg-blue-50 text-[#1A73E8] flex items-center justify-center">
             <MapPin className="w-3.5 h-3.5" />
           </div>
           <span className="text-xs font-bold text-slate-900 tracking-tight">
-            Google Maps Avaliação
+            {ui.mapsCardHeader}
           </span>
         </div>
         <span className="text-[11px] font-medium text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
-          Ficha Oficial
+          {ui.officialBadge}
         </span>
       </div>
 
-      {/* Screenshot or Official Review Container */}
       <div className="p-4 flex-1 flex flex-col justify-between bg-slate-50/50 min-h-[260px]">
         {item.screenshotUrl ? (
           <div className="space-y-3 flex-1 flex flex-col justify-between">
-            {/* Clickable Screenshot Preview */}
             <div
               role="button"
               tabIndex={isClone ? -1 : 0}
@@ -459,8 +547,8 @@ const SocialProofCard: React.FC<SocialProofCardProps> = ({
                 }
               }}
               className="relative group rounded-xl overflow-hidden border border-slate-200/90 shadow-2xs hover:border-[#1A73E8]/50 hover:shadow-md transition-all cursor-pointer bg-white"
-              aria-label={`Ampliar captura da avaliação de ${item.author || item.title}`}
-              title="Clique para ampliar"
+              aria-label={`${td.enlargeImage}: ${item.author || item.title}`}
+              title={td.enlargeImage}
             >
               <img
                 src={item.screenshotUrl}
@@ -471,12 +559,11 @@ const SocialProofCard: React.FC<SocialProofCardProps> = ({
               <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/15 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-slate-900/85 text-white text-[11px] font-semibold shadow-md">
                   <ZoomIn className="w-3 h-3" />
-                  <span>Ampliar</span>
+                  <span>{ui.zoomLabel}</span>
                 </span>
               </div>
             </div>
 
-            {/* Description quote snippet if provided */}
             {item.description && (
               <p className="text-xs text-slate-600 line-clamp-2 italic px-1">
                 {item.description}
@@ -491,10 +578,7 @@ const SocialProofCard: React.FC<SocialProofCardProps> = ({
 
             <div>
               <h3 className="text-sm font-bold text-slate-900 mb-1">{item.title}</h3>
-              <p className="text-xs text-slate-600 leading-relaxed">
-                {item.description ||
-                  'Avaliação autêntica registrada na ficha da Auditoria SEO no Google Maps.'}
-              </p>
+              <p className="text-xs text-slate-600 leading-relaxed">{item.description}</p>
             </div>
 
             <a
@@ -504,14 +588,13 @@ const SocialProofCard: React.FC<SocialProofCardProps> = ({
               tabIndex={isClone ? -1 : 0}
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-[#1A73E8] hover:border-[#1A73E8]/40 shadow-xs transition-all"
             >
-              <span>Conferir na ficha do Google</span>
+              <span>{ui.checkMapsBtn}</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
         )}
       </div>
 
-      {/* Card Footer */}
       <div className="p-4 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between text-xs">
         <div>
           <div className="font-bold text-slate-900">{item.author}</div>
@@ -523,10 +606,10 @@ const SocialProofCard: React.FC<SocialProofCardProps> = ({
           rel="noopener noreferrer"
           tabIndex={isClone ? -1 : 0}
           className="text-[#1A73E8] hover:text-[#174EA6] p-1 inline-flex items-center gap-1 font-semibold text-xs"
-          title="Ver no Google Maps"
-          aria-label="Abrir avaliação no Google Maps"
+          title={td.viewOnMaps}
+          aria-label={td.viewOnMaps}
         >
-          <span>Ver ficha</span>
+          <span>{ui.viewProfileShort}</span>
           <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>

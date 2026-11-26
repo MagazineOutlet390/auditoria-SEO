@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { SITE_CONFIG } from '../data/siteData';
 import { PageHero } from '../components/common/PageHero';
 import { SEOHead } from '../components/common/SEOHead';
 import { useLanguage } from '../i18n/LanguageContext';
 import { getHreflangs } from '../i18n/routes';
 import { HOME_COMMERCIAL_CONTENT } from '../i18n/homeCommercial';
+import { buildHomeJsonLd } from '../lib/seoSchemas';
 import { HomeModalitiesAndAudits } from '../components/home/HomeModalitiesAndAudits';
 import { HomeRecurringPlans } from '../components/home/HomeRecurringPlans';
 import { HomeLocalAndComplementary } from '../components/home/HomeLocalAndComplementary';
@@ -19,73 +19,17 @@ export const HomePage: React.FC = () => {
   const c = HOME_COMMERCIAL_CONTENT[lang];
   const hreflangs = getHreflangs(location.pathname);
 
+  const jsonLd = useMemo(() => {
+    const pageUrl = `https://auditoriaseo.com.br${location.pathname === '/' ? '' : location.pathname}`;
+    return buildHomeJsonLd(lang, pageUrl);
+  }, [lang, location.pathname]);
+
   const scrollToPlans = () => {
     const el = document.getElementById('planos');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
-  // Sync a single canonical ProfessionalService JSON-LD script in <head> without public prices
-  useEffect(() => {
-    const pageUrl = `https://auditoriaseo.com.br${location.pathname === '/' ? '' : location.pathname}`;
-    const catalogServices = [
-      ...c.auditsSection.items.map((item) => ({
-        '@type': 'Offer',
-        itemOffered: {
-          '@type': 'Service',
-          name: item.name,
-          description: item.positioning,
-        },
-      })),
-      ...c.plansSection.plans.map((plan) => ({
-        '@type': 'Offer',
-        itemOffered: {
-          '@type': 'Service',
-          name: plan.name,
-          description: plan.description,
-        },
-      })),
-    ];
-
-    const schemaData = {
-      '@context': 'https://schema.org',
-      '@type': 'ProfessionalService',
-      name: 'Auditoria SEO',
-      url: pageUrl,
-      inLanguage: lang === 'pt' ? 'pt-BR' : lang,
-      logo: 'https://auditoriaseo.com.br/icon-512.png',
-      image: 'https://auditoriaseo.com.br/og-image.png',
-      telephone: '+55-19-98933-2087',
-      areaServed: 'BR',
-      description: t.meta.homeDescription,
-      hasMap: SITE_CONFIG.googleMapsProfileUrl,
-      founder: {
-        '@type': 'Person',
-        name: c.methodology.specialistName,
-        jobTitle: c.methodology.specialistRole,
-      },
-      sameAs: [SITE_CONFIG.whatsappBaseUrl, SITE_CONFIG.googleMapsProfileUrl],
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: `${c.auditsSection.title} & ${c.plansSection.title}`,
-        itemListElement: catalogServices,
-      },
-    };
-
-    const existingScripts = document.querySelectorAll('script[type="application/ld+json"]');
-    if (existingScripts.length > 0) {
-      existingScripts[0].textContent = JSON.stringify(schemaData);
-      for (let i = 1; i < existingScripts.length; i++) {
-        existingScripts[i].parentNode?.removeChild(existingScripts[i]);
-      }
-    } else {
-      const scriptEl = document.createElement('script');
-      scriptEl.type = 'application/ld+json';
-      scriptEl.textContent = JSON.stringify(schemaData);
-      document.head.appendChild(scriptEl);
-    }
-  }, [lang, location.pathname, t.meta.homeDescription, c]);
 
   return (
     <main className="bg-white">
@@ -98,6 +42,7 @@ export const HomePage: React.FC = () => {
         ogImage="/og-image.png"
         currentLang={lang}
         hreflangs={hreflangs}
+        jsonLd={jsonLd}
       />
 
       {/* 1. Hero Section */}

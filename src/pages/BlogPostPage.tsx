@@ -1,28 +1,50 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
-import DOMPurify from 'dompurify';
-import { fetchSanityPostBySlug, fetchSanityPosts } from '../lib/sanity';
-import { ARTICLES_BY_LANG } from '../lib/blogArticles';
+import { fetchSanityPostBySlug, fetchSanityPosts, SANITY_CONFIG } from '../lib/sanity';
+import { getCachedArticles, getCachedArticleBySlug } from '../lib/blogArticles/cache';
+import { hasArticleTranslation } from '../lib/blogArticles/manifest';
+import { sanitizeArticleHtml } from '../lib/sanitizeHtml';
 import { SanityPost } from '../types';
 import { SEOHead } from '../components/common/SEOHead';
 import { useLanguage } from '../i18n/LanguageContext';
-import { getHreflangs } from '../i18n/routes';
-import { Clock, User, ArrowLeft, ArrowRight, ListTree } from 'lucide-react';
+import { Clock, ArrowLeft, ArrowRight, ListTree } from 'lucide-react';
 
 export const BlogPostPage: React.FC = () => {
   const { lang, t, currentRoutes, getLocalizedPath } = useLanguage();
   const location = useLocation();
   const { slug } = useParams<{ slug: string }>();
-  const [post, setPost] = useState<SanityPost | null>(null);
-  const [relatedPosts, setRelatedPosts] = useState<SanityPost[]>([]);
-  const [loading, setLoading] = useState(true);
+
+  const isLangCached = Boolean(getCachedArticles(lang));
+  const initialPost = slug ? getCachedArticleBySlug(slug, lang) : null;
+  const initialRelated =
+    (getCachedArticles(lang) || [])
+      .filter((p) => p.slug.current !== slug)
+      .slice(0, 2);
+
+  const [post, setPost] = useState<SanityPost | null>(() => initialPost);
+  const [relatedPosts, setRelatedPosts] = useState<SanityPost[]>(() => initialRelated);
+  const [loading, setLoading] = useState(() => !isLangCached && Boolean(slug));
 
   const bData = t.blog;
 
   useEffect(() => {
     if (!slug) return;
-    setLoading(true);
     window.scrollTo(0, 0);
+
+    const cachedLang = getCachedArticles(lang);
+    const cachedFound = getCachedArticleBySlug(slug, lang);
+
+    if (cachedLang && !SANITY_CONFIG.isConfigured) {
+      setPost(cachedFound);
+      setRelatedPosts(cachedLang.filter((p) => p.slug.current !== slug).slice(0, 2));
+      setLoading(false);
+      return;
+    }
+
+    setLoading(!cachedLang);
+    if (cachedFound) {
+      setPost(cachedFound);
+    }
 
     fetchSanityPostBySlug(slug, lang)
       .then((data) => {
@@ -35,6 +57,70 @@ export const BlogPostPage: React.FC = () => {
       setRelatedPosts(all.filter((p) => p.slug.current !== slug).slice(0, 2));
     });
   }, [slug, lang]);
+
+  const jsonLd = useMemo(() => {
+    if (!post) return null;
+    const articleDesc = post.metaDescription || post.excerpt;
+    const canonicalPath =
+      lang === 'pt' ? `/blog/${post.slug.current}` : `/${lang}/blog/${post.slug.current}`;
+    const rawOgImage =
+      post.ogImage || post.mainImage?.asset?.url || 'https://auditoriaseo.com.br/og-image.png';
+    const absoluteOgImage = rawOgImage.startsWith('http')
+      ? rawOgImage
+      : `https://auditoriaseo.com.br${rawOgImage.startsWith('/') ? rawOgImage : `/${rawOgImage}`}`;
+    const inLang = lang === 'pt' ? 'pt-BR' : lang;
+
+    const blogPostingObj = {
+      '@type': 'BlogPosting',
+      headline: post.title,
+      description: articleDesc,
+      image: absoluteOgImage,
+      inLanguage: inLang,
+      author: {
+        '@type': 'Person',
+        name: post.author.name,
+        jobTitle: post.author.role,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Auditoria SEO',
+        url: 'https://auditoriaseo.com.br',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://auditoriaseo.com.br/icon-512.png',
+        },
+      },
+      datePublished: post.publishedAt,
+      dateModified: post.updatedAt || post.publishedAt,
+      url: `https://auditoriaseo.com.br${canonicalPath}`,
+      mainEntityOfPage: `https://auditoriaseo.com.br${canonicalPath}`,
+    };
+
+    if (post.faqs && post.faqs.length > 0) {
+      return {
+        '@context': 'https://schema.org',
+        '@graph': [
+          blogPostingObj,
+          {
+            '@type': 'FAQPage',
+            mainEntity: post.faqs.map((faq) => ({
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: faq.answer,
+              },
+            })),
+          },
+        ],
+      };
+    }
+
+    return {
+      '@context': 'https://schema.org',
+      ...blogPostingObj,
+    };
+  }, [post, lang]);
 
   if (loading) {
     return (
@@ -53,11 +139,10 @@ export const BlogPostPage: React.FC = () => {
           canonicalPath={location.pathname}
           noindex={true}
           currentLang={lang}
+          jsonLd={null}
         />
         <h1 className="text-2xl font-bold text-slate-900 mb-4">{bData.notFoundTitle}</h1>
-        <p className="text-slate-600 mb-6 text-sm">
-          {bData.notFoundText}
-        </p>
+        <p className="text-slate-600 mb-6 text-sm">{bData.notFoundText}</p>
         <Link
           to={getLocalizedPath('/blog')}
           className="inline-flex items-center gap-2 text-sm font-semibold text-[#1A73E8]"
@@ -76,22 +161,33 @@ export const BlogPostPage: React.FC = () => {
 
   const articleTitle = post.seoTitle || `${post.title} | Auditoria SEO`;
   const articleDescription = post.metaDescription || post.excerpt;
-  const canonicalPath = lang === 'pt' ? `/blog/${post.slug.current}` : `/${lang}/blog/${post.slug.current}`;
-  const hasEsTranslation = ARTICLES_BY_LANG.es.some((a) => a.slug?.current === post.slug.current);
-  const hasEnTranslation = ARTICLES_BY_LANG.en.some((a) => a.slug?.current === post.slug.current);
+  const canonicalPath =
+    lang === 'pt' ? `/blog/${post.slug.current}` : `/${lang}/blog/${post.slug.current}`;
+  const hasEsTranslation = hasArticleTranslation(post.slug.current, 'es');
+  const hasEnTranslation = hasArticleTranslation(post.slug.current, 'en');
   const hreflangs = [
     { lang: 'pt-BR', href: `https://auditoriaseo.com.br/blog/${post.slug.current}` },
-    ...(hasEsTranslation ? [{ lang: 'es', href: `https://auditoriaseo.com.br/es/blog/${post.slug.current}` }] : []),
-    ...(hasEnTranslation ? [{ lang: 'en', href: `https://auditoriaseo.com.br/en/blog/${post.slug.current}` }] : []),
+    ...(hasEsTranslation
+      ? [{ lang: 'es', href: `https://auditoriaseo.com.br/es/blog/${post.slug.current}` }]
+      : []),
+    ...(hasEnTranslation
+      ? [{ lang: 'en', href: `https://auditoriaseo.com.br/en/blog/${post.slug.current}` }]
+      : []),
     { lang: 'x-default', href: `https://auditoriaseo.com.br/blog/${post.slug.current}` },
   ];
-  const articleOgImage = post.ogImage || post.mainImage?.asset?.url || 'https://auditoriaseo.com.br/og-image.png';
+  const articleOgImage =
+    post.ogImage || post.mainImage?.asset?.url || 'https://auditoriaseo.com.br/og-image.png';
   const articleOgImageAlt = post.mainImage?.alt || post.title;
   const absoluteOgImageUrl = articleOgImage.startsWith('http')
     ? articleOgImage
     : `https://auditoriaseo.com.br${articleOgImage.startsWith('/') ? articleOgImage : `/${articleOgImage}`}`;
 
-  const inLanguage = lang === 'pt' ? 'pt-BR' : (lang === 'es' ? 'es' : 'en');
+  const authorPhotoAlt =
+    lang === 'es'
+      ? `Foto de ${post.author.name}, fundador de Auditoria SEO`
+      : lang === 'en'
+      ? `Photo of ${post.author.name}, founder of Auditoria SEO`
+      : `Foto de ${post.author.name}, fundador da Auditoria SEO`;
 
   return (
     <main className="bg-white">
@@ -111,83 +207,7 @@ export const BlogPostPage: React.FC = () => {
         modifiedTime={post.updatedAt || post.publishedAt}
         currentLang={lang}
         hreflangs={hreflangs}
-      />
-
-      {/* Schema.org Article (+ optional FAQPage matching visible Q&A) structured data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            post.faqs && post.faqs.length > 0
-              ? {
-                  '@context': 'https://schema.org',
-                  '@graph': [
-                    {
-                      '@type': 'BlogPosting',
-                      headline: post.title,
-                      description: articleDescription,
-                      image: absoluteOgImageUrl,
-                      inLanguage: inLanguage,
-                      author: {
-                        '@type': 'Person',
-                        name: post.author.name,
-                        jobTitle: post.author.role,
-                      },
-                      publisher: {
-                        '@type': 'Organization',
-                        name: 'Auditoria SEO',
-                        url: 'https://auditoriaseo.com.br',
-                        logo: {
-                          '@type': 'ImageObject',
-                          url: 'https://auditoriaseo.com.br/icon-512.png',
-                        },
-                      },
-                      datePublished: post.publishedAt,
-                      dateModified: post.updatedAt || post.publishedAt,
-                      url: `https://auditoriaseo.com.br${canonicalPath}`,
-                      mainEntityOfPage: `https://auditoriaseo.com.br${canonicalPath}`,
-                    },
-                    {
-                      '@type': 'FAQPage',
-                      mainEntity: post.faqs.map((faq) => ({
-                        '@type': 'Question',
-                        name: faq.question,
-                        acceptedAnswer: {
-                          '@type': 'Answer',
-                          text: faq.answer,
-                        },
-                      })),
-                    },
-                  ],
-                }
-              : {
-                  '@context': 'https://schema.org',
-                  '@type': 'BlogPosting',
-                  headline: post.title,
-                  description: articleDescription,
-                  image: absoluteOgImageUrl,
-                  inLanguage: inLanguage,
-                  author: {
-                    '@type': 'Person',
-                    name: post.author.name,
-                    jobTitle: post.author.role,
-                  },
-                  publisher: {
-                    '@type': 'Organization',
-                    name: 'Auditoria SEO',
-                    url: 'https://auditoriaseo.com.br',
-                    logo: {
-                      '@type': 'ImageObject',
-                      url: 'https://auditoriaseo.com.br/icon-512.png',
-                    },
-                  },
-                  datePublished: post.publishedAt,
-                  dateModified: post.updatedAt || post.publishedAt,
-                  url: `https://auditoriaseo.com.br${canonicalPath}`,
-                  mainEntityOfPage: `https://auditoriaseo.com.br${canonicalPath}`,
-                }
-          ),
-        }}
+        jsonLd={jsonLd}
       />
 
       {/* Header breadcrumb & back link */}
@@ -211,7 +231,9 @@ export const BlogPostPage: React.FC = () => {
           <span aria-hidden="true">·</span>
           <span className="flex items-center gap-1">
             <Clock className="w-3 h-3" />
-            <span>{post.readingTimeMinutes} {bData.minRead}</span>
+            <span>
+              {post.readingTimeMinutes} {bData.minRead}
+            </span>
           </span>
           <span aria-hidden="true">·</span>
           <span>{post.author.name}</span>
@@ -262,7 +284,7 @@ export const BlogPostPage: React.FC = () => {
           </aside>
         )}
 
-        {/* Body content rendering with DOMPurify sanitization */}
+        {/* Body content rendering with isomorphic DOMPurify sanitization */}
         <div className="prose prose-slate max-w-none text-base sm:text-lg text-slate-700 leading-relaxed space-y-6 pt-4">
           {post.body.map((paragraph, pIdx) => {
             const trimmed = paragraph.trim();
@@ -284,46 +306,13 @@ export const BlogPostPage: React.FC = () => {
             if (trimmed.startsWith('#### ')) {
               const text = trimmed.replace('#### ', '');
               return (
-                <h3
-                  key={pIdx}
-                  className="text-lg sm:text-xl font-bold text-slate-900 pt-4 pb-1"
-                >
+                <h3 key={pIdx} className="text-lg sm:text-xl font-bold text-slate-900 pt-4 pb-1">
                   {text}
                 </h3>
               );
             }
 
-            DOMPurify.addHook('uponSanitizeElement', (node) => {
-              if (node.nodeName === 'IFRAME') {
-                const src = (node as Element).getAttribute('src') || '';
-                const allowed =
-                  src.startsWith('https://www.youtube.com/embed/') ||
-                  src.startsWith('https://www.youtube-nocookie.com/embed/');
-                if (!allowed && node.parentNode) {
-                  node.parentNode.removeChild(node);
-                }
-              }
-            });
-            const cleanHtml = DOMPurify.sanitize(trimmed, {
-              ADD_TAGS: ['figure', 'figcaption', 'iframe'],
-              ADD_ATTR: [
-                'target',
-                'rel',
-                'class',
-                'loading',
-                'fetchpriority',
-                'width',
-                'height',
-                'id',
-                'src',
-                'title',
-                'allow',
-                'allowfullscreen',
-                'referrerpolicy',
-                'frameborder',
-              ],
-            });
-            DOMPurify.removeHook('uponSanitizeElement');
+            const cleanHtml = sanitizeArticleHtml(trimmed);
 
             const isBlockElement =
               trimmed.startsWith('<figure') ||
@@ -335,12 +324,7 @@ export const BlogPostPage: React.FC = () => {
               trimmed.startsWith('<p');
 
             if (isBlockElement) {
-              return (
-                <div
-                  key={pIdx}
-                  dangerouslySetInnerHTML={{ __html: cleanHtml }}
-                />
-              );
+              return <div key={pIdx} dangerouslySetInnerHTML={{ __html: cleanHtml }} />;
             }
 
             return (
@@ -359,9 +343,7 @@ export const BlogPostPage: React.FC = () => {
             <span className="text-xs font-bold text-[#174EA6] uppercase tracking-wider block mb-1">
               {bData.nextStrategicStep}
             </span>
-            <p className="text-sm font-semibold text-slate-900">
-              {bData.nextStrategicText}
-            </p>
+            <p className="text-sm font-semibold text-slate-900">{bData.nextStrategicText}</p>
           </div>
           <Link
             to={currentRoutes.home}
@@ -376,7 +358,7 @@ export const BlogPostPage: React.FC = () => {
         <div className="my-10 p-6 sm:p-8 bg-slate-50 rounded-2xl border border-slate-200/90 flex flex-col sm:flex-row items-center sm:items-start gap-5">
           <img
             src={post.author.avatar || '/images/blog/wesley-vieira-autor.jpg'}
-            alt={`Foto de ${post.author.name}, fundador da Auditoria SEO`}
+            alt={authorPhotoAlt}
             width={96}
             height={96}
             loading="lazy"
@@ -384,9 +366,14 @@ export const BlogPostPage: React.FC = () => {
           />
           <div className="text-center sm:text-left flex-1">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 mb-2">
-              <h3 className="text-base font-bold text-slate-900">
-                {lang === 'es' ? 'Sobre el Autor' : (lang === 'en' ? 'About the Author' : 'Sobre o Autor')}: {post.author.name}
-              </h3>
+              <h2 className="text-base font-bold text-slate-900">
+                {lang === 'es'
+                  ? 'Sobre el Autor'
+                  : lang === 'en'
+                  ? 'About the Author'
+                  : 'Sobre o Autor'}
+                : {post.author.name}
+              </h2>
               <div className="flex items-center justify-center sm:justify-start gap-3 text-xs">
                 <a
                   href="https://www.instagram.com/wesley.google_ads/"
@@ -410,9 +397,9 @@ export const BlogPostPage: React.FC = () => {
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
               {lang === 'es'
                 ? 'Fundador de Auditoria SEO, agencia de marketing digital especializada en Google Ads y SEO. Más de 4 años como gestor de tráfico y SEO, certificado por Google.'
-                : (lang === 'en'
-                  ? 'Founder of Auditoria SEO, digital marketing agency specialized in Google Ads and SEO. Over 4 years as a traffic manager and SEO specialist, certified by Google.'
-                  : 'Fundador e responsável pela Auditoria SEO, agência de marketing digital especializada em Google Ads e SEO. Mais de 4 anos como gestor de tráfego e SEO, certificado pelo Google.')}
+                : lang === 'en'
+                ? 'Founder of Auditoria SEO, digital marketing agency specialized in Google Ads and SEO. Over 4 years as a traffic manager and SEO specialist, certified by Google.'
+                : 'Fundador e responsável pela Auditoria SEO, agência de marketing digital especializada em Google Ads e SEO. Mais de 4 anos como gestor de tráfego e SEO, certificado pelo Google.'}
             </p>
           </div>
         </div>
@@ -435,9 +422,7 @@ export const BlogPostPage: React.FC = () => {
       {relatedPosts.length > 0 && (
         <section className="py-16 bg-slate-50 border-t border-slate-200/80">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h3 className="text-xl font-bold text-slate-900 mb-8">
-              {bData.recommendedArticles}
-            </h3>
+            <h2 className="text-xl font-bold text-slate-900 mb-8">{bData.recommendedArticles}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {relatedPosts.map((rel) => (
                 <div
@@ -448,14 +433,15 @@ export const BlogPostPage: React.FC = () => {
                     <span className="text-xs font-semibold text-[#1A73E8] mb-2 block">
                       {rel.category}
                     </span>
-                    <h4 className="text-base font-bold text-slate-900 mb-2 leading-snug">
-                      <Link to={getLocalizedPath(`/blog/${rel.slug.current}`)} className="hover:text-[#1A73E8]">
+                    <h3 className="text-base font-bold text-slate-900 mb-2 leading-snug">
+                      <Link
+                        to={getLocalizedPath(`/blog/${rel.slug.current}`)}
+                        className="hover:text-[#1A73E8]"
+                      >
                         {rel.title}
                       </Link>
-                    </h4>
-                    <p className="text-xs text-slate-600 line-clamp-2 mb-4">
-                      {rel.excerpt}
-                    </p>
+                    </h3>
+                    <p className="text-xs text-slate-600 line-clamp-2 mb-4">{rel.excerpt}</p>
                   </div>
                   <Link
                     to={getLocalizedPath(`/blog/${rel.slug.current}`)}

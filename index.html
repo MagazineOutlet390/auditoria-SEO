@@ -38,10 +38,21 @@
     <meta name="twitter:description" content="Auditoria SEO conduzida por especialista e planos contínuos de SEO sob medida. Diagnóstico técnico de indexação, Core Web Vitals, palavras-chave e estratégia orgânica." />
     <meta name="twitter:image" content="https://auditoriaseo.com.br/og-image.png" />
 
-    <!-- Fonts: Plus Jakarta Sans for crisp Google/Coursera-grade aesthetic -->
+    <!-- Fonts: Plus Jakarta Sans for crisp Google/Coursera-grade aesthetic (non-render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <!-- Performance: Preload Above-the-Fold Hero Image for optimal LCP -->
     <link rel="preload" as="image" type="image/webp" media="(max-width: 767px)" href="/assets/aistudio/img-fundo-auditoria-mobile.webp" fetchpriority="high" />

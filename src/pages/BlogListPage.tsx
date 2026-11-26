@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { fetchSanityPosts } from '../lib/sanity';
+import { fetchSanityPosts, SANITY_CONFIG } from '../lib/sanity';
+import { getCachedArticles } from '../lib/blogArticles/cache';
 import { SanityPost } from '../types';
 import { SEOHead } from '../components/common/SEOHead';
 import { useLanguage } from '../i18n/LanguageContext';
 import { getHreflangs } from '../i18n/routes';
+import { buildBlogListJsonLd } from '../lib/seoSchemas';
 import { Clock, User, ArrowRight, SlidersHorizontal } from 'lucide-react';
 
 interface BlogListPageProps {}
@@ -12,13 +14,25 @@ interface BlogListPageProps {}
 export const BlogListPage: React.FC<BlogListPageProps> = () => {
   const { lang, t, getLocalizedPath } = useLanguage();
   const location = useLocation();
-  const [posts, setPosts] = useState<SanityPost[]>([]);
-  const [loading, setLoading] = useState(true);
+  const initialCached = getCachedArticles(lang);
+  const [posts, setPosts] = useState<SanityPost[]>(() => initialCached || []);
+  const [loading, setLoading] = useState(!initialCached);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setLoading(true);
+    setSelectedCategory('all');
+    const cached = getCachedArticles(lang);
+    if (cached && !SANITY_CONFIG.isConfigured) {
+      setPosts(cached);
+      setLoading(false);
+      return;
+    }
+
+    setLoading(!cached);
+    if (cached) {
+      setPosts(cached);
+    }
 
     fetchSanityPosts(lang)
       .then((data) => setPosts(data))
@@ -28,6 +42,11 @@ export const BlogListPage: React.FC<BlogListPageProps> = () => {
 
   const bData = t.blog;
   const hreflangs = getHreflangs(location.pathname);
+
+  const jsonLd = useMemo(() => {
+    const pageUrl = `https://auditoriaseo.com.br${location.pathname}`;
+    return buildBlogListJsonLd(lang, pageUrl);
+  }, [lang, location.pathname]);
 
   const categories = useMemo(() => {
     if (lang === 'es') {
@@ -76,6 +95,7 @@ export const BlogListPage: React.FC<BlogListPageProps> = () => {
         ogImage="/og-image.png"
         currentLang={lang}
         hreflangs={hreflangs}
+        jsonLd={jsonLd}
       />
 
       {/* Blog Hero Header */}

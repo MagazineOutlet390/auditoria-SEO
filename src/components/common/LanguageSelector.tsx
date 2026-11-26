@@ -1,23 +1,27 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../../i18n/LanguageContext';
+import { getEquivalentPath } from '../../i18n/routes';
 import { Language } from '../../i18n/types';
-import { Globe, ChevronDown, Check } from 'lucide-react';
+import { ChevronDown, Check } from 'lucide-react';
 
 interface LanguageOption {
   code: Language;
+  hreflang: string;
   label: string;
   flag: string;
   title: string;
 }
 
 const LANGUAGES: LanguageOption[] = [
-  { code: 'pt', label: 'PT', flag: '🇧🇷', title: 'Português (Brasil)' },
-  { code: 'es', label: 'ES', flag: '🇪🇸', title: 'Español (Latinoamérica)' },
-  { code: 'en', label: 'EN', flag: '🇺🇸', title: 'English' },
+  { code: 'pt', hreflang: 'pt-BR', label: 'PT', flag: '🇧🇷', title: 'Português (Brasil)' },
+  { code: 'es', hreflang: 'es', label: 'ES', flag: '🇪🇸', title: 'Español (Latinoamérica)' },
+  { code: 'en', hreflang: 'en', label: 'EN', flag: '🇺🇸', title: 'English' },
 ];
 
 export const LanguageSelector: React.FC<{ isMobile?: boolean }> = ({ isMobile = false }) => {
-  const { lang, setLanguage, t } = useLanguage();
+  const { lang, t } = useLanguage();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -34,19 +38,20 @@ export const LanguageSelector: React.FC<{ isMobile?: boolean }> = ({ isMobile = 
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Mobile rendering: inline segmented button pills that look super clean inside the mobile drawer or header
+  // Mobile rendering: crawlable inline segmented links
   if (isMobile) {
     return (
       <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-100/90 border border-slate-200/80">
         <span className="sr-only">{t.nav.langSelectAria}</span>
         {LANGUAGES.map((option) => {
           const isActive = option.code === lang;
+          const targetPath = getEquivalentPath(location.pathname, option.code);
           return (
-            <button
+            <Link
               key={option.code}
-              type="button"
-              onClick={() => setLanguage(option.code)}
-              aria-pressed={isActive}
+              to={targetPath}
+              hrefLang={option.hreflang}
+              aria-current={isActive ? 'page' : undefined}
               title={option.title}
               className={`flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
                 isActive
@@ -58,14 +63,14 @@ export const LanguageSelector: React.FC<{ isMobile?: boolean }> = ({ isMobile = 
                 {option.flag}
               </span>
               <span>{option.label}</span>
-            </button>
+            </Link>
           );
         })}
       </div>
     );
   }
 
-  // Desktop rendering: compact, elegant dropdown
+  // Desktop rendering: compact dropdown with crawlable <Link> options
   return (
     <div className="relative shrink-0" ref={dropdownRef}>
       <button
@@ -73,7 +78,7 @@ export const LanguageSelector: React.FC<{ isMobile?: boolean }> = ({ isMobile = 
         onClick={() => setIsOpen(!isOpen)}
         aria-label={t.nav.langSelectAria}
         aria-expanded={isOpen}
-        aria-haspopup="listbox"
+        aria-haspopup="menu"
         className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-200/90 rounded-lg transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1A73E8]"
       >
         <span className="text-sm leading-none" aria-hidden="true">
@@ -89,22 +94,21 @@ export const LanguageSelector: React.FC<{ isMobile?: boolean }> = ({ isMobile = 
 
       {isOpen && (
         <div
-          role="listbox"
+          role="menu"
           aria-label={t.nav.langSelectAria}
           className="absolute right-0 mt-1.5 w-44 rounded-xl bg-white border border-slate-200 shadow-lg py-1.5 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
         >
           {LANGUAGES.map((option) => {
             const isSelected = option.code === lang;
+            const targetPath = getEquivalentPath(location.pathname, option.code);
             return (
-              <button
+              <Link
                 key={option.code}
-                type="button"
-                role="option"
-                aria-selected={isSelected}
-                onClick={() => {
-                  setLanguage(option.code);
-                  setIsOpen(false);
-                }}
+                to={targetPath}
+                hrefLang={option.hreflang}
+                role="menuitem"
+                aria-current={isSelected ? 'page' : undefined}
+                onClick={() => setIsOpen(false)}
                 className={`w-full px-3 py-2 text-left text-xs flex items-center justify-between gap-2 hover:bg-slate-50 transition-colors ${
                   isSelected ? 'font-bold text-[#1A73E8] bg-blue-50/50' : 'text-slate-700'
                 }`}
@@ -116,7 +120,7 @@ export const LanguageSelector: React.FC<{ isMobile?: boolean }> = ({ isMobile = 
                   <span>{option.title}</span>
                 </div>
                 {isSelected && <Check className="w-3.5 h-3.5 text-[#1A73E8] shrink-0" />}
-              </button>
+              </Link>
             );
           })}
         </div>

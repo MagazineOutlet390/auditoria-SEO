@@ -9,6 +9,8 @@
     "/icon.png",
     "/icon-512.png",
     "/apple-touch-icon.png",
-    "/og-image.png"
+    "/og-image.png",
+    "/sitemap.xml",
+    "/robots.txt"
   ]
 }

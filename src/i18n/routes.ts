@@ -43,6 +43,34 @@ export function getLanguageFromPathname(pathname: string): Language {
   return 'pt';
 }
 
+function isKnownRoutePathname(pathname: string): boolean {
+  const clean = pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+  return (
+    clean === '' ||
+    clean === '/' ||
+    clean === '/es' ||
+    clean === '/en' ||
+    clean === '/servicos-seo' ||
+    clean === '/es/servicios-seo' ||
+    clean === '/en/seo-services' ||
+    clean === '/seo-local' ||
+    clean === '/es/seo-local' ||
+    clean === '/en/local-seo' ||
+    clean === '/google-ads' ||
+    clean === '/es/google-ads' ||
+    clean === '/en/google-ads' ||
+    clean === '/modernizacao-sites' ||
+    clean === '/es/modernizacion-sitios' ||
+    clean === '/en/site-modernization' ||
+    clean === '/blog' ||
+    clean === '/es/blog' ||
+    clean === '/en/blog' ||
+    /^\/blog\/[^/]+$/.test(clean) ||
+    /^\/es\/blog\/[^/]+$/.test(clean) ||
+    /^\/en\/blog\/[^/]+$/.test(clean)
+  );
+}
+
 /**
  * Find route key (e.g. 'home', 'localSeo', etc.) for a given pathname
  */
@@ -91,9 +119,9 @@ export function getRouteKeyFromPathname(pathname: string): keyof RouteMapping {
   }
 
   if (
-    clean.startsWith('/blog/') ||
-    clean.startsWith('/es/blog/') ||
-    clean.startsWith('/en/blog/')
+    /^\/blog\/[^/]+$/.test(clean) ||
+    /^\/es\/blog\/[^/]+$/.test(clean) ||
+    /^\/en\/blog\/[^/]+$/.test(clean)
   ) {
     return 'blogPost';
   }
@@ -105,6 +133,10 @@ export function getRouteKeyFromPathname(pathname: string): keyof RouteMapping {
  * Given a current pathname and a target language, compute the equivalent target pathname
  */
 export function getEquivalentPath(currentPathname: string, targetLang: Language): string {
+  if (!isKnownRoutePathname(currentPathname)) {
+    return ROUTES_BY_LANG[targetLang].home;
+  }
+
   const currentLang = getLanguageFromPathname(currentPathname);
   if (currentLang === targetLang) {
     return currentPathname;

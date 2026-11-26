@@ -17,6 +17,7 @@ export interface SEOHeadProps {
   noindex?: boolean;
   currentLang?: Language;
   hreflangs?: Array<{ lang: string; href: string }>;
+  jsonLd?: Record<string, unknown> | null;
 }
 
 const DOMAIN = 'https://auditoriaseo.com.br';
@@ -38,6 +39,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
   noindex = false,
   currentLang = 'pt',
   hreflangs,
+  jsonLd,
 }) => {
   useEffect(() => {
     // 1. Strictly enforce a single <title> tag in the document
@@ -124,7 +126,8 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     setMetaTag('name', 'googlebot', noindex ? 'noindex, nofollow' : 'index, follow');
     setLinkTag('canonical', canonicalUrl);
 
-    // Hreflang alternates
+    // Hreflang alternates (replace existing cleanly on route change)
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach((el) => el.remove());
     if (hreflangs && hreflangs.length > 0) {
       hreflangs.forEach((item) => {
         setHreflangTag(item.lang, item.href);
@@ -147,21 +150,40 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     setMetaTag('property', 'og:site_name', 'Auditoria SEO');
     setMetaTag('property', 'og:locale', ogLocale);
 
-    // Article Specific Timestamps and schema sanitization
+    // Article Specific Timestamps
     if (ogType === 'article') {
       if (publishedTime) setMetaTag('property', 'article:published_time', publishedTime);
       if (modifiedTime) setMetaTag('property', 'article:modified_time', modifiedTime);
       setMetaTag('name', 'author', 'Wesley Vieira');
       setMetaTag('property', 'article:author', 'Wesley Vieira');
       setMetaTag('property', 'article:publisher', DOMAIN);
+    } else {
+      document
+        .querySelectorAll(
+          'meta[property="article:published_time"], meta[property="article:modified_time"], meta[property="article:author"], meta[property="article:publisher"]'
+        )
+        .forEach((el) => el.remove());
+    }
 
-      // Purge any conflicting homepage ProfessionalService JSON-LD
-      const scripts = document.querySelectorAll('script[type="application/ld+json"]');
-      scripts.forEach((s) => {
-        if (s.textContent?.includes('ProfessionalService')) {
-          s.parentNode?.removeChild(s);
+    // Page-specific JSON-LD synchronization (strictly single script in <head>)
+    if (jsonLd !== undefined) {
+      const ldScripts = document.querySelectorAll('script[type="application/ld+json"]');
+      if (jsonLd === null) {
+        ldScripts.forEach((s) => s.parentNode?.removeChild(s));
+      } else {
+        const serialized = JSON.stringify(jsonLd);
+        if (ldScripts.length > 0) {
+          ldScripts[0].textContent = serialized;
+          for (let i = 1; i < ldScripts.length; i++) {
+            ldScripts[i].parentNode?.removeChild(ldScripts[i]);
+          }
+        } else {
+          const scriptEl = document.createElement('script');
+          scriptEl.type = 'application/ld+json';
+          scriptEl.textContent = serialized;
+          document.head.appendChild(scriptEl);
         }
-      });
+      }
     }
 
     // Twitter Card
@@ -170,7 +192,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     setMetaTag('name', 'twitter:description', ogDescription || description);
     setMetaTag('name', 'twitter:image', fullOgImageUrl);
     setMetaTag('name', 'twitter:image:alt', imageAltText);
-  }, [title, description, ogTitle, ogDescription, canonicalPath, ogType, ogImage, ogImageAlt, ogImageWidth, ogImageHeight, publishedTime, modifiedTime, noindex, currentLang, hreflangs]);
+  }, [title, description, ogTitle, ogDescription, canonicalPath, ogType, ogImage, ogImageAlt, ogImageWidth, ogImageHeight, publishedTime, modifiedTime, noindex, currentLang, hreflangs, jsonLd]);
 
   return null;
 };

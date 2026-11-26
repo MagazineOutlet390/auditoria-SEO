@@ -1,8 +1,10 @@
 import { SanityPost } from '../types';
 import { Language } from '../i18n/types';
-import { LEGAL_ARTICLES } from './legalArticles';
-import { PT_BLOG_ARTICLES } from './blogArticles/pt';
-import { getArticlesByLanguage, getArticleBySlug } from './blogArticles';
+import {
+  getCachedArticles,
+  getCachedArticleBySlug,
+  preloadBlogLanguage,
+} from './blogArticles/cache';
 
 const envProjectId = (
   (typeof import.meta !== 'undefined' && import.meta.env?.VITE_SANITY_PROJECT_ID) ||
@@ -22,9 +24,9 @@ export const SANITY_CONFIG = {
   apiVersion: '2024-03-01',
   isConfigured: Boolean(
     envProjectId &&
-    envProjectId !== 'MY_SANITY_PROJECT_ID' &&
-    envProjectId !== 'your-project-id' &&
-    envProjectId.length >= 4
+      envProjectId !== 'MY_SANITY_PROJECT_ID' &&
+      envProjectId !== 'your-project-id' &&
+      envProjectId.length >= 4
   ),
 };
 
@@ -110,14 +112,13 @@ export default {
 };
 `;
 
-export const FALLBACK_ARTICLES: SanityPost[] = PT_BLOG_ARTICLES;
-
 export async function fetchSanityPosts(lang: Language = 'pt'): Promise<SanityPost[]> {
-  const fallback = getArticlesByLanguage(lang);
+  const cached = getCachedArticles(lang);
   if (!SANITY_CONFIG.isConfigured) {
-    return fallback;
+    return cached || preloadBlogLanguage(lang);
   }
 
+  const fallback = cached || (await preloadBlogLanguage(lang));
   const query = encodeURIComponent(`*[_type == "post"] | order(publishedAt desc) {
     _id,
     title,
@@ -153,11 +154,31 @@ export async function fetchSanityPosts(lang: Language = 'pt'): Promise<SanityPos
   }
 }
 
-export async function fetchSanityPostBySlug(slug: string, lang: Language = 'pt'): Promise<SanityPost | null> {
-  const localized = getArticleBySlug(slug, lang);
-  if (localized) {
-    return localized;
+export async function fetchSanityPostBySlug(
+  slug: string,
+  lang: Language = 'pt'
+): Promise<SanityPost | null> {
+  const syncFound = getCachedArticleBySlug(slug, lang);
+  if (syncFound) {
+    return syncFound;
   }
-  const all = await fetchSanityPosts(lang);
-  return all.find((p) => p.slug?.current === slug) || null;
+
+  const posts = await preloadBlogLanguage(lang);
+  const found = posts.find((p) => p.slug?.current === slug);
+  if (found) {
+    return found;
+  }
+
+  if (lang !== 'pt') {
+    const ptPosts = await preloadBlogLanguage('pt');
+    const ptFound = ptPosts.find((p) => p.slug?.current === slug);
+    if (ptFound) return ptFound;
+  }
+
+  if (SANITY_CONFIG.isConfigured) {
+    const all = await fetchSanityPosts(lang);
+    return all.find((p) => p.slug?.current === slug) || null;
+  }
+
+  return null;
 }

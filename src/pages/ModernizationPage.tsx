@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useLanguage } from '../i18n/LanguageContext';
 import { PageHero } from '../components/common/PageHero';
 import { SEOHead } from '../components/common/SEOHead';
 import { getHreflangs } from '../i18n/routes';
+import { buildModernizationJsonLd } from '../lib/seoSchemas';
 import { useLocation } from 'react-router-dom';
 import {
   Check,
@@ -40,6 +41,11 @@ export const ModernizationPage: React.FC = () => {
   const pData = t.modernizationPage;
   const hreflangs = getHreflangs(location.pathname);
 
+  const jsonLd = useMemo(() => {
+    const pageUrl = `https://auditoriaseo.com.br${location.pathname}`;
+    return buildModernizationJsonLd(lang, pageUrl);
+  }, [lang, location.pathname]);
+
   // Icon mapping for the 6 technical pillars
   const pillarIcons: Record<string, React.ReactNode> = {
     rebuilding: <RefreshCw className="w-6 h-6 text-[#1A73E8]" />,
@@ -60,6 +66,7 @@ export const ModernizationPage: React.FC = () => {
         ogType="website"
         currentLang={lang}
         hreflangs={hreflangs}
+        jsonLd={jsonLd}
       />
 
       {/* Hero Header with Identical Visual Identity and Layout */}
