@@ -112,7 +112,8 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     };
 
     // Absolute Canonical URL
-    const cleanPath = canonicalPath.startsWith('/') ? canonicalPath : `/${canonicalPath}`;
+    const rawPath = canonicalPath.startsWith('/') ? canonicalPath : `/${canonicalPath}`;
+    const cleanPath = rawPath.length > 1 && rawPath.endsWith('/') ? rawPath.slice(0, -1) : rawPath;
     const canonicalUrl = `${DOMAIN}${cleanPath === '/' ? '' : cleanPath}`;
     const fullOgImageUrl = ogImage.startsWith('http') ? ogImage : `${DOMAIN}${ogImage}`;
     const imageAltText = ogImageAlt || title;
