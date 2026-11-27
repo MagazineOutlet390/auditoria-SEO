@@ -40,6 +40,7 @@ interface PageMetadata {
   lang: Language;
   htmlLang?: string;
   ogLocale?: string;
+  ogLocaleAlternates?: string[];
   title: string;
   description: string;
   ogTitle?: string;
@@ -226,12 +227,13 @@ async function prerenderAllPages() {
       lang,
       htmlLang: usaData.meta.htmlLang,
       ogLocale: usaData.meta.ogLocale,
+      ogLocaleAlternates: usaData.meta.ogLocaleAlternates,
       title: usaData.meta.title,
       description: usaData.meta.description,
-      ogTitle: usaData.meta.title,
-      ogDescription: usaData.meta.description,
+      ogTitle: usaData.meta.ogTitle,
+      ogDescription: usaData.meta.ogDescription,
       ogImage: `${DOMAIN}/images/usa/og-seo-agency-usa.jpg`,
-      ogImageAlt: usaData.hero.imageAlt,
+      ogImageAlt: usaData.meta.ogImageAlt,
       ogType: 'website',
       hreflangs: getHreflangs(routes.usaAgency),
     });
@@ -423,6 +425,16 @@ async function prerenderAllPages() {
     setMeta(doc, 'property', 'og:image:alt', p.ogImageAlt || p.title);
     setMeta(doc, 'property', 'og:site_name', 'Auditoria SEO');
     setMeta(doc, 'property', 'og:locale', ogLocale);
+
+    doc.querySelectorAll('meta[property="og:locale:alternate"]').forEach((el) => el.remove());
+    if (p.ogLocaleAlternates && p.ogLocaleAlternates.length > 0) {
+      for (const altLocale of p.ogLocaleAlternates) {
+        const altMeta = doc.createElement('meta');
+        altMeta.setAttribute('property', 'og:locale:alternate');
+        altMeta.setAttribute('content', altLocale);
+        doc.head.appendChild(altMeta);
+      }
+    }
 
     if (p.ogType === 'article') {
       if (p.publishedAt) setMeta(doc, 'property', 'article:published_time', p.publishedAt);

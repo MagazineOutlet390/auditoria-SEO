@@ -57,17 +57,18 @@ export const UsaSeoAgencyPage: React.FC = () => {
       <SEOHead
         title={data.meta.title}
         description={data.meta.description}
-        ogTitle={data.meta.title}
-        ogDescription={data.meta.description}
+        ogTitle={data.meta.ogTitle}
+        ogDescription={data.meta.ogDescription}
         canonicalPath={canonicalPath}
         ogType="website"
         ogImage={`${DOMAIN}/images/usa/og-seo-agency-usa.jpg`}
-        ogImageAlt={data.hero.imageAlt}
+        ogImageAlt={data.meta.ogImageAlt}
         ogImageWidth="1200"
         ogImageHeight="630"
         currentLang={lang}
         htmlLang={data.meta.htmlLang}
         ogLocale={data.meta.ogLocale}
+        ogLocaleAlternates={data.meta.ogLocaleAlternates}
         hreflangs={getHreflangs(canonicalPath)}
         jsonLd={buildUsaAgencyJsonLd(lang, canonicalUrl)}
       />

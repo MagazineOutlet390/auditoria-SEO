@@ -18,6 +18,7 @@ export interface SEOHeadProps {
   currentLang?: Language;
   htmlLang?: string;
   ogLocale?: string;
+  ogLocaleAlternates?: string[];
   hreflangs?: Array<{ lang: string; href: string }>;
   jsonLd?: Record<string, unknown> | null;
 }
@@ -42,6 +43,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
   currentLang = 'pt',
   htmlLang,
   ogLocale: ogLocaleOverride,
+  ogLocaleAlternates,
   hreflangs,
   jsonLd,
 }) => {
@@ -155,6 +157,16 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     setMetaTag('property', 'og:site_name', 'Auditoria SEO');
     setMetaTag('property', 'og:locale', ogLocale);
 
+    document.querySelectorAll('meta[property="og:locale:alternate"]').forEach((el) => el.remove());
+    if (ogLocaleAlternates && ogLocaleAlternates.length > 0) {
+      ogLocaleAlternates.forEach((altLocale) => {
+        const el = document.createElement('meta');
+        el.setAttribute('property', 'og:locale:alternate');
+        el.setAttribute('content', altLocale);
+        document.head.appendChild(el);
+      });
+    }
+
     // Article Specific Timestamps
     if (ogType === 'article') {
       if (publishedTime) setMetaTag('property', 'article:published_time', publishedTime);
@@ -197,7 +209,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     setMetaTag('name', 'twitter:description', ogDescription || description);
     setMetaTag('name', 'twitter:image', fullOgImageUrl);
     setMetaTag('name', 'twitter:image:alt', imageAltText);
-  }, [title, description, ogTitle, ogDescription, canonicalPath, ogType, ogImage, ogImageAlt, ogImageWidth, ogImageHeight, publishedTime, modifiedTime, noindex, currentLang, htmlLang, ogLocaleOverride, hreflangs, jsonLd]);
+  }, [title, description, ogTitle, ogDescription, canonicalPath, ogType, ogImage, ogImageAlt, ogImageWidth, ogImageHeight, publishedTime, modifiedTime, noindex, currentLang, htmlLang, ogLocaleOverride, ogLocaleAlternates, hreflangs, jsonLd]);
 
   return null;
 };

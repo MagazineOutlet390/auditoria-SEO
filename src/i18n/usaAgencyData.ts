@@ -16,8 +16,12 @@ export interface UsaAgencyContent {
   meta: {
     title: string;
     description: string;
+    ogTitle: string;
+    ogDescription: string;
+    ogImageAlt: string;
     htmlLang: string;
     ogLocale: string;
+    ogLocaleAlternates: string[];
     breadcrumbHome: string;
     breadcrumbCurrent: string;
     serviceName: string;
@@ -218,11 +222,17 @@ export interface UsaAgencyContent {
 export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
   en: {
     meta: {
-      title: 'SEO Agency USA | SEO Audits & Local SEO Services',
+      title: 'SEO Agency USA | Technical SEO, Local SEO & AI Search',
       description:
-        'Professional SEO audits, technical SEO, on-page optimization and local SEO services for US businesses. Discover opportunities to improve your Google visibility.',
+        'Professional SEO audits, technical SEO, local SEO, GEO and AEO services for US businesses. Improve your Google visibility. Book a free consultation.',
+      ogTitle: 'SEO Agency USA | Technical SEO, Local SEO & AI Search',
+      ogDescription:
+        'Professional SEO services for US businesses. SEO audits, local search optimization, GEO and AEO strategies. Schedule your free consultation.',
+      ogImageAlt:
+        'Conceptual Google-inspired character standing over a satellite view of the United States.',
       htmlLang: 'en-US',
       ogLocale: 'en_US',
+      ogLocaleAlternates: ['pt_BR', 'es_419'],
       breadcrumbHome: 'Home',
       breadcrumbCurrent: 'SEO Agency USA',
       serviceName: 'SEO Audits, Technical Optimization & Local SEO Services for US Businesses',
@@ -833,11 +843,17 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
 
   pt: {
     meta: {
-      title: 'Agência SEO para Empresas nos EUA | Auditorias e SEO Local',
+      title: 'Agência de SEO nos EUA | SEO Técnico, Local e IA',
       description:
-        'Auditorias técnicas de SEO, otimização on-page e SEO Local para empresas que atuam nos Estados Unidos. Diagnóstico completo para ampliar sua visibilidade no Google.',
+        'Auditorias de SEO, SEO técnico, SEO local, GEO e AEO para empresas nos Estados Unidos. Melhore sua visibilidade no Google. Agende uma consulta gratuita.',
+      ogTitle: 'Agência de SEO nos EUA | SEO Técnico, Local e IA',
+      ogDescription:
+        'Serviços profissionais de SEO para empresas nos Estados Unidos. Auditorias de SEO, busca local, GEO e AEO. Agende sua consulta gratuita.',
+      ogImageAlt:
+        'Personagem conceitual inspirado na letra G sobre imagem de satélite dos Estados Unidos.',
       htmlLang: 'pt-BR',
       ogLocale: 'pt_BR',
+      ogLocaleAlternates: ['en_US', 'es_419'],
       breadcrumbHome: 'Início',
       breadcrumbCurrent: 'Agência SEO EUA',
       serviceName: 'Auditorias de SEO, Otimização Técnica e SEO Local para Empresas nos Estados Unidos',
@@ -1440,11 +1456,17 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
 
   es: {
     meta: {
-      title: 'Agencia SEO para Empresas en EE. UU. | Auditorías y SEO Local',
+      title: 'Agencia SEO en Estados Unidos | SEO Técnico, Local e IA',
       description:
-        'Auditorías técnicas de SEO, optimización on-page y SEO Local para empresas en Estados Unidos. Diagnóstico profesional para mejorar su visibilidad en Google.',
+        'Auditorías SEO, SEO técnico, SEO local, GEO y AEO para empresas en Estados Unidos. Mejora tu visibilidad en Google. Agenda una consulta gratuita.',
+      ogTitle: 'Agencia SEO en Estados Unidos | SEO Técnico, Local e IA',
+      ogDescription:
+        'Servicios profesionales de SEO para empresas en Estados Unidos. Auditorías SEO, búsqueda local, estrategias GEO y AEO. Agenda tu consulta gratuita.',
+      ogImageAlt:
+        'Personaje conceptual inspirado en la letra G sobre una vista satelital de Estados Unidos.',
       htmlLang: 'es-419',
       ogLocale: 'es_419',
+      ogLocaleAlternates: ['en_US', 'pt_BR'],
       breadcrumbHome: 'Inicio',
       breadcrumbCurrent: 'Agencia SEO EE. UU.',
       serviceName: 'Auditorías SEO, Optimización Técnica y SEO Local para Empresas en Estados Unidos',
