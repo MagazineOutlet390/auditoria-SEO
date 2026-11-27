@@ -23,6 +23,7 @@ export interface SiteTranslations {
     googleAds: string;
     modernization: string;
     blog: string;
+    usaAgency: string;
     whatsappCta: string;
     menuOpen: string;
     menuClose: string;
@@ -368,6 +369,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
       googleAds: 'Google Ads',
       modernization: 'Modernização de Sites',
       blog: 'Blog',
+      usaAgency: 'SEO nos Estados Unidos',
       whatsappCta: 'Falar no WhatsApp',
       menuOpen: 'Abrir menu de navegação',
       menuClose: 'Fechar menu',
@@ -1158,6 +1160,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
       googleAds: 'Google Ads',
       modernization: 'Modernización Web',
       blog: 'Blog',
+      usaAgency: 'SEO en Estados Unidos',
       whatsappCta: 'Hablar por WhatsApp',
       menuOpen: 'Abrir menú de navegación',
       menuClose: 'Cerrar menú',
@@ -1948,6 +1951,7 @@ export const TRANSLATIONS: Record<Language, SiteTranslations> = {
       googleAds: 'Google Ads',
       modernization: 'Website Modernization',
       blog: 'Blog',
+      usaAgency: 'SEO Agency USA',
       whatsappCta: 'Chat on WhatsApp',
       menuOpen: 'Open navigation menu',
       menuClose: 'Close menu',

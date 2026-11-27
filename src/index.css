@@ -129,3 +129,102 @@
   }
 }
 
+/* ==========================================================================
+   US Market Landing Page Exclusive Presentation Effects
+   - American Flag Shimmer (#0A3161 dominant blue, #B31942 highlight red, #FFFFFF sheen)
+   - Smooth single-shot Fade-in Left on headings
+   ========================================================================== */
+@keyframes usaAmericanShimmerSweep {
+  0% {
+    background-position: 115% 50%;
+  }
+  100% {
+    background-position: -15% 50%;
+  }
+}
+
+.usa-american-shimmer {
+  display: inline;
+  color: #0a3161;
+}
+
+.usa-american-shimmer--dark {
+  color: #ffffff;
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .usa-american-shimmer {
+    background-image: linear-gradient(
+      110deg,
+      #0a3161 0%,
+      #0a3161 32%,
+      #b31942 44%,
+      #ffffff 49.5%,
+      #b31942 55%,
+      #0a3161 67%,
+      #0a3161 100%
+    );
+    background-size: 280% 100%;
+    background-position: 115% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 0.35px rgba(10, 49, 97, 0.24);
+    filter: drop-shadow(0 1px 0 rgba(10, 49, 97, 0.06));
+    animation: usaAmericanShimmerSweep 7.6s linear infinite;
+  }
+
+  .usa-american-shimmer--dark {
+    background-image: linear-gradient(
+      110deg,
+      #ffffff 0%,
+      #ffffff 28%,
+      #0a3161 40%,
+      #b31942 47%,
+      #ffffff 53%,
+      #b31942 59%,
+      #0a3161 66%,
+      #ffffff 78%,
+      #ffffff 100%
+    );
+    background-size: 280% 100%;
+    background-position: 115% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 0.45px rgba(255, 255, 255, 0.38);
+    animation: usaAmericanShimmerSweep 7.6s linear infinite;
+  }
+}
+
+.usa-fade-left-pending {
+  opacity: 0;
+  transform: translate3d(-24px, 0, 0);
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.usa-fade-left-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .usa-american-shimmer,
+  .usa-american-shimmer--dark {
+    animation: none !important;
+    background-image: none !important;
+    -webkit-text-fill-color: currentColor !important;
+    -webkit-text-stroke: 0 !important;
+    filter: none !important;
+  }
+  .usa-fade-left-pending,
+  .usa-fade-left-visible {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

@@ -8,9 +8,11 @@ export interface RouteMapping {
   modernization: string;
   blog: string;
   blogPost: string;
+  usaAgency: string;
 }
 
 export interface NavLinkItem {
   name: string;
   path: string;
+  isUsa?: boolean;
 }

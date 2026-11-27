@@ -58,6 +58,7 @@ export const AppContent: React.FC = () => {
             <Route path="/servicos-seo" element={<Navigate to="/" replace />} />
             <Route path="/google-ads" element={<LazyRoutePage pageKey="googleAds" />} />
             <Route path="/modernizacao-sites" element={<LazyRoutePage pageKey="modernization" />} />
+            <Route path="/agencia-seo-eua" element={<LazyRoutePage pageKey="usaAgency" />} />
             <Route path="/blog" element={<LazyRoutePage pageKey="blog" />} />
             <Route path="/blog/:slug" element={<LazyRoutePage pageKey="blogPost" />} />
 
@@ -67,6 +68,7 @@ export const AppContent: React.FC = () => {
             <Route path="/es/servicios-seo" element={<Navigate to="/es" replace />} />
             <Route path="/es/google-ads" element={<LazyRoutePage pageKey="googleAds" />} />
             <Route path="/es/modernizacion-sitios" element={<LazyRoutePage pageKey="modernization" />} />
+            <Route path="/es/agencia-seo-estados-unidos" element={<LazyRoutePage pageKey="usaAgency" />} />
             <Route path="/es/blog" element={<LazyRoutePage pageKey="blog" />} />
             <Route path="/es/blog/:slug" element={<LazyRoutePage pageKey="blogPost" />} />
 
@@ -76,6 +78,7 @@ export const AppContent: React.FC = () => {
             <Route path="/en/seo-services" element={<Navigate to="/en" replace />} />
             <Route path="/en/google-ads" element={<LazyRoutePage pageKey="googleAds" />} />
             <Route path="/en/site-modernization" element={<LazyRoutePage pageKey="modernization" />} />
+            <Route path="/en/seo-agency-usa" element={<LazyRoutePage pageKey="usaAgency" />} />
             <Route path="/en/blog" element={<LazyRoutePage pageKey="blog" />} />
             <Route path="/en/blog/:slug" element={<LazyRoutePage pageKey="blogPost" />} />
 

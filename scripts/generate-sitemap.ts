@@ -56,6 +56,7 @@ async function generateSitemapAndRobots() {
     { loc: `${DOMAIN}/seo-local`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
     { loc: `${DOMAIN}/google-ads`, lastmod: TODAY, changefreq: 'monthly', priority: '0.8' },
     { loc: `${DOMAIN}/modernizacao-sites`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
+    { loc: `${DOMAIN}/agencia-seo-eua`, lastmod: TODAY, changefreq: 'weekly', priority: '0.8' },
     { loc: `${DOMAIN}/blog`, lastmod: TODAY, changefreq: 'daily', priority: '0.8' },
 
     // Spanish (América Latina / Internacional)
@@ -63,6 +64,7 @@ async function generateSitemapAndRobots() {
     { loc: `${DOMAIN}/es/seo-local`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
     { loc: `${DOMAIN}/es/google-ads`, lastmod: TODAY, changefreq: 'monthly', priority: '0.8' },
     { loc: `${DOMAIN}/es/modernizacion-sitios`, lastmod: TODAY, changefreq: 'weekly', priority: '0.8' },
+    { loc: `${DOMAIN}/es/agencia-seo-estados-unidos`, lastmod: TODAY, changefreq: 'weekly', priority: '0.8' },
     { loc: `${DOMAIN}/es/blog`, lastmod: TODAY, changefreq: 'daily', priority: '0.7' },
 
     // English (Global)
@@ -70,6 +72,7 @@ async function generateSitemapAndRobots() {
     { loc: `${DOMAIN}/en/local-seo`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
     { loc: `${DOMAIN}/en/google-ads`, lastmod: TODAY, changefreq: 'monthly', priority: '0.8' },
     { loc: `${DOMAIN}/en/site-modernization`, lastmod: TODAY, changefreq: 'weekly', priority: '0.8' },
+    { loc: `${DOMAIN}/en/seo-agency-usa`, lastmod: TODAY, changefreq: 'weekly', priority: '0.9' },
     { loc: `${DOMAIN}/en/blog`, lastmod: TODAY, changefreq: 'daily', priority: '0.7' },
   ];
 

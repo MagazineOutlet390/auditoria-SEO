@@ -12,6 +12,7 @@ import { HomePage } from './pages/HomePage';
 import { LocalSeoPage } from './pages/LocalSeoPage';
 import { GoogleAdsPage } from './pages/GoogleAdsPage';
 import { ModernizationPage } from './pages/ModernizationPage';
+import { UsaSeoAgencyPage } from './pages/UsaSeoAgencyPage';
 import { BlogListPage } from './pages/BlogListPage';
 import { BlogPostPage } from './pages/BlogPostPage';
 import { NotFoundPage } from './pages/NotFoundPage';
@@ -24,6 +25,7 @@ export function initSsrRegistry(domWindow: unknown): void {
     registerPageComponent('localSeo', LocalSeoPage);
     registerPageComponent('googleAds', GoogleAdsPage);
     registerPageComponent('modernization', ModernizationPage);
+    registerPageComponent('usaAgency', UsaSeoAgencyPage);
     registerPageComponent('blog', BlogListPage);
     registerPageComponent('blogPost', BlogPostPage);
     registerPageComponent('notFound', NotFoundPage);

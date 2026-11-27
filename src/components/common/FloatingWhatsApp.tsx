@@ -22,7 +22,11 @@ export const FloatingWhatsApp: React.FC = () => {
   const routeKey = getRouteKeyFromPathname(location.pathname);
 
   // STRICT REQUIREMENT: Only display on Home, SEO Services, Google Ads, and Modernization.
-  // NEVER show on blog list or blog post pages.
+  // NEVER show on blog pages or US Market Landing Pages (usaAgency).
+  if (routeKey === 'usaAgency') {
+    return null;
+  }
+
   const isAllowed =
     routeKey === 'home' ||
     routeKey === 'seoServices' ||

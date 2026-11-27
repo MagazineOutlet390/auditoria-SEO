@@ -1,0 +1,926 @@
+# MISSÃO — PROJETO SEO USA | AUDITORIA SEO
+
+Desenvolva e implemente uma nova landing page comercial de alto padrão dentro do projeto existente da Auditoria SEO (https://auditoriaseo.com.br), especificamente direcionada ao mercado dos Estados Unidos.
+
+Não crie um novo projeto. Não reconstrua o site existente. Acrescente uma nova página comercial, preservando todas as funcionalidades, páginas, artigos, configurações, integrações e características visuais que já funcionam.
+
+Execute efetivamente a implementação. Não entregue apenas um planejamento ou uma explicação conceitual.
+
+---
+
+# 1. CONTEXTO E OBJETIVO COMERCIAL
+
+A Auditoria SEO é uma agência especializada em:
+
+- Auditorias técnicas de SEO.
+- Auditorias de SEO On-Page.
+- Otimização técnica de websites.
+- SEO Local.
+- Google Business Profile.
+- Posicionamento no Google Maps.
+- Pesquisa estratégica de palavras-chave.
+- Análise de concorrentes.
+- Estratégia de conteúdo.
+- Serviços recorrentes de SEO.
+- Monitoramento de desempenho orgânico.
+
+Esta nova página será destinada exclusivamente à apresentação comercial desses serviços para o mercado americano.
+
+Não deverá ser uma simples tradução da página inicial brasileira. Deverá constituir uma experiência comercial localizada para o público dos Estados Unidos, considerando seu idioma, comportamento, expectativas e critérios de contratação.
+
+O público-alvo inclui:
+
+- Empresas prestadoras de serviços especializados.
+- Empresas industriais.
+- Empresas B2B.
+- Empresas B2C que comercializam soluções de alto valor.
+- Negócios locais.
+- Empresas com dificuldades de posicionamento no Google.
+- Empresas que possuem websites, mas não conseguem transformar sua presença digital em oportunidades comerciais.
+
+Estima-se que 60% ou mais das oportunidades comerciais inicialmente sejam provenientes de prospecção ativa.
+
+Portanto, a página deverá funcionar como uma ferramenta de validação profissional, credibilidade, apresentação dos serviços e conversão dos potenciais clientes que chegarem através de e-mails comerciais, LinkedIn, indicações e contatos de prospecção.
+
+A aquisição orgânica através do Google também é importante, mas não constitui a única finalidade da página.
+
+---
+
+# 2. URL E ARQUITETURA MULTILÍNGUE
+
+A URL principal obrigatória será:
+
+https://auditoriaseo.com.br/en/seo-agency-usa
+
+Implementar também as versões:
+
+**Inglês americano — versão principal:**
+
+/en/seo-agency-usa
+
+**Português brasileiro:**
+
+/agencia-seo-eua
+
+**Espanhol latino-americano:**
+
+/es/agencia-seo-estados-unidos
+
+A página deverá ser concebida originalmente em inglês americano. As demais versões serão adaptações linguísticas dessa página.
+
+As três versões devem manter o foco comercial no mercado dos Estados Unidos.
+
+Integrar corretamente essas páginas ao seletor de idiomas existente.
+
+Ao mudar de idioma, o usuário deverá permanecer na versão correspondente desta landing page, e não ser encaminhado para a página inicial.
+
+Não realizar redirecionamentos automáticos obrigatórios baseados em IP, localização geográfica ou idioma do navegador.
+
+Cada versão deverá possuir:
+
+- URL independente.
+- Canonical autorreferente.
+- Hreflang recíproco.
+- Metadados próprios.
+- Conteúdo principal no idioma correspondente.
+- Atributo HTML lang correto.
+- Inclusão no sitemap XML.
+
+Utilizar en-US, pt-BR e es-419 nas respectivas implementações de hreflang.
+
+Considerar a versão inglesa como x-default dentro deste conjunto de páginas equivalentes.
+
+---
+
+# 3. IDENTIDADE VISUAL
+
+Preservar a identidade institucional existente da Auditoria SEO.
+
+Antes de implementar, analisar os arquivos e componentes atuais para identificar precisamente:
+
+- Tipografia.
+- Paleta de cores.
+- Logotipo.
+- Estilos dos botões.
+- Espaçamentos.
+- Bordas.
+- Componentes.
+- Cabeçalho.
+- Rodapé.
+- Comportamentos responsivos.
+- Animações existentes.
+
+Não substituir a identidade visual global.
+
+A nova página deverá apresentar uma evolução visual premium, orientada ao mercado americano, sem descaracterizar a marca.
+
+Diretrizes:
+
+- Fundo predominantemente branco.
+- Azul institucional como principal cor de destaque.
+- Tipografia moderna e profissional.
+- Hierarquia visual bem definida.
+- Espaçamentos generosos.
+- Elementos gráficos sofisticados.
+- Excelente contraste.
+- Alternância inteligente entre seções.
+- Aparência corporativa contemporânea.
+- Design responsivo.
+- Animações suaves e funcionais.
+
+Evitar:
+
+- Dark mode como identidade predominante.
+- Aparência de template genérico.
+- Excesso de cartões repetitivos.
+- Gradientes exagerados.
+- Ícones meramente decorativos.
+- Animações que prejudiquem a navegação.
+- Gráficos com dados fictícios.
+- Estatísticas inventadas.
+- Excesso de elementos com aparência artificial.
+
+A página deverá transmitir autoridade técnica, experiência profissional, confiança e capacidade de execução.
+
+---
+
+# 4. HERO SECTION — IDENTIDADE AMERICANA
+
+A seção Hero deverá possuir uma identidade visual própria.
+
+Estou fornecendo duas imagens juntamente com este prompt.
+
+A primeira imagem apresenta o território dos Estados Unidos visto de uma perspectiva semelhante à fotografia de satélite, contendo um personagem tridimensional conceitual inspirado na letra G do Google, posicionado sobre a região da costa leste americana, fazendo um sinal positivo com a mão.
+
+Utilizar esta imagem como principal elemento visual de fundo do Hero.
+
+A imagem não deverá ser substituída por uma imagem de banco de imagens ou por outra imagem gerada automaticamente.
+
+## Composição desktop
+
+- Imagem ocupando a área visual do Hero.
+- Personagem preservado no lado direito.
+- Headline, descrição e CTAs posicionados predominantemente no lado esquerdo.
+- Preservar a visibilidade do território americano.
+- Utilizar overlay localizado, se necessário, para garantir a legibilidade dos textos.
+- Não aplicar uma camada excessivamente opaca que elimine a riqueza visual da imagem.
+- Equilibrar impacto visual, clareza comercial e profissionalismo.
+
+## Composição mobile
+
+Criar uma composição responsiva específica.
+
+Não simplesmente recortar a imagem centralizada e eliminar o personagem ou prejudicar a leitura do texto.
+
+Considerar diferentes posicionamentos da imagem, proporções e distribuição vertical dos elementos, garantindo que tanto a mensagem comercial quanto o personagem permaneçam visíveis.
+
+## Copy inicial em inglês
+
+Utilizar como ponto de partida:
+
+**Eyebrow:**
+
+SEO Agency for US Businesses
+
+**H1:**
+
+Get Found on Google. Turn Visibility Into Business Opportunities.
+
+**Descrição:**
+
+Professional SEO audits, technical optimization, and local search strategies designed to help US businesses improve their online visibility, attract qualified traffic, and generate more business opportunities.
+
+**CTA principal:**
+
+Schedule a Free Consultation
+
+**CTA secundário:**
+
+Explore Our SEO Services
+
+**Texto complementar:**
+
+Technical SEO. On-Page Optimization. Local SEO. Measurable Insights.
+
+Esta é uma copy inicial para a primeira implementação. Organizar os textos de maneira que possam ser facilmente refinados posteriormente, sem necessidade de reconstruir o componente.
+
+A representação visual do Google é conceitual e ilustrativa. Não insinuar parceria, patrocínio, certificação, aprovação ou representação oficial do Google.
+
+Não utilizar expressões como Google Partner sem comprovação documental aplicável.
+
+---
+
+# 5. ESTRUTURA COMERCIAL DA LANDING PAGE
+
+Criar uma primeira versão completa, profissional e funcional, seguindo a estrutura abaixo.
+
+A organização visual poderá ser refinada posteriormente.
+
+## SEÇÃO 1 — Hero
+
+Implementar conforme as orientações anteriores.
+
+## SEÇÃO 2 — Credibilidade institucional
+
+Criar uma seção compacta que apresente a experiência e a especialização da Auditoria SEO.
+
+Verificar quais informações institucionais, cases, resultados, clientes e materiais comprobatórios já existem no projeto.
+
+Reutilizar exclusivamente informações reais e verificáveis.
+
+Caso não existam dados suficientes, utilizar informações institucionais qualitativas, sem inventar números.
+
+## SEÇÃO 3 — Problemas enfrentados pelas empresas americanas
+
+Apresentar situações que potenciais clientes conseguem reconhecer em seus próprios negócios:
+
+- My website is not ranking on Google.
+- My competitors appear before my business.
+- My website gets traffic but generates few leads.
+- My business is difficult to find on Google Maps.
+- I don't know which technical issues are affecting my website.
+- I'm investing in marketing without understanding my organic search performance.
+
+Construir uma comunicação profissional, demonstrando compreensão dos problemas comerciais, e não apenas dos aspectos técnicos de SEO.
+
+Evitar uma apresentação baseada em alarmismo.
+
+## SEÇÃO 4 — Serviços especializados
+
+Criar uma apresentação sofisticada dos seguintes serviços:
+
+### Technical SEO Audit
+
+Análise de rastreamento, indexação, arquitetura, renderização, desempenho, canonicalização, redirecionamentos, sitemap, dados estruturados e problemas técnicos.
+
+### On-Page SEO
+
+Otimização de títulos, metadados, headings, estrutura semântica, conteúdo, intenção de pesquisa e links internos.
+
+### Local SEO
+
+Estratégias voltadas à visibilidade de empresas em pesquisas geográficas, mercados locais e regiões específicas.
+
+### Google Business Profile & Google Maps
+
+Otimização da presença empresarial no Google Business Profile e melhoria da relevância nas pesquisas locais, respeitando as diretrizes da plataforma.
+
+### Keyword Research & Competitor Analysis
+
+Identificação de oportunidades comerciais, palavras-chave relevantes, concorrentes orgânicos e lacunas de conteúdo.
+
+### Ongoing SEO Management
+
+Acompanhamento recorrente, implementação de melhorias, monitoramento de desempenho e desenvolvimento estratégico de SEO.
+
+Cada serviço deverá apresentar:
+
+- Nome.
+- Descrição objetiva.
+- Benefícios comerciais.
+- Principais entregáveis ou atividades.
+- CTA contextual, quando apropriado.
+
+Não estabelecer promessas de primeira posição ou resultados garantidos.
+
+Não exibir preços fixos nesta primeira implementação.
+
+## SEÇÃO 5 — Metodologia de trabalho
+
+Apresentar um processo comercial e técnico fácil de compreender:
+
+**01 — Discovery & Website Assessment**
+
+Entendimento do negócio, objetivos, mercado e situação digital.
+
+**02 — SEO Audit & Opportunity Analysis**
+
+Identificação dos problemas técnicos, oportunidades e prioridades.
+
+**03 — Strategic Optimization**
+
+Implementação das melhorias contratadas ou entrega de um plano de ação detalhado, conforme o escopo.
+
+**04 — Monitoring & Continuous Improvement**
+
+Monitoramento dos indicadores e evolução estratégica, quando contratado o acompanhamento recorrente.
+
+Deixar claro que a agência pode oferecer tanto auditorias independentes quanto serviços de implementação e acompanhamento.
+
+## SEÇÃO 6 — O que uma auditoria pode revelar
+
+Demonstrar visualmente as áreas analisadas:
+
+- Crawlability.
+- Indexability.
+- Site architecture.
+- Technical performance.
+- Core Web Vitals.
+- Mobile usability.
+- Keyword opportunities.
+- Search intent.
+- Internal linking.
+- Local search visibility.
+- Competitor gaps.
+- Conversion opportunities.
+
+Utilizar elementos visuais que representem uma auditoria profissional.
+
+Caso sejam utilizados dashboards ilustrativos, identificá-los como demonstrativos e não como resultados reais de clientes.
+
+Priorizar screenshots e materiais reais que já estejam disponíveis no projeto.
+
+## SEÇÃO 7 — Empresas que podemos ajudar
+
+Apresentar segmentos compatíveis com a estratégia comercial americana:
+
+- Industrial service providers.
+- Manufacturing companies.
+- Specialized contractors.
+- Home service businesses.
+- Engineering and technical service companies.
+- Equipment suppliers.
+- Local service businesses.
+- B2B service providers.
+
+Esses segmentos são exemplos de públicos atendidos ou prospectados, não uma declaração de que já existem clientes em todos eles.
+
+Demonstrar que a metodologia pode ser adaptada a diferentes mercados, especialmente empresas que dependem da descoberta online para conquistar novos clientes.
+
+## SEÇÃO 8 — Experiência e resultados
+
+Criar uma seção destinada a cases, resultados, portfólio e experiência profissional.
+
+Antes de implementar, consultar os materiais já existentes no projeto.
+
+Preservar a distinção entre resultados comprovados, materiais ilustrativos e experiências profissionais.
+
+Não inventar:
+
+- Depoimentos.
+- Clientes.
+- Logotipos.
+- Percentuais de crescimento.
+- Quantidades de leads.
+- Faturamento gerado.
+- Posicionamentos.
+- Certificações.
+- Experiência específica nos Estados Unidos.
+- Endereço comercial americano.
+- Escritório físico nos Estados Unidos.
+
+Se ainda não houver materiais suficientes, preparar uma estrutura visual modular que possa receber novos cases posteriormente, sem publicar espaços vazios ou informações fictícias.
+
+## SEÇÃO 9 — Meet the SEO Specialist
+
+Utilizar a segunda imagem que estou enviando juntamente com este prompt.
+
+Trata-se de uma fotografia real do profissional responsável pela Auditoria SEO, durante uma palestra em um palco, com uma apresentação relacionada ao Google.
+
+Esta fotografia deverá ser utilizada mais abaixo na página, em uma seção dedicada à autoridade profissional e à apresentação do responsável pela agência.
+
+Criar uma composição premium, valorizando a fotografia original e sua autenticidade.
+
+A imagem poderá ser utilizada como fundo parcial da seção ou como elemento principal de uma composição editorial, conforme a melhor legibilidade e responsividade.
+
+Sugestão de título:
+
+**Meet the Specialist Behind Your SEO Strategy**
+
+Apresentar o responsável pela Auditoria SEO como especialista em auditorias, otimização de websites e estratégias de visibilidade orgânica.
+
+Utilizar informações profissionais reais que já estejam disponíveis no projeto.
+
+Não inventar qualificações, anos de experiência, títulos acadêmicos ou certificações.
+
+Não modificar artificialmente a identidade física do profissional presente na fotografia.
+
+## SEÇÃO 10 — Por que contratar a Auditoria SEO?
+
+Trabalhar argumentos como:
+
+- Data-driven SEO analysis.
+- Transparent communication.
+- Technical expertise.
+- Actionable recommendations.
+- Business-oriented SEO strategy.
+- Customized solutions.
+- Clear priorities.
+- Flexible service engagements.
+
+Transmitir a diferença entre uma auditoria superficial e uma análise profissional capaz de identificar problemas e orientar decisões.
+
+Evitar comparações depreciativas com concorrentes e alegações de superioridade sem comprovação.
+
+## SEÇÃO 11 — Frequently Asked Questions
+
+Criar uma seção de perguntas frequentes com respostas úteis, originais e específicas.
+
+Sugestões:
+
+- What is included in a professional SEO audit?
+- How long does an SEO audit take?
+- Can you help implement the recommended SEO improvements?
+- Do you offer monthly SEO services?
+- Can you help my business appear on Google Maps?
+- Do you work with businesses across the United States?
+- Can I hire an SEO audit without a monthly contract?
+- How do we communicate and schedule meetings?
+
+Não inventar prazos comerciais, preços ou condições contratuais ainda não definidos.
+
+Não garantir posicionamentos no Google.
+
+## SEÇÃO 12 — CTA final e formulário de contato
+
+Criar uma seção final de forte conversão.
+
+Sugestão de título:
+
+**Ready to Improve Your Website's Visibility on Google?**
+
+Sugestão de descrição:
+
+Let's identify what's holding your website back and uncover new opportunities for organic growth.
+
+CTA:
+
+**Schedule Your Free SEO Consultation**
+
+Criar também um formulário profissional contendo:
+
+- Full Name.
+- Company Name.
+- Business Email.
+- Website URL.
+- Service of Interest.
+- Message.
+
+Implementar validação, proteção contra spam, tratamento de erros, acessibilidade e confirmação real de envio.
+
+Não simular sucesso quando a mensagem não tiver sido efetivamente enviada.
+
+Caso o projeto não possua um backend funcional para receber formulários, identificar essa dependência e implementar a estrutura de integração sem fingir que o envio está operacional.
+
+---
+
+# 6. ESTRATÉGIA DE CONVERSÃO PARA O MERCADO AMERICANO
+
+A experiência americana deverá priorizar:
+
+- Agendamento de reuniões.
+- Calendly.
+- Formulários comerciais.
+- E-mail profissional.
+- Google Meet.
+- Zoom.
+
+O WhatsApp não deverá ser o principal canal de conversão desta landing page.
+
+Caso o site possua um botão flutuante global de WhatsApp, desabilitá-lo exclusivamente nas três rotas desta landing page, sem alterar seu funcionamento no restante do site.
+
+Utilizar o e-mail comercial existente:
+
+comercial@auditoriaseo.com.br
+
+Preparar integração com Calendly.
+
+Caso ainda não exista uma URL válida de agendamento, não inventar links ou disponibilizar botões quebrados.
+
+Nesse caso, direcionar temporariamente os CTAs de agendamento ao formulário de contato da própria página e informar essa decisão no relatório final.
+
+Não exigir telefone como campo obrigatório do formulário.
+
+---
+
+# 7. PROTOCOLO SEO DE LANÇAMENTO — IMPLEMENTAÇÃO OBRIGATÓRIA
+
+ATENÇÃO: esta seção é prioritária e não poderá ser ignorada.
+
+Em projetos anteriores desenvolvidos com ferramentas de Vibe Coding, foram identificados problemas relacionados à renderização exclusivamente client-side, indexação, HTML inicial vazio, canonicalização, redirecionamentos e inconsistências entre URLs.
+
+Não repetir esses problemas.
+
+## 7.1. Análise da arquitetura existente
+
+Antes de modificar qualquer arquivo, verificar:
+
+- Framework utilizado.
+- Sistema de rotas.
+- Processo de build.
+- Configuração de deploy.
+- Scripts existentes de pré-renderização.
+- Componentes de SEO.
+- Geração do sitemap.
+- Configurações multilíngues.
+- Configurações de Cloudflare Pages ou Workers.
+- Comportamento das respostas HTTP.
+
+Reutilizar os mecanismos existentes sempre que forem tecnicamente adequados.
+
+Não instalar frameworks desnecessários nem substituir a arquitetura funcional do projeto.
+
+## 7.2. Renderização e HTML inicial
+
+Garantir que as três novas páginas possuam conteúdo principal disponível no HTML inicial entregue pelo servidor ou pelo build estático.
+
+Priorizar, conforme a arquitetura existente:
+
+- SSR.
+- SSG.
+- Pré-renderização estática.
+
+Não depender exclusivamente da execução de JavaScript no navegador para disponibilizar:
+
+- H1.
+- Headings.
+- Textos principais.
+- Links internos.
+- Metadados.
+- Canonical.
+- Hreflang.
+- Conteúdo dos serviços.
+- Conteúdo das perguntas frequentes.
+
+Não considerar suficiente um HTML inicial contendo apenas uma div root vazia.
+
+Verificar os arquivos HTML produzidos pelo build e, após o deploy, verificar também o HTML efetivamente retornado pelas URLs públicas.
+
+## 7.3. Canonicalização e redirecionamentos
+
+Respeitar a versão canônica global existente do domínio.
+
+A versão preferencial é:
+
+https://auditoriaseo.com.br
+
+Verificar:
+
+- HTTP para HTTPS.
+- WWW para não-WWW, conforme a configuração canônica.
+- Consistência de trailing slash.
+- Redirecionamentos permanentes 301 ou 308.
+- Ausência de cadeias e loops.
+- Canonical autorreferente.
+- Consistência entre canonical, sitemap, links internos e hreflang.
+
+Não criar novas variantes duplicadas das páginas.
+
+Não modificar indiscriminadamente as regras globais de redirecionamento.
+
+Caso sejam identificados problemas preexistentes fora do escopo desta implementação, documentá-los separadamente.
+
+## 7.4. Status HTTP
+
+Garantir:
+
+- Status HTTP 200 para páginas válidas.
+- Status HTTP 404 ou 410, conforme aplicável, para recursos efetivamente inexistentes.
+- Ausência de soft 404.
+- Ausência de fallback genérico que retorne HTTP 200 para qualquer URL inexistente.
+
+Verificar se o roteamento da aplicação e a infraestrutura Cloudflare respeitam esses comportamentos.
+
+## 7.5. Metadados
+
+Sugestão inicial para a versão inglesa:
+
+**SEO Title:**
+
+SEO Agency USA | SEO Audits & Local SEO Services
+
+**Meta Description:**
+
+Professional SEO audits, technical SEO, on-page optimization and local SEO services for US businesses. Discover opportunities to improve your Google visibility.
+
+**H1:**
+
+Get Found on Google. Turn Visibility Into Business Opportunities.
+
+Implementar metadados independentes para português e espanhol.
+
+Configurar:
+
+- Title.
+- Meta description.
+- Canonical.
+- Meta robots.
+- Open Graph.
+- Twitter/X Cards.
+- Imagem social.
+- Idioma correto.
+- Hreflang.
+
+Garantir que esses elementos estejam presentes no HTML inicial.
+
+## 7.6. Palavras-chave e relevância semântica
+
+Trabalhar naturalmente termos relacionados a:
+
+- SEO Agency USA.
+- SEO Agency for US Businesses.
+- SEO Services USA.
+- Professional SEO Audit.
+- Technical SEO Audit Services.
+- On-Page SEO Services.
+- Local SEO Services.
+- Google Business Profile Optimization.
+- Google Maps SEO.
+- SEO Consulting Services.
+- Website SEO Audit.
+- SEO Services for Small Businesses.
+- B2B SEO Services.
+- SEO for Service Businesses.
+
+Esses termos são referências semânticas iniciais, não uma lista comprovada de palavras-chave por volume de pesquisa.
+
+Não inventar dados de volume, dificuldade ou posicionamento.
+
+Não realizar keyword stuffing.
+
+Priorizar a linguagem comercial natural do inglês americano.
+
+## 7.7. Estrutura semântica
+
+Implementar:
+
+- Um H1 principal.
+- H2 para as seções estratégicas.
+- H3 para subdivisões relevantes.
+- Elementos HTML semânticos.
+- Links internos rastreáveis.
+- Textos alternativos descritivos.
+- Navegação acessível.
+- Landmarks apropriados.
+
+Não transformar todos os textos em imagens ou componentes inacessíveis aos mecanismos de busca.
+
+## 7.8. Dados estruturados
+
+Implementar JSON-LD apropriado ao conteúdo real da página.
+
+Avaliar a utilização de:
+
+- Organization.
+- WebPage.
+- Service.
+- BreadcrumbList.
+- Person, quando houver informações profissionais verificáveis.
+- FAQPage, quando semanticamente aplicável e em conformidade com as diretrizes vigentes.
+
+Reutilizar a entidade institucional existente da Auditoria SEO através do mesmo identificador, evitando duplicação conflitante de entidades.
+
+Utilizar areaServed para indicar os Estados Unidos como mercado atendido, quando apropriado.
+
+Não criar endereços americanos fictícios.
+
+Não criar avaliações, estrelas, prêmios ou propriedades inexistentes.
+
+Não prometer exibição de rich results.
+
+## 7.9. Sitemap e robots.txt
+
+Incluir automaticamente as três novas URLs no sitemap XML existente.
+
+Verificar:
+
+- URLs canônicas.
+- URLs absolutas.
+- Respostas HTTP válidas.
+- Ausência de bloqueio no robots.txt.
+- Ausência de noindex indevido.
+- Compatibilidade com o mecanismo atual de geração do sitemap.
+
+Não remover outras páginas existentes do sitemap.
+
+## 7.10. Links internos e prevenção de canibalização
+
+Avaliar os conteúdos existentes em inglês relacionados aos serviços de SEO.
+
+Criar links internos relevantes entre a nova landing page e conteúdos já publicados.
+
+Não inventar caminhos de artigos ou serviços que não existam.
+
+Evitar concorrência desnecessária com a homepage em inglês e com outros artigos que tratem de auditoria SEO.
+
+A nova página deverá ter intenção predominantemente comercial e direcionamento ao mercado americano.
+
+Os artigos informativos existentes deverão preservar sua própria intenção de pesquisa.
+
+---
+
+# 8. OTIMIZAÇÃO DE IMAGENS E PERFORMANCE
+
+Otimizar as duas imagens fornecidas.
+
+Preservar os arquivos originais e gerar versões otimizadas para uso web.
+
+Priorizar:
+
+- WebP ou AVIF.
+- Compressão inteligente.
+- Dimensões adequadas.
+- Variantes responsivas.
+- Preservação da qualidade visual.
+- Prevenção de layout shifts.
+
+A imagem do Hero provavelmente será um dos principais elementos de LCP.
+
+Não aplicar lazy loading à imagem principal do Hero.
+
+Priorizar seu carregamento quando tecnicamente apropriado.
+
+Aplicar lazy loading à fotografia da palestra e às imagens secundárias abaixo da primeira dobra.
+
+Verificar os indicadores:
+
+- LCP.
+- INP.
+- CLS.
+- Peso total da página.
+- JavaScript desnecessário.
+- Recursos que bloqueiam a renderização.
+- Desempenho mobile.
+
+Buscar os parâmetros recomendados de Core Web Vitals:
+
+- LCP até 2,5 segundos.
+- INP até 200 milissegundos.
+- CLS até 0,1.
+
+Esses valores são objetivos de desempenho, não resultados que possam ser declarados sem medição.
+
+Utilizar animações leves, preferencialmente baseadas em transform e opacity.
+
+Respeitar prefers-reduced-motion.
+
+Não esconder permanentemente conteúdo de usuários ou rastreadores quando JavaScript ou animações falharem.
+
+---
+
+# 9. GA4, EVENTOS E CONVERSÕES
+
+Preservar as integrações existentes do Google Analytics e Google Tag Manager.
+
+Não instalar tags duplicadas.
+
+Verificar os mecanismos de rastreamento existentes antes de criar novos eventos.
+
+Preparar a medição dos seguintes eventos:
+
+- schedule_consultation_click
+- calendly_click
+- contact_form_start
+- generate_lead
+- email_click
+- service_cta_click
+
+Utilizar generate_lead exclusivamente quando houver confirmação real de uma conversão de lead.
+
+Registrar, quando aplicável:
+
+- page_language.
+- service_interest.
+- cta_location.
+- page_path.
+
+Não enviar nomes, e-mails, telefones ou outras informações pessoais ao Google Analytics.
+
+Evitar disparos duplicados.
+
+Preservar parâmetros UTM e a atribuição das campanhas de prospecção.
+
+Considerar também os mecanismos de consentimento e privacidade já implementados no projeto.
+
+Não alterar globalmente a configuração analítica sem necessidade.
+
+---
+
+# 10. RESPONSIVIDADE E ACESSIBILIDADE
+
+Testar a nova página nos seguintes contextos:
+
+- Desktop widescreen.
+- Notebook.
+- Tablet.
+- Smartphones Android.
+- iPhone.
+- Telas pequenas.
+
+Garantir:
+
+- Ausência de overflow horizontal.
+- Boa legibilidade.
+- Botões acessíveis.
+- Formulários utilizáveis.
+- Contraste adequado.
+- Navegação por teclado.
+- Estados de foco visíveis.
+- Imagens corretamente dimensionadas.
+- Hero funcional em diferentes proporções.
+- Seletor de idiomas funcional.
+- Cabeçalho e rodapé consistentes com o site existente.
+
+---
+
+# 11. PRESERVAÇÃO DO PROJETO EXISTENTE
+
+Esta implementação não poderá prejudicar:
+
+- Homepage.
+- Blog.
+- Artigos existentes.
+- Páginas de serviços.
+- Traduções.
+- Seletor de idiomas.
+- Newsletter.
+- Formulários existentes.
+- Integrações.
+- Google Analytics.
+- Google Tag Manager.
+- Sitemap.
+- Robots.txt.
+- Configurações de SEO.
+- Redirecionamentos válidos.
+- Processo de build.
+- Deploy na Cloudflare.
+
+Não migrar o projeto para Vercel.
+
+Não introduzir dependências externas desnecessárias.
+
+Não realizar mudanças globais apenas para atender a esta landing page quando a implementação puder ser isolada nas novas rotas.
+
+---
+
+# 12. EXECUÇÃO E VALIDAÇÃO FINAL
+
+Execute a implementação completa.
+
+Após implementar:
+
+1. Executar o build de produção.
+2. Corrigir erros de compilação.
+3. Verificar as três novas rotas.
+4. Inspecionar o HTML inicial gerado.
+5. Confirmar a presença do conteúdo principal no HTML.
+6. Verificar canonical e hreflang.
+7. Validar o sitemap.
+8. Verificar a compatibilidade com robots.txt.
+9. Testar os CTAs.
+10. Testar o comportamento do formulário.
+11. Testar o seletor de idiomas.
+12. Verificar responsividade.
+13. Verificar a preservação das páginas existentes.
+14. Confirmar a compatibilidade com o deploy na Cloudflare.
+15. Verificar os eventos de conversão que puderem ser efetivamente testados.
+
+Caso o ambiente permita verificar as URLs públicas após o deploy, realizar também os testes de produção.
+
+Caso não permita, fornecer os comandos ou procedimentos necessários para realizar essa validação posteriormente.
+
+Não afirmar que a página está publicada, indexada ou validada em produção sem comprovação efetiva.
+
+---
+
+# 13. RELATÓRIO FINAL OBRIGATÓRIO
+
+Ao concluir, entregar um relatório técnico contendo:
+
+- Resumo da implementação.
+- URLs criadas.
+- Arquivos criados.
+- Arquivos modificados.
+- Componentes reutilizados.
+- Estrutura comercial implementada.
+- Estratégia visual aplicada.
+- Tratamento das duas imagens.
+- Mecanismo de renderização utilizado.
+- Evidências do conteúdo no HTML inicial.
+- Metadados das três versões.
+- Canonical e hreflang.
+- Status do sitemap.
+- Dados estruturados.
+- Eventos de rastreamento.
+- Resultado do build.
+- Testes realizados.
+- Problemas encontrados.
+- Dependências externas pendentes.
+- Configurações que necessitam de intervenção humana.
+- Confirmação fundamentada de que o restante do projeto foi preservado.
+
+Separar claramente aquilo que foi implementado e testado daquilo que ainda depende de deploy, integração externa ou validação no Google Search Console.
+
+---
+
+# DIRETRIZ FINAL
+
+O objetivo é obter uma primeira versão concreta, funcional, comercialmente convincente e tecnicamente sólida da landing page americana da Auditoria SEO.
+
+Esta não precisa ser a versão visual definitiva.
+
+Após a primeira implementação, iremos avaliar a página real, revisar individualmente as seções, aprimorar os textos, refinar o design e otimizar os elementos de conversão.
+
+Neste momento, priorize uma excelente base estrutural, visual, comercial e técnica.
+
+Comece analisando o projeto existente e, em seguida, execute a implementação.

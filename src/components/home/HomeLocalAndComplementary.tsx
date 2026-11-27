@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Check, ArrowRight } from 'lucide-react';
 import { HomeCommercialContent } from '../../i18n/homeCommercial';
+import { useLanguage } from '../../i18n/LanguageContext';
+import { UsFlagIcon } from '../usa/UsFlagIcon';
 import { RouteMapping } from '../../i18n/types';
 
 interface HomeLocalAndComplementaryProps {
@@ -15,7 +17,33 @@ export const HomeLocalAndComplementary: React.FC<HomeLocalAndComplementaryProps>
   getWhatsAppUrl,
   currentRoutes,
 }) => {
+  const { lang } = useLanguage();
   const { localSeoSection, additionalServices } = content;
+
+  const usaContextualCard =
+    lang === 'es'
+      ? {
+          kicker: 'Servicios Internacionales de SEO',
+          title: 'SEO para Empresas en Estados Unidos',
+          description:
+            'Auditorías técnicas, optimización on-page y estrategias de búsqueda local diseñadas para empresas en EE. UU.',
+          cta: 'Explorar servicios SEO en EE. UU.',
+        }
+      : lang === 'en'
+      ? {
+          kicker: 'International SEO Services',
+          title: 'Professional SEO Services for US Businesses',
+          description:
+            'Human-led technical SEO audits, on-page optimization, and local search strategies tailored to companies across the United States.',
+          cta: 'Explore our US SEO services',
+        }
+      : {
+          kicker: 'Atuação Internacional',
+          title: 'SEO para Empresas nos Estados Unidos',
+          description:
+            'Auditorias técnicas, otimização on-page e estratégias de SEO Local desenhadas para empresas que competem no mercado americano.',
+          cta: 'Explorar serviços de SEO para os EUA',
+        };
 
   return (
     <>
@@ -143,6 +171,31 @@ export const HomeLocalAndComplementary: React.FC<HomeLocalAndComplementaryProps>
                 </article>
               );
             })}
+          </div>
+
+          {/* Contextual Link to US Market SEO Landing Page */}
+          <div className="mt-8 bg-white rounded-xl border border-slate-200/90 p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-1.5 max-w-2xl">
+              <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1A73E8]">
+                <UsFlagIcon />
+                <span>{usaContextualCard.kicker}</span>
+              </p>
+              <h3 className="text-lg sm:text-xl font-bold text-slate-900">
+                {usaContextualCard.title}
+              </h3>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                {usaContextualCard.description}
+              </p>
+            </div>
+            <div className="shrink-0">
+              <Link
+                to={currentRoutes.usaAgency}
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] rounded-lg shadow-sm transition-colors whitespace-nowrap"
+              >
+                <span>{usaContextualCard.cta}</span>
+                <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

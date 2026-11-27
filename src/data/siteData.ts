@@ -1,11 +1,26 @@
 import { Plan, ServiceItem, TargetSegment, FAQItem, SocialProofItem } from '../types';
 
+const envCalendlyUsa = (
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_CALENDLY_USA_URL) ||
+  (typeof process !== 'undefined' && process.env?.VITE_CALENDLY_USA_URL) ||
+  ''
+).trim();
+
+const envUsLeadEndpoint = (
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_US_LEAD_ENDPOINT) ||
+  (typeof process !== 'undefined' && process.env?.VITE_US_LEAD_ENDPOINT) ||
+  '/api/us-lead'
+).trim();
+
 export const SITE_CONFIG = {
   name: 'Auditoria SEO',
   domain: 'auditoriaseo.com.br',
   phoneDisplay: '(19) 98933-2087',
   phoneRaw: '5519989332087',
   whatsappBaseUrl: 'https://wa.me/5519989332087',
+  commercialEmail: 'comercial@auditoriaseo.com.br',
+  calendlyUsaUrl: envCalendlyUsa,
+  usLeadEndpoint: envUsLeadEndpoint,
   heroImage: '/assets/aistudio/img-fundo-auditoria.jpg',
   defaultOgImage: 'https://auditoriaseo.com.br/og-image.png',
   googleMapsProfileUrl: 'https://share.google/LAMoroMJbdrI9QCsk',

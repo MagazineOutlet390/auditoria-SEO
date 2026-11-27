@@ -1,15 +1,20 @@
 import { Language } from '../i18n/types';
 import { TRANSLATIONS } from '../i18n/translations';
 import { HOME_COMMERCIAL_CONTENT } from '../i18n/homeCommercial';
+import { ROUTES_BY_LANG } from '../i18n/routes';
+import { USA_AGENCY_DATA } from '../i18n/usaAgencyData';
 import { SITE_CONFIG } from '../data/siteData';
 
 const DOMAIN = 'https://auditoriaseo.com.br';
+const ORGANIZATION_ID = `${DOMAIN}/#organization`;
 
 const PROVIDER_ENTITY = {
   '@type': 'Organization',
+  '@id': ORGANIZATION_ID,
   name: 'Auditoria SEO',
   url: DOMAIN,
   telephone: '+55-19-98933-2087',
+  email: SITE_CONFIG.commercialEmail,
   logo: {
     '@type': 'ImageObject',
     url: `${DOMAIN}/icon-512.png`,
@@ -180,5 +185,112 @@ export function buildBlogListJsonLd(lang: Language, canonicalUrl: string): Recor
     url: canonicalUrl,
     inLanguage: lang === 'pt' ? 'pt-BR' : lang,
     publisher: PROVIDER_ENTITY,
+  };
+}
+
+export function buildUsaAgencyJsonLd(lang: Language, canonicalUrl: string): Record<string, unknown> {
+  const data = USA_AGENCY_DATA[lang];
+  const homeRel = ROUTES_BY_LANG[lang].home;
+  const homeUrl = `${DOMAIN}${homeRel === '/' ? '' : homeRel}`;
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        ...PROVIDER_ENTITY,
+        sameAs: [SITE_CONFIG.googleMapsProfileUrl],
+        founder: {
+          '@id': `${DOMAIN}/#person-wesley-vieira`,
+        },
+      },
+      {
+        '@type': 'Person',
+        '@id': `${DOMAIN}/#person-wesley-vieira`,
+        name: data.specialist.name,
+        jobTitle: data.specialist.role,
+        worksFor: {
+          '@id': ORGANIZATION_ID,
+        },
+        url: canonicalUrl,
+      },
+      {
+        '@type': 'WebPage',
+        '@id': `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: data.meta.title,
+        description: data.meta.description,
+        inLanguage: data.meta.htmlLang,
+        isPartOf: {
+          '@type': 'WebSite',
+          url: DOMAIN,
+          name: 'Auditoria SEO',
+        },
+        about: {
+          '@id': `${canonicalUrl}#service`,
+        },
+        primaryImageOfPage: {
+          '@type': 'ImageObject',
+          url: `${DOMAIN}/images/usa/og-seo-agency-usa.jpg`,
+          width: 1200,
+          height: 630,
+        },
+      },
+      {
+        '@type': 'Service',
+        '@id': `${canonicalUrl}#service`,
+        name: data.meta.serviceName,
+        serviceType: data.meta.serviceType,
+        url: canonicalUrl,
+        inLanguage: data.meta.htmlLang,
+        description: data.meta.schemaDescription,
+        provider: {
+          '@id': ORGANIZATION_ID,
+        },
+        areaServed: {
+          '@type': 'Country',
+          name: 'United States',
+        },
+        hasOfferCatalog: {
+          '@type': 'OfferCatalog',
+          name: data.services.title,
+          itemListElement: data.services.items.map((service) => ({
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: service.name,
+              description: service.description,
+            },
+          })),
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: data.meta.breadcrumbHome,
+            item: homeUrl,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: data.meta.breadcrumbCurrent,
+            item: canonicalUrl,
+          },
+        ],
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: data.faq.items.map((faq) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        })),
+      },
+    ],
   };
 }

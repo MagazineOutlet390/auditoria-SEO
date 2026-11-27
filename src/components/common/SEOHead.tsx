@@ -16,6 +16,8 @@ export interface SEOHeadProps {
   modifiedTime?: string;
   noindex?: boolean;
   currentLang?: Language;
+  htmlLang?: string;
+  ogLocale?: string;
   hreflangs?: Array<{ lang: string; href: string }>;
   jsonLd?: Record<string, unknown> | null;
 }
@@ -38,6 +40,8 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
   modifiedTime,
   noindex = false,
   currentLang = 'pt',
+  htmlLang,
+  ogLocale: ogLocaleOverride,
   hreflangs,
   jsonLd,
 }) => {
@@ -78,7 +82,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     };
 
     // Update HTML root lang attribute
-    document.documentElement.lang = currentLang === 'pt' ? 'pt-BR' : currentLang;
+    document.documentElement.lang = htmlLang || (currentLang === 'pt' ? 'pt-BR' : currentLang);
 
     // Helper to set or update link tag with deduplication
     const setLinkTag = (rel: string, href: string) => {
@@ -135,7 +139,8 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     }
 
     // Open Graph / Facebook / WhatsApp
-    const ogLocale = currentLang === 'pt' ? 'pt_BR' : currentLang === 'es' ? 'es_ES' : 'en_US';
+    const ogLocale =
+      ogLocaleOverride || (currentLang === 'pt' ? 'pt_BR' : currentLang === 'es' ? 'es_ES' : 'en_US');
     setMetaTag('property', 'og:title', ogTitle || title);
     setMetaTag('property', 'og:description', ogDescription || description);
     setMetaTag('property', 'og:type', ogType);
@@ -192,7 +197,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
     setMetaTag('name', 'twitter:description', ogDescription || description);
     setMetaTag('name', 'twitter:image', fullOgImageUrl);
     setMetaTag('name', 'twitter:image:alt', imageAltText);
-  }, [title, description, ogTitle, ogDescription, canonicalPath, ogType, ogImage, ogImageAlt, ogImageWidth, ogImageHeight, publishedTime, modifiedTime, noindex, currentLang, hreflangs, jsonLd]);
+  }, [title, description, ogTitle, ogDescription, canonicalPath, ogType, ogImage, ogImageAlt, ogImageWidth, ogImageHeight, publishedTime, modifiedTime, noindex, currentLang, htmlLang, ogLocaleOverride, hreflangs, jsonLd]);
 
   return null;
 };

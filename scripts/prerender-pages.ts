@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { JSDOM } from 'jsdom';
 import { getArticlesByLanguage } from '../src/lib/blogArticles';
 import { TRANSLATIONS } from '../src/i18n/translations';
+import { USA_AGENCY_DATA } from '../src/i18n/usaAgencyData';
 import { ROUTES_BY_LANG, getHreflangs } from '../src/i18n/routes';
 import { Language } from '../src/i18n/types';
 import { initSsrRegistry, renderPageHtml } from '../src/entry-server';
@@ -13,6 +14,7 @@ import {
   buildGoogleAdsJsonLd,
   buildModernizationJsonLd,
   buildBlogListJsonLd,
+  buildUsaAgencyJsonLd,
 } from '../src/lib/seoSchemas';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -27,6 +29,7 @@ type PrerenderPageType =
   | 'localSeo'
   | 'googleAds'
   | 'modernization'
+  | 'usaAgency'
   | 'blog'
   | 'blogPost'
   | 'notFound';
@@ -35,6 +38,8 @@ interface PageMetadata {
   relPath: string; // e.g. '/', '/es', '/blog/slug'
   pageType: PrerenderPageType;
   lang: Language;
+  htmlLang?: string;
+  ogLocale?: string;
   title: string;
   description: string;
   ogTitle?: string;
@@ -62,6 +67,8 @@ function buildPageJsonLd(
       return buildGoogleAdsJsonLd(p.lang, canonicalUrl);
     case 'modernization':
       return buildModernizationJsonLd(p.lang, canonicalUrl);
+    case 'usaAgency':
+      return buildUsaAgencyJsonLd(p.lang, canonicalUrl);
     case 'blog':
       return buildBlogListJsonLd(p.lang, canonicalUrl);
     case 'blogPost': {
@@ -210,6 +217,24 @@ async function prerenderAllPages() {
       ogType: 'website',
       hreflangs: getHreflangs(routes.blog),
     });
+
+    // USA SEO Agency Commercial Landing Page (PT / ES / EN)
+    const usaData = USA_AGENCY_DATA[lang];
+    pages.push({
+      relPath: routes.usaAgency,
+      pageType: 'usaAgency',
+      lang,
+      htmlLang: usaData.meta.htmlLang,
+      ogLocale: usaData.meta.ogLocale,
+      title: usaData.meta.title,
+      description: usaData.meta.description,
+      ogTitle: usaData.meta.title,
+      ogDescription: usaData.meta.description,
+      ogImage: `${DOMAIN}/images/usa/og-seo-agency-usa.jpg`,
+      ogImageAlt: usaData.hero.imageAlt,
+      ogType: 'website',
+      hreflangs: getHreflangs(routes.usaAgency),
+    });
   }
 
   // 2. All Blog Articles across PT (18), ES (16), EN (16) -> 50 URLs
@@ -345,7 +370,7 @@ async function prerenderAllPages() {
     initSsrRegistry(dom.window);
 
     // 1. HTML lang
-    doc.documentElement.lang = p.lang === 'pt' ? 'pt-BR' : p.lang;
+    doc.documentElement.lang = p.htmlLang || (p.lang === 'pt' ? 'pt-BR' : p.lang);
 
     // 2. Single Title
     const existingTitles = doc.querySelectorAll('title');
@@ -379,7 +404,8 @@ async function prerenderAllPages() {
     }
 
     // 4. Open Graph
-    const ogLocale = p.lang === 'pt' ? 'pt_BR' : p.lang === 'es' ? 'es_ES' : 'en_US';
+    const ogLocale =
+      p.ogLocale || (p.lang === 'pt' ? 'pt_BR' : p.lang === 'es' ? 'es_ES' : 'en_US');
     const imageMimeType = p.ogImage?.endsWith('.png')
       ? 'image/png'
       : p.ogImage?.endsWith('.webp')

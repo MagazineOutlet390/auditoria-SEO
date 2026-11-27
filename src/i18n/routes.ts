@@ -9,6 +9,7 @@ export const ROUTES_BY_LANG: Record<Language, RouteMapping> = {
     modernization: '/modernizacao-sites',
     blog: '/blog',
     blogPost: '/blog/:slug',
+    usaAgency: '/agencia-seo-eua',
   },
   es: {
     home: '/es',
@@ -18,6 +19,7 @@ export const ROUTES_BY_LANG: Record<Language, RouteMapping> = {
     modernization: '/es/modernizacion-sitios',
     blog: '/es/blog',
     blogPost: '/es/blog/:slug',
+    usaAgency: '/es/agencia-seo-estados-unidos',
   },
   en: {
     home: '/en',
@@ -27,6 +29,7 @@ export const ROUTES_BY_LANG: Record<Language, RouteMapping> = {
     modernization: '/en/site-modernization',
     blog: '/en/blog',
     blogPost: '/en/blog/:slug',
+    usaAgency: '/en/seo-agency-usa',
   },
 };
 
@@ -62,6 +65,9 @@ function isKnownRoutePathname(pathname: string): boolean {
     clean === '/modernizacao-sites' ||
     clean === '/es/modernizacion-sitios' ||
     clean === '/en/site-modernization' ||
+    clean === '/agencia-seo-eua' ||
+    clean === '/es/agencia-seo-estados-unidos' ||
+    clean === '/en/seo-agency-usa' ||
     clean === '/blog' ||
     clean === '/es/blog' ||
     clean === '/en/blog' ||
@@ -114,6 +120,14 @@ export function getRouteKeyFromPathname(pathname: string): keyof RouteMapping {
     return 'modernization';
   }
 
+  if (
+    clean === '/agencia-seo-eua' ||
+    clean === '/es/agencia-seo-estados-unidos' ||
+    clean === '/en/seo-agency-usa'
+  ) {
+    return 'usaAgency';
+  }
+
   if (clean === '/blog' || clean === '/es/blog' || clean === '/en/blog') {
     return 'blog';
   }
@@ -161,6 +175,15 @@ export function getEquivalentPath(currentPathname: string, targetLang: Language)
  */
 export function getHreflangs(currentPathname: string, domain: string = 'https://auditoriaseo.com.br'): Array<{ lang: string; href: string }> {
   const routeKey = getRouteKeyFromPathname(currentPathname);
+
+  if (routeKey === 'usaAgency') {
+    return [
+      { lang: 'en-US', href: `${domain}${ROUTES_BY_LANG.en.usaAgency}` },
+      { lang: 'pt-BR', href: `${domain}${ROUTES_BY_LANG.pt.usaAgency}` },
+      { lang: 'es-419', href: `${domain}${ROUTES_BY_LANG.es.usaAgency}` },
+      { lang: 'x-default', href: `${domain}${ROUTES_BY_LANG.en.usaAgency}` },
+    ];
+  }
 
   if (routeKey === 'blogPost') {
     const segments = currentPathname.split('/').filter(Boolean);

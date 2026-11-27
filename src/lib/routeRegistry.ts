@@ -8,6 +8,7 @@ export type PageComponentKey =
   | 'localSeo'
   | 'googleAds'
   | 'modernization'
+  | 'usaAgency'
   | 'blog'
   | 'blogPost'
   | 'notFound';
@@ -21,6 +22,7 @@ const pageLoaders: Record<PageComponentKey, () => Promise<PageComponent>> = {
   localSeo: () => import('../pages/LocalSeoPage').then((m) => m.LocalSeoPage),
   googleAds: () => import('../pages/GoogleAdsPage').then((m) => m.GoogleAdsPage),
   modernization: () => import('../pages/ModernizationPage').then((m) => m.ModernizationPage),
+  usaAgency: () => import('../pages/UsaSeoAgencyPage').then((m) => m.UsaSeoAgencyPage),
   blog: () => import('../pages/BlogListPage').then((m) => m.BlogListPage),
   blogPost: () => import('../pages/BlogPostPage').then((m) => m.BlogPostPage),
   notFound: () => import('../pages/NotFoundPage').then((m) => m.NotFoundPage),
@@ -72,6 +74,14 @@ export function matchPageKeyFromPath(pathname: string): PageComponentKey {
     clean === '/en/site-modernization'
   ) {
     return 'modernization';
+  }
+
+  if (
+    clean === '/agencia-seo-eua' ||
+    clean === '/es/agencia-seo-estados-unidos' ||
+    clean === '/en/seo-agency-usa'
+  ) {
+    return 'usaAgency';
   }
 
   if (clean === '/blog' || clean === '/es/blog' || clean === '/en/blog') {

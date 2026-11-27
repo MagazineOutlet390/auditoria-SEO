@@ -47,6 +47,9 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (path === '/seo-local' || path === '/local-seo') return routes.localSeo;
     if (path === '/google-ads') return routes.googleAds;
     if (path === '/modernizacao-sites' || path === '/modernizacion-sitios' || path === '/site-modernization') return routes.modernization;
+    if (path === '/agencia-seo-eua' || path === '/es/agencia-seo-estados-unidos' || path === '/en/seo-agency-usa') {
+      return routes.usaAgency;
+    }
     if (path === '/blog') return routes.blog;
     if (path.startsWith('/blog/')) {
       const slug = path.replace(/^\/blog\//, '').replace(/^\/es\/blog\//, '').replace(/^\/en\/blog\//, '');
@@ -63,6 +66,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       { name: t.nav.googleAds, path: routes.googleAds },
       { name: t.nav.modernization, path: routes.modernization },
       { name: t.nav.blog, path: routes.blog },
+      { name: t.nav.usaAgency, path: routes.usaAgency, isUsa: true },
     ];
   }, [lang, t]);
 
