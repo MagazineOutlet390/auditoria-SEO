@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Calendar, CheckCircle2, Copy, Mail, Send, AlertCircle } from 'lucide-react';
+import { Calendar, CheckCircle2, Copy, Loader2, Mail, RotateCcw, Send, AlertCircle } from 'lucide-react';
 import { UsaAgencyContent } from '../../i18n/usaAgencyData';
 import { Language } from '../../i18n/types';
 import { SITE_CONFIG } from '../../data/siteData';
@@ -14,7 +14,7 @@ interface UsaConsultationSectionProps {
   selectedServiceOption: string;
 }
 
-type SubmitState = 'idle' | 'submitting' | 'success' | 'unconfigured' | 'network_error';
+type SubmitState = 'idle' | 'submitting' | 'success' | 'rate_limited' | 'error';
 
 const EMAIL_RE = /^[^\s@<>()[\]\\,;:\s@"]+@[^\s@<>()[\]\\,;:\s@"]+\.[^\s@]{2,}$/;
 
@@ -51,9 +51,11 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
   const [fieldError, setFieldError] = useState<string | null>(null);
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [copiedBrief, setCopiedBrief] = useState(false);
+  const [showCalendlyFallbackNote, setShowCalendlyFallbackNote] = useState(false);
 
   const formStartedRef = useRef(false);
   const formRenderedAtRef = useRef<number>(0);
+  const isSubmittingRef = useRef(false);
 
   useEffect(() => {
     formRenderedAtRef.current = Date.now();
@@ -109,8 +111,8 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const submitLead = async () => {
+    if (isSubmittingRef.current) return;
     setFieldError(null);
 
     if (honeypot.trim().length > 0) {
@@ -143,7 +145,12 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
       return;
     }
 
+    isSubmittingRef.current = true;
     setSubmitState('submitting');
+
+    const sourceUrl =
+      typeof window !== 'undefined' ? window.location.href : `https://auditoriaseo.com.br${pagePath}`;
+    const submittedAt = new Date().toISOString();
 
     try {
       const response = await fetch(SITE_CONFIG.usLeadEndpoint, {
@@ -160,6 +167,8 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
           message: message.trim(),
           lang,
           pagePath,
+          sourceUrl,
+          submittedAt,
           utm: captureUtmAttribution(),
           company_website_fax: honeypot,
           formRenderedAt: formRenderedAtRef.current,
@@ -171,7 +180,7 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
         code?: string;
       } | null;
 
-      if (response.ok && result?.ok) {
+      if (response.ok && result?.ok === true) {
         setSubmitState('success');
         trackAnalyticsEvent('generate_lead', {
           page_language: htmlLang,
@@ -182,15 +191,22 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
         return;
       }
 
-      if (response.status === 503 || result?.code === 'DELIVERY_NOT_CONFIGURED') {
-        setSubmitState('unconfigured');
+      if (response.status === 429 || result?.code === 'RATE_LIMITED') {
+        setSubmitState('rate_limited');
         return;
       }
 
-      setSubmitState('network_error');
+      setSubmitState('error');
     } catch {
-      setSubmitState('network_error');
+      setSubmitState('error');
+    } finally {
+      isSubmittingRef.current = false;
     }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await submitLead();
   };
 
   const resetForm = () => {
@@ -203,9 +219,20 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
     setFieldError(null);
     setSubmitState('idle');
     formStartedRef.current = false;
+    isSubmittingRef.current = false;
   };
 
   const hasCalendly = Boolean(SITE_CONFIG.calendlyUsaUrl);
+
+  const handleUnavailableMeetingClick = () => {
+    setShowCalendlyFallbackNote(true);
+    if (typeof document !== 'undefined') {
+      const nameInput = document.getElementById('usa-form-name');
+      if (nameInput) {
+        nameInput.focus();
+      }
+    }
+  };
 
   return (
     <section
@@ -235,7 +262,7 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
               </p>
             </div>
 
-            <div className="rounded-xl border border-slate-800 bg-slate-900/90 p-5 space-y-3">
+            <div className="rounded-xl border border-slate-800 bg-slate-900/90 p-5 space-y-3.5">
               <p className="text-sm font-semibold text-white">{content.schedulingNote}</p>
 
               {hasCalendly ? (
@@ -250,13 +277,27 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
                       page_path: pagePath,
                     })
                   }
-                  className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-3 text-sm font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] rounded-lg transition-colors"
+                  className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-3 text-sm font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 focus-visible:ring-[#1A73E8]"
                 >
                   <Calendar className="w-4 h-4 shrink-0" aria-hidden="true" />
                   <span>{content.calendlyCta}</span>
                 </a>
               ) : (
-                <p className="text-xs text-slate-400 leading-relaxed">{content.noCalendlyNote}</p>
+                <>
+                  <button
+                    type="button"
+                    onClick={handleUnavailableMeetingClick}
+                    className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-3 text-sm font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 focus-visible:ring-[#1A73E8]"
+                  >
+                    <Calendar className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    <span>{content.calendlyCta}</span>
+                  </button>
+                  {showCalendlyFallbackNote && (
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      {content.noCalendlyNote}
+                    </p>
+                  )}
+                </>
               )}
             </div>
 
@@ -489,22 +530,29 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
                     </div>
                   )}
 
-                  {(submitState === 'unconfigured' || submitState === 'network_error') && (
+                  {(submitState === 'rate_limited' || submitState === 'error') && (
                     <div
-                      role="status"
+                      role="alert"
                       className="rounded-xl border border-amber-300 bg-amber-50 p-4 space-y-3"
                     >
                       <p className="text-sm font-bold text-amber-950">
-                        {submitState === 'unconfigured'
-                          ? content.unconfiguredTitle
-                          : content.networkErrorTitle}
+                        {content.deliveryErrorTitle}
                       </p>
                       <p className="text-xs sm:text-sm text-amber-900 leading-relaxed">
-                        {submitState === 'unconfigured'
-                          ? content.unconfiguredMessage
-                          : content.networkErrorMessage}
+                        {submitState === 'rate_limited'
+                          ? content.rateLimitMessage
+                          : content.deliveryErrorMessage}
                       </p>
                       <div className="flex flex-wrap gap-3">
+                        <button
+                          type="button"
+                          onClick={() => void submitLead()}
+                          className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] rounded-lg transition-colors"
+                        >
+                          <RotateCcw className="w-4 h-4 shrink-0" aria-hidden="true" />
+                          <span>{content.retryButton}</span>
+                        </button>
+
                         <a
                           href={buildMailtoHref()}
                           onClick={() =>
@@ -515,7 +563,7 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
                               page_path: pagePath,
                             })
                           }
-                          className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] rounded-lg transition-colors"
+                          className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-slate-800 bg-white border border-slate-300 hover:bg-slate-50 rounded-lg transition-colors"
                         >
                           <Mail className="w-4 h-4 shrink-0" aria-hidden="true" />
                           <span>{content.openEmailClientButton}</span>
@@ -540,7 +588,11 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
                     disabled={submitState === 'submitting'}
                     className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm sm:text-base font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] disabled:opacity-60 transition-colors rounded-lg shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1A73E8]"
                   >
-                    <Send className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    {submitState === 'submitting' ? (
+                      <Loader2 className="w-4 h-4 shrink-0 animate-spin" aria-hidden="true" />
+                    ) : (
+                      <Send className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    )}
                     <span>
                       {submitState === 'submitting'
                         ? content.submittingButton

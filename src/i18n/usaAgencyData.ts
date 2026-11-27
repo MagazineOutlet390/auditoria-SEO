@@ -208,10 +208,10 @@ export interface UsaAgencyContent {
     successTitle: string;
     successMessage: string;
     sendAnotherButton: string;
-    unconfiguredTitle: string;
-    unconfiguredMessage: string;
-    networkErrorTitle: string;
-    networkErrorMessage: string;
+    deliveryErrorTitle: string;
+    deliveryErrorMessage: string;
+    rateLimitMessage: string;
+    retryButton: string;
     openEmailClientButton: string;
     copyBriefButton: string;
     copiedBriefLabel: string;
@@ -773,11 +773,11 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       description:
         "Let's identify what's holding your website back and uncover new opportunities for organic growth.",
       primaryCta: 'Schedule Your Free SEO Consultation',
-      calendlyCta: 'Book Directly on Calendly',
+      calendlyCta: 'Schedule a Meeting',
       schedulingNote:
         'Consultations are held remotely via Google Meet or Zoom. No hard sales pitch—we review your website and share practical next steps.',
       noCalendlyNote:
-        'Online calendar booking will open directly here once our US scheduling link is connected. In the meantime, submit the consultation form or email us directly.',
+        'Direct online calendar booking is temporarily unavailable. Please submit your request via the form alongside or email comercial@auditoriaseo.com.br.',
       directEmailLabel: 'Direct Commercial Email',
       channelsHeading: 'Built for US Business Collaboration',
       channelsList: [
@@ -818,21 +818,21 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
         messageRequired: 'Please share a brief message (at least 15 characters).',
         spamDetected: 'Submission blocked by spam verification.',
       },
-      submitButton: 'Schedule Your Free SEO Consultation',
+      submitButton: 'Send My Request',
       submittingButton: 'Sending Request...',
       privacyNote:
         'Your information is used strictly to review your website and respond to your inquiry. Zero spam or third-party data sharing.',
-      successTitle: 'Consultation request received',
+      successTitle: 'Thank you! Your request has been successfully submitted.',
       successMessage:
-        'Thank you—your inquiry has been delivered to our team at comercial@auditoriaseo.com.br. We will review your website and reply by email to coordinate a Google Meet or Zoom session.',
+        "We've received your information and will contact you shortly to discuss your SEO opportunities.",
       sendAnotherButton: 'Submit another inquiry',
-      unconfiguredTitle: 'Automated form relay not yet active — direct email fallback ready',
-      unconfiguredMessage:
-        'Your inquiry passed validation, but automated backend email delivery is still being connected on this server. To ensure we receive your request immediately, open your pre-filled brief in your email client or copy it below and send it to comercial@auditoriaseo.com.br.',
-      networkErrorTitle: 'Unable to reach delivery endpoint',
-      networkErrorMessage:
-        'We could not confirm automated delivery right now. Please use the direct email button below or copy your consultation brief to send to comercial@auditoriaseo.com.br.',
-      openEmailClientButton: 'Send via Email Client (comercial@auditoriaseo.com.br)',
+      deliveryErrorTitle: 'We could not complete your submission',
+      deliveryErrorMessage:
+        'A temporary connection or delivery issue prevented your request from being processed. Please try again below or email us directly at comercial@auditoriaseo.com.br.',
+      rateLimitMessage:
+        'Too many requests were sent in a short period. Please wait a few minutes and try again.',
+      retryButton: 'Try Again',
+      openEmailClientButton: 'Email Us Directly (comercial@auditoriaseo.com.br)',
       copyBriefButton: 'Copy Consultation Brief',
       copiedBriefLabel: 'Copied to Clipboard',
     },
@@ -1384,11 +1384,11 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       description:
         'Vamos identificar o que está limitando o crescimento orgânico do seu domínio e mapear novas oportunidades comerciais.',
       primaryCta: 'Agendar Consultoria Gratuita de SEO',
-      calendlyCta: 'Agendar via Calendly',
+      calendlyCta: 'Agendar Reunião',
       schedulingNote:
         'Reuniões remotas via Google Meet ou Zoom. Conversa técnica objetiva sobre o seu domínio e próximos passos.',
       noCalendlyNote:
-        'O agendamento direto via Calendly será ativado aqui assim que o link oficial estiver conectado. Envie o formulário ao lado ou escreva diretamente por e-mail.',
+        'O agendamento direto por calendário está temporariamente indisponível. Envie sua solicitação pelo formulário ao lado ou escreva para comercial@auditoriaseo.com.br.',
       directEmailLabel: 'E-mail Comercial Oficial',
       channelsHeading: 'Atendimento Preparado para Operações nos EUA',
       channelsList: [
@@ -1429,20 +1429,20 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
         messageRequired: 'Descreva brevemente sua necessidade (mínimo 15 caracteres).',
         spamDetected: 'Envio bloqueado pela verificação anti-spam.',
       },
-      submitButton: 'Agendar Consultoria Gratuita de SEO',
+      submitButton: 'Enviar Minha Solicitação',
       submittingButton: 'Enviando solicitação...',
       privacyNote:
         'Seus dados são utilizados exclusivamente para análise preliminar do site e resposta comercial.',
-      successTitle: 'Solicitação enviada com sucesso',
+      successTitle: 'Obrigado! Sua solicitação foi enviada com sucesso.',
       successMessage:
-        'Recebemos os dados da sua empresa em comercial@auditoriaseo.com.br. Analisaremos o domínio e responderemos por e-mail para alinhar a reunião por Google Meet ou Zoom.',
+        'Recebemos suas informações e entraremos em contato em breve para conversar sobre suas oportunidades de SEO.',
       sendAnotherButton: 'Enviar nova solicitação',
-      unconfiguredTitle: 'Envio automático ainda não configurado — utilize o envio direto por e-mail',
-      unconfiguredMessage:
-        'Os campos foram validados corretamente, mas o provedor de entrega automática do formulário ainda não está conectado neste ambiente. Clique abaixo para enviar o resumo diretamente via seu cliente de e-mail ou copie os dados para enviar a comercial@auditoriaseo.com.br.',
-      networkErrorTitle: 'Não foi possível confirmar o envio automático',
-      networkErrorMessage:
-        'Não conseguimos confirmar a entrega automática agora. Utilize o botão de e-mail direto abaixo ou copie o resumo para comercial@auditoriaseo.com.br.',
+      deliveryErrorTitle: 'Não foi possível concluir o envio',
+      deliveryErrorMessage:
+        'Ocorreu uma instabilidade temporária ao processar sua solicitação. Tente novamente abaixo ou escreva diretamente para comercial@auditoriaseo.com.br.',
+      rateLimitMessage:
+        'Muitas solicitações foram enviadas em sequência. Aguarde alguns minutos e tente novamente.',
+      retryButton: 'Tentar Novamente',
       openEmailClientButton: 'Enviar por E-mail (comercial@auditoriaseo.com.br)',
       copyBriefButton: 'Copiar Resumo da Solicitação',
       copiedBriefLabel: 'Resumo Copiado',
@@ -1995,11 +1995,11 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       description:
         'Identifiquemos qué frena el crecimiento orgánico de su sitio y descubramos nuevas oportunidades comerciales en EE. UU.',
       primaryCta: 'Agendar Su Consultoría SEO Gratuita',
-      calendlyCta: 'Reservar en Calendly',
+      calendlyCta: 'Agendar Reunión',
       schedulingNote:
         'Videollamadas vía Google Meet o Zoom. Revisamos su sitio web de forma práctica y sin presiones comerciales.',
       noCalendlyNote:
-        'El enlace directo de agenda en Calendly se habilitará aquí al conectarse la URL oficial. Mientras tanto, envíe el formulario o escriba directamente por correo.',
+        'La reserva directa por calendario no está disponible temporalmente. Envíe su solicitud mediante el formulario adjunto o escriba a comercial@auditoriaseo.com.br.',
       directEmailLabel: 'Correo Comercial Oficial',
       channelsHeading: 'Colaboración Ágil para Empresas en EE. UU.',
       channelsList: [
@@ -2040,20 +2040,20 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
         messageRequired: 'Escriba un mensaje breve (mínimo 15 caracteres).',
         spamDetected: 'Envío bloqueado por validación anti-spam.',
       },
-      submitButton: 'Agendar Su Consultoría SEO Gratuita',
+      submitButton: 'Enviar Mi Solicitud',
       submittingButton: 'Enviando solicitud...',
       privacyNote:
         'Sus datos se utilizan únicamente para evaluar su sitio web y responder a su consulta comercial.',
-      successTitle: 'Solicitud de consultoría recibida',
+      successTitle: '¡Gracias! Su solicitud ha sido enviada con éxito.',
       successMessage:
-        'Gracias: su consulta fue enviada a comercial@auditoriaseo.com.br. Revisaremos su dominio y responderemos por correo para coordinar la reunión.',
+        'Hemos recibido su información y nos pondremos en contacto pronto para conversar sobre sus oportunidades de SEO.',
       sendAnotherButton: 'Enviar otra consulta',
-      unconfiguredTitle: 'Envío automático aún no configurado — use el envío directo por correo',
-      unconfiguredMessage:
-        'Sus datos fueron validados, pero la entrega automática por servidor aún no está configurada en este entorno. Use el botón inferior para abrir el resumen en su cliente de correo o cópielo para enviarlo a comercial@auditoriaseo.com.br.',
-      networkErrorTitle: 'No fue posible confirmar la entrega automática',
-      networkErrorMessage:
-        'No pudimos confirmar el envío automático ahora. Envíe su resumen directamente por correo o cópielo para comercial@auditoriaseo.com.br.',
+      deliveryErrorTitle: 'No pudimos completar su envío',
+      deliveryErrorMessage:
+        'Ocurrió una interrupción temporal al procesar su solicitud. Por favor intente nuevamente abajo o escríbanos directamente a comercial@auditoriaseo.com.br.',
+      rateLimitMessage:
+        'Se enviaron demasiadas solicitudes en poco tiempo. Espere unos minutos e intente nuevamente.',
+      retryButton: 'Intentar de Nuevo',
       openEmailClientButton: 'Enviar por Correo (comercial@auditoriaseo.com.br)',
       copyBriefButton: 'Copiar Resumen de Consulta',
       copiedBriefLabel: 'Copiado al Portapapeles',

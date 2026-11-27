@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { getRouteKeyFromPathname } from '../../i18n/routes';
 import { trackAnalyticsEvent } from '../../lib/analytics';
+import { SITE_CONFIG } from '../../data/siteData';
 import { LanguageSelector } from '../common/LanguageSelector';
 import { UsFlagIcon } from '../usa/UsFlagIcon';
 import { Menu, X, ArrowUpRight, Calendar } from 'lucide-react';
@@ -13,6 +14,7 @@ export const Header: React.FC = () => {
   const { lang, navLinks, t, getWhatsAppUrl, currentRoutes } = useLanguage();
 
   const isUsaAgency = getRouteKeyFromPathname(location.pathname) === 'usaAgency';
+  const hasCalendly = Boolean(SITE_CONFIG.calendlyUsaUrl);
   const usaCtaLabel =
     lang === 'es'
       ? 'Agendar Consultoría'
@@ -33,6 +35,14 @@ export const Header: React.FC = () => {
       cta_location: ctaLocation,
       page_path: location.pathname,
     });
+    if (hasCalendly) {
+      trackAnalyticsEvent('calendly_click', {
+        page_language: usaHtmlLang,
+        cta_location: ctaLocation,
+        page_path: location.pathname,
+      });
+      return;
+    }
     if (typeof document !== 'undefined') {
       const target = document.getElementById('consultation');
       if (target) {
@@ -96,7 +106,9 @@ export const Header: React.FC = () => {
           {/* Primary Action Button */}
           {isUsaAgency ? (
             <a
-              href="#consultation"
+              href={hasCalendly ? SITE_CONFIG.calendlyUsaUrl : '#consultation'}
+              target={hasCalendly ? '_blank' : undefined}
+              rel={hasCalendly ? 'noopener noreferrer' : undefined}
               onClick={(e) => handleUsaHeaderCta(e, 'header_desktop')}
               className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] active:scale-[0.98] transition-all rounded-lg shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1A73E8] whitespace-nowrap shrink-0"
             >
@@ -169,7 +181,9 @@ export const Header: React.FC = () => {
           <div className="pt-3 border-t border-slate-100">
             {isUsaAgency ? (
               <a
-                href="#consultation"
+                href={hasCalendly ? SITE_CONFIG.calendlyUsaUrl : '#consultation'}
+                target={hasCalendly ? '_blank' : undefined}
+                rel={hasCalendly ? 'noopener noreferrer' : undefined}
                 onClick={(e) => handleUsaHeaderCta(e, 'header_mobile')}
                 className="flex items-center justify-center gap-2 w-full px-4 py-3 text-center text-sm font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] rounded-lg shadow-sm"
               >

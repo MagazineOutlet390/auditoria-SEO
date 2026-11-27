@@ -1,10 +1,21 @@
 import { Plan, ServiceItem, TargetSegment, FAQItem, SocialProofItem } from '../types';
 
-const envCalendlyUsa = (
+function normalizeCalendlyUrl(raw: string): string {
+  const trimmed = raw.trim();
+  if (!trimmed) return '';
+  try {
+    const parsed = new URL(trimmed);
+    return parsed.protocol === 'https:' ? parsed.toString() : '';
+  } catch {
+    return '';
+  }
+}
+
+const envCalendlyUsa = normalizeCalendlyUrl(
   (typeof import.meta !== 'undefined' && import.meta.env?.VITE_CALENDLY_USA_URL) ||
-  (typeof process !== 'undefined' && process.env?.VITE_CALENDLY_USA_URL) ||
-  ''
-).trim();
+    (typeof process !== 'undefined' && process.env?.VITE_CALENDLY_USA_URL) ||
+    ''
+);
 
 const envUsLeadEndpoint = (
   (typeof import.meta !== 'undefined' && import.meta.env?.VITE_US_LEAD_ENDPOINT) ||
