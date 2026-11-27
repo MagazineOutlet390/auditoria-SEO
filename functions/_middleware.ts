@@ -226,11 +226,7 @@ export async function onRequest(context: PagesContext): Promise<Response> {
     }
   }
 
-  // 6. API routes & rotas canônicas válidas (68 URLs) e ativos estáticos válidos
-  if (lowerPath === '/api/us-lead') {
-    return await context.next();
-  }
-
+  // 6. Rotas canônicas válidas (68 URLs) e ativos estáticos válidos
   const normalizedPath =
     pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
 

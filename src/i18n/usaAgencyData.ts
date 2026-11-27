@@ -29,6 +29,7 @@ export interface UsaAgencyContent {
     h1: string;
     description: string;
     primaryCta: string;
+    formCta: string;
     secondaryCta: string;
     typewriterLabel: string;
     typewriterPhrases: string[];
@@ -210,11 +211,7 @@ export interface UsaAgencyContent {
     sendAnotherButton: string;
     deliveryErrorTitle: string;
     deliveryErrorMessage: string;
-    rateLimitMessage: string;
     retryButton: string;
-    openEmailClientButton: string;
-    copyBriefButton: string;
-    copiedBriefLabel: string;
   };
 }
 
@@ -239,6 +236,7 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       description:
         'Professional SEO audits, technical optimization, and local search strategies designed to help US businesses improve their online visibility, attract qualified traffic, and generate more business opportunities.',
       primaryCta: 'Schedule a Free Consultation',
+      formCta: 'Request an SEO Consultation',
       secondaryCta: 'Explore Our SEO Services',
       typewriterLabel: 'Specialized in:',
       typewriterPhrases: [
@@ -821,20 +819,15 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       submitButton: 'Send My Request',
       submittingButton: 'Sending Request...',
       privacyNote:
-        'Your information is used strictly to review your website and respond to your inquiry. Zero spam or third-party data sharing.',
+        'Your submitted details are processed securely via FormSubmit strictly to review your website and respond to your inquiry. Zero spam or third-party sharing.',
       successTitle: 'Thank you! Your request has been successfully submitted.',
       successMessage:
-        "We've received your information and will contact you shortly to discuss your SEO opportunities.",
+        'Our SEO specialist will review your information and contact you shortly.',
       sendAnotherButton: 'Submit another inquiry',
       deliveryErrorTitle: 'We could not complete your submission',
       deliveryErrorMessage:
-        'A temporary connection or delivery issue prevented your request from being processed. Please try again below or email us directly at comercial@auditoriaseo.com.br.',
-      rateLimitMessage:
-        'Too many requests were sent in a short period. Please wait a few minutes and try again.',
+        'A temporary connection or delivery issue prevented your request from being sent. Your information has been preserved — please try again below.',
       retryButton: 'Try Again',
-      openEmailClientButton: 'Email Us Directly (comercial@auditoriaseo.com.br)',
-      copyBriefButton: 'Copy Consultation Brief',
-      copiedBriefLabel: 'Copied to Clipboard',
     },
   },
 
@@ -858,6 +851,7 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       description:
         'Auditorias técnicas de SEO, otimização on-page e estratégias de busca local desenhadas para empresas nos Estados Unidos ampliarem sua visibilidade orgânica, atraírem tráfego qualificado e gerarem novas oportunidades de negócio.',
       primaryCta: 'Agendar Consultoria Gratuita',
+      formCta: 'Solicitar Consultoria SEO',
       secondaryCta: 'Explorar Serviços de SEO',
       typewriterLabel: 'Especialidades:',
       typewriterPhrases: [
@@ -1432,20 +1426,15 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       submitButton: 'Enviar Minha Solicitação',
       submittingButton: 'Enviando solicitação...',
       privacyNote:
-        'Seus dados são utilizados exclusivamente para análise preliminar do site e resposta comercial.',
+        'Os dados enviados são processados via FormSubmit exclusivamente para análise preliminar do seu site e resposta à sua solicitação comercial.',
       successTitle: 'Obrigado! Sua solicitação foi enviada com sucesso.',
       successMessage:
-        'Recebemos suas informações e entraremos em contato em breve para conversar sobre suas oportunidades de SEO.',
+        'Nosso especialista em SEO analisará suas informações e entrará em contato em breve.',
       sendAnotherButton: 'Enviar nova solicitação',
       deliveryErrorTitle: 'Não foi possível concluir o envio',
       deliveryErrorMessage:
-        'Ocorreu uma instabilidade temporária ao processar sua solicitação. Tente novamente abaixo ou escreva diretamente para comercial@auditoriaseo.com.br.',
-      rateLimitMessage:
-        'Muitas solicitações foram enviadas em sequência. Aguarde alguns minutos e tente novamente.',
+        'Ocorreu uma instabilidade temporária ao enviar sua solicitação. Seus dados preenchidos foram mantidos — clique abaixo para tentar novamente.',
       retryButton: 'Tentar Novamente',
-      openEmailClientButton: 'Enviar por E-mail (comercial@auditoriaseo.com.br)',
-      copyBriefButton: 'Copiar Resumo da Solicitação',
-      copiedBriefLabel: 'Resumo Copiado',
     },
   },
 
@@ -1469,6 +1458,7 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       description:
         'Auditorías técnicas de SEO, optimización on-page y estrategias de búsqueda local diseñadas para ayudar a empresas en Estados Unidos a mejorar su visibilidad online, atraer tráfico cualificado y generar nuevas oportunidades comerciales.',
       primaryCta: 'Agendar Consultoría Gratuita',
+      formCta: 'Solicitar Consultoría SEO',
       secondaryCta: 'Explorar Servicios SEO',
       typewriterLabel: 'Especialización:',
       typewriterPhrases: [
@@ -2043,20 +2033,15 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       submitButton: 'Enviar Mi Solicitud',
       submittingButton: 'Enviando solicitud...',
       privacyNote:
-        'Sus datos se utilizan únicamente para evaluar su sitio web y responder a su consulta comercial.',
+        'Sus datos enviados se procesan mediante FormSubmit únicamente para evaluar su sitio web y responder a su consulta comercial.',
       successTitle: '¡Gracias! Su solicitud ha sido enviada con éxito.',
       successMessage:
-        'Hemos recibido su información y nos pondremos en contacto pronto para conversar sobre sus oportunidades de SEO.',
+        'Nuestro especialista en SEO revisará su información y se pondrá en contacto con usted pronto.',
       sendAnotherButton: 'Enviar otra consulta',
       deliveryErrorTitle: 'No pudimos completar su envío',
       deliveryErrorMessage:
-        'Ocurrió una interrupción temporal al procesar su solicitud. Por favor intente nuevamente abajo o escríbanos directamente a comercial@auditoriaseo.com.br.',
-      rateLimitMessage:
-        'Se enviaron demasiadas solicitudes en poco tiempo. Espere unos minutos e intente nuevamente.',
+        'Ocurrió una interrupción temporal al enviar su solicitud. Sus datos permanecen guardados — por favor intente nuevamente abajo.',
       retryButton: 'Intentar de Nuevo',
-      openEmailClientButton: 'Enviar por Correo (comercial@auditoriaseo.com.br)',
-      copyBriefButton: 'Copiar Resumen de Consulta',
-      copiedBriefLabel: 'Copiado al Portapapeles',
     },
   },
 };

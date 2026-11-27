@@ -4,6 +4,7 @@ import { LanguageProvider } from './i18n/LanguageContext';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { FloatingWhatsApp } from './components/common/FloatingWhatsApp';
+import { FloatingCalendly } from './components/usa/FloatingCalendly';
 import {
   PageComponent,
   PageComponentKey,
@@ -87,8 +88,11 @@ export const AppContent: React.FC = () => {
           </Routes>
         </div>
 
-        {/* Floating WhatsApp Action Button */}
+        {/* Floating WhatsApp Action Button (Brazil/General pages) */}
         <FloatingWhatsApp />
+
+        {/* Floating Calendly Action Button (USA Landing Pages only) */}
+        <FloatingCalendly />
 
         {/* Institutional Commercial Footer */}
         <Footer />

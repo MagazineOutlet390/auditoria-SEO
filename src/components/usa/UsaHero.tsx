@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Calendar } from 'lucide-react';
+import { ArrowRight, Calendar, Mail } from 'lucide-react';
 import { UsaAgencyContent } from '../../i18n/usaAgencyData';
 import { SITE_CONFIG } from '../../data/siteData';
 import { trackAnalyticsEvent } from '../../lib/analytics';
@@ -160,6 +160,16 @@ export const UsaHero: React.FC<UsaHeroProps> = ({
     onJumpToConsultation();
   };
 
+  const handleFormCtaClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    trackAnalyticsEvent('schedule_consultation_click', {
+      page_language: htmlLang,
+      cta_location: 'hero_form_cta',
+      page_path: pagePath,
+    });
+    onJumpToConsultation();
+  };
+
   return (
     <section
       ref={heroSectionRef}
@@ -271,25 +281,41 @@ export const UsaHero: React.FC<UsaHeroProps> = ({
             {content.description}
           </p>
 
-          <div className="mt-7 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3.5">
-            <a
-              href={hasCalendly ? SITE_CONFIG.calendlyUsaUrl : '#consultation'}
-              target={hasCalendly ? '_blank' : undefined}
-              rel={hasCalendly ? 'noopener noreferrer' : undefined}
-              onClick={handlePrimaryClick}
-              className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm sm:text-base font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] active:scale-[0.99] transition-all rounded-lg shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1A73E8] whitespace-nowrap"
-            >
-              <Calendar className="w-4 h-4 shrink-0" aria-hidden="true" />
-              <span>{content.primaryCta}</span>
-            </a>
+          <div className="mt-6 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3">
+              {/* Button 1 (Primary): Direct Calendly Scheduling */}
+              <a
+                href={hasCalendly ? SITE_CONFIG.calendlyUsaUrl : '#consultation'}
+                target={hasCalendly ? '_blank' : undefined}
+                rel={hasCalendly ? 'noopener noreferrer' : undefined}
+                onClick={handlePrimaryClick}
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 text-sm sm:text-[15px] font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] active:scale-[0.99] transition-all rounded-lg shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1A73E8] whitespace-nowrap"
+              >
+                <Calendar className="w-4 h-4 shrink-0" aria-hidden="true" />
+                <span>{content.primaryCta}</span>
+              </a>
 
-            <a
-              href="#services"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm sm:text-base font-semibold text-slate-800 bg-white hover:bg-slate-50 border border-slate-300 hover:border-slate-400 transition-colors rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1A73E8] whitespace-nowrap"
-            >
-              <span>{content.secondaryCta}</span>
-              <ArrowRight className="w-4 h-4 shrink-0 text-[#1A73E8]" aria-hidden="true" />
-            </a>
+              {/* Button 2 (Secondary): Smooth Scroll to Lead Capture Form */}
+              <a
+                href="#consultation"
+                onClick={handleFormCtaClick}
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 text-sm sm:text-[15px] font-semibold text-[#174EA6] bg-white hover:bg-blue-50/80 border-2 border-[#1A73E8] active:scale-[0.99] transition-all rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1A73E8] whitespace-nowrap"
+              >
+                <Mail className="w-4 h-4 shrink-0" aria-hidden="true" />
+                <span>{content.formCta}</span>
+              </a>
+            </div>
+
+            {/* Button 3 (Tertiary): Explore SEO Services */}
+            <div>
+              <a
+                href="#services"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:text-[#1A73E8] bg-slate-50/90 hover:bg-slate-100 border border-slate-200 hover:border-slate-300 transition-colors rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1A73E8] whitespace-nowrap"
+              >
+                <span>{content.secondaryCta}</span>
+                <ArrowRight className="w-4 h-4 shrink-0 text-[#1A73E8]" aria-hidden="true" />
+              </a>
+            </div>
           </div>
 
           <p className="mt-6 text-sm font-medium text-slate-700 border-t border-slate-200/90 pt-4">

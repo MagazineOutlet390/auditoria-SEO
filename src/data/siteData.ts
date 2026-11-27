@@ -11,17 +11,45 @@ function normalizeCalendlyUrl(raw: string): string {
   }
 }
 
+// Substitua por seu Gmail para ativação inicial do FormSubmit e, após ativar, pelo token anônimo gerado pelo serviço
+// (ou defina a variável de build VITE_FORMSUBMIT_USA_TARGET na Cloudflare Pages).
+const DEFAULT_FORMSUBMIT_USA_TARGET = '';
+
+function buildFormSubmitAjaxUrl(rawTarget: string): string {
+  const trimmed = rawTarget.trim();
+  if (!trimmed || trimmed.toUpperCase() === 'SEU_GMAIL_AQUI') {
+    return '';
+  }
+  if (/^https?:\/\//i.test(trimmed)) {
+    try {
+      const parsed = new URL(trimmed);
+      if (
+        parsed.protocol === 'https:' &&
+        parsed.hostname === 'formsubmit.co' &&
+        parsed.pathname.startsWith('/ajax/') &&
+        parsed.pathname.length > '/ajax/'.length
+      ) {
+        return parsed.toString();
+      }
+    } catch {
+      return '';
+    }
+    return '';
+  }
+  return `https://formsubmit.co/ajax/${encodeURIComponent(trimmed)}`;
+}
+
 const envCalendlyUsa = normalizeCalendlyUrl(
   (typeof import.meta !== 'undefined' && import.meta.env?.VITE_CALENDLY_USA_URL) ||
     (typeof process !== 'undefined' && process.env?.VITE_CALENDLY_USA_URL) ||
     ''
 );
 
-const envUsLeadEndpoint = (
-  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_US_LEAD_ENDPOINT) ||
-  (typeof process !== 'undefined' && process.env?.VITE_US_LEAD_ENDPOINT) ||
-  '/api/us-lead'
-).trim();
+const envFormSubmitUsaUrl = buildFormSubmitAjaxUrl(
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_FORMSUBMIT_USA_TARGET) ||
+    (typeof process !== 'undefined' && process.env?.VITE_FORMSUBMIT_USA_TARGET) ||
+    DEFAULT_FORMSUBMIT_USA_TARGET
+);
 
 export const SITE_CONFIG = {
   name: 'Auditoria SEO',
@@ -31,7 +59,7 @@ export const SITE_CONFIG = {
   whatsappBaseUrl: 'https://wa.me/5519989332087',
   commercialEmail: 'comercial@auditoriaseo.com.br',
   calendlyUsaUrl: envCalendlyUsa,
-  usLeadEndpoint: envUsLeadEndpoint,
+  formsubmitUsaUrl: envFormSubmitUsaUrl,
   heroImage: '/assets/aistudio/img-fundo-auditoria.jpg',
   defaultOgImage: 'https://auditoriaseo.com.br/og-image.png',
   googleMapsProfileUrl: 'https://share.google/LAMoroMJbdrI9QCsk',

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Calendar, CheckCircle2, Copy, Loader2, Mail, RotateCcw, Send, AlertCircle } from 'lucide-react';
+import { Calendar, CheckCircle2, Loader2, Mail, RotateCcw, Send, AlertCircle } from 'lucide-react';
 import { UsaAgencyContent } from '../../i18n/usaAgencyData';
 import { Language } from '../../i18n/types';
 import { SITE_CONFIG } from '../../data/siteData';
-import { captureUtmAttribution, trackAnalyticsEvent } from '../../lib/analytics';
+import { trackAnalyticsEvent } from '../../lib/analytics';
 import { ShimmerHeading } from './UsaMotionHeadings';
 
 interface UsaConsultationSectionProps {
@@ -14,14 +14,21 @@ interface UsaConsultationSectionProps {
   selectedServiceOption: string;
 }
 
-type SubmitState = 'idle' | 'submitting' | 'success' | 'rate_limited' | 'error';
+type SubmitState = 'idle' | 'submitting' | 'success' | 'error';
 
 const EMAIL_RE = /^[^\s@<>()[\]\\,;:\s@"]+@[^\s@<>()[\]\\,;:\s@"]+\.[^\s@]{2,}$/;
+const CONTAINS_URL_RE = /(https?:\/\/|www\.)/i;
+const MIN_FORM_DWELL_MS = 1200;
+
+function normalizeWebsiteUrl(value: string): string {
+  const trimmed = value.trim();
+  return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+}
 
 function isValidWebsiteInput(value: string): boolean {
   const trimmed = value.trim();
   if (!trimmed || /^(javascript|data|vbscript|file):/i.test(trimmed)) return false;
-  const candidate = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+  const candidate = normalizeWebsiteUrl(trimmed);
   try {
     const parsed = new URL(candidate);
     return (
@@ -50,7 +57,6 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
   const [honeypot, setHoneypot] = useState('');
   const [fieldError, setFieldError] = useState<string | null>(null);
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
-  const [copiedBrief, setCopiedBrief] = useState(false);
   const [showCalendlyFallbackNote, setShowCalendlyFallbackNote] = useState(false);
 
   const formStartedRef = useRef(false);
@@ -82,40 +88,19 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
     }
   };
 
-  const buildBriefText = () => {
-    return [
-      `Name: ${name.trim()}`,
-      `Company: ${company.trim()}`,
-      `Business Email: ${email.trim()}`,
-      `Website URL: ${website.trim()}`,
-      `Service of Interest: ${service.trim()}`,
-      `Page Language: ${htmlLang}`,
-      '',
-      'Message:',
-      message.trim(),
-    ].join('\n');
-  };
-
-  const buildMailtoHref = () => {
-    const subject = `[SEO Consultation Request] ${company.trim() || 'US Inquiry'} — ${service.trim() || 'SEO Audit'}`;
-    return `mailto:${SITE_CONFIG.commercialEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildBriefText())}`;
-  };
-
-  const handleCopyBrief = async () => {
-    try {
-      await navigator.clipboard.writeText(buildBriefText());
-      setCopiedBrief(true);
-      setTimeout(() => setCopiedBrief(false), 3000);
-    } catch {
-      setCopiedBrief(false);
-    }
-  };
-
   const submitLead = async () => {
     if (isSubmittingRef.current) return;
     setFieldError(null);
 
     if (honeypot.trim().length > 0) {
+      setFieldError(content.errors.spamDetected);
+      return;
+    }
+
+    if (
+      formRenderedAtRef.current > 0 &&
+      Date.now() - formRenderedAtRef.current < MIN_FORM_DWELL_MS
+    ) {
       setFieldError(content.errors.spamDetected);
       return;
     }
@@ -126,6 +111,10 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
     }
     if (company.trim().length < 2) {
       setFieldError(content.errors.companyRequired);
+      return;
+    }
+    if (CONTAINS_URL_RE.test(name) || CONTAINS_URL_RE.test(company)) {
+      setFieldError(content.errors.spamDetected);
       return;
     }
     if (!EMAIL_RE.test(email.trim())) {
@@ -145,42 +134,51 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
       return;
     }
 
+    if (!SITE_CONFIG.formsubmitUsaUrl) {
+      setSubmitState('error');
+      return;
+    }
+
     isSubmittingRef.current = true;
     setSubmitState('submitting');
 
     const sourceUrl =
       typeof window !== 'undefined' ? window.location.href : `https://auditoriaseo.com.br${pagePath}`;
-    const submittedAt = new Date().toISOString();
 
     try {
-      const response = await fetch(SITE_CONFIG.usLeadEndpoint, {
+      const response = await fetch(SITE_CONFIG.formsubmitUsaUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
         body: JSON.stringify({
-          name: name.trim(),
-          company: company.trim(),
-          email: email.trim(),
-          website: website.trim(),
-          service: service.trim(),
-          message: message.trim(),
-          lang,
-          pagePath,
-          sourceUrl,
-          submittedAt,
-          utm: captureUtmAttribution(),
-          company_website_fax: honeypot,
-          formRenderedAt: formRenderedAtRef.current,
+          'Full Name': name.trim(),
+          'Company Name': company.trim(),
+          'Business Email': email.trim(),
+          'Website URL': normalizeWebsiteUrl(website),
+          'Service of Interest': service.trim(),
+          Message: message.trim(),
+          Language: htmlLang || lang,
+          'Source URL': sourceUrl,
+          _subject: 'NEW SEO LEAD — AUDITORIA SEO USA',
+          _template: 'table',
+          _replyto: email.trim(),
+          _honey: honeypot,
         }),
       });
 
       const result = (await response.json().catch(() => null)) as {
-        ok?: boolean;
-        code?: string;
+        success?: boolean | string;
+        message?: string;
       } | null;
 
-      if (response.ok && result?.ok === true) {
+      const accepted =
+        response.ok &&
+        result !== null &&
+        (result.success === true || result.success === 'true');
+
+      if (accepted) {
         setSubmitState('success');
         trackAnalyticsEvent('generate_lead', {
           page_language: htmlLang,
@@ -188,11 +186,6 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
           cta_location: 'consultation_form',
           page_path: pagePath,
         });
-        return;
-      }
-
-      if (response.status === 429 || result?.code === 'RATE_LIMITED') {
-        setSubmitState('rate_limited');
         return;
       }
 
@@ -216,9 +209,11 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
     setWebsite('');
     setService('');
     setMessage('');
+    setHoneypot('');
     setFieldError(null);
     setSubmitState('idle');
     formStartedRef.current = false;
+    formRenderedAtRef.current = Date.now();
     isSubmittingRef.current = false;
   };
 
@@ -530,7 +525,7 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
                     </div>
                   )}
 
-                  {(submitState === 'rate_limited' || submitState === 'error') && (
+                  {submitState === 'error' && (
                     <div
                       role="alert"
                       className="rounded-xl border border-amber-300 bg-amber-50 p-4 space-y-3"
@@ -539,9 +534,7 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
                         {content.deliveryErrorTitle}
                       </p>
                       <p className="text-xs sm:text-sm text-amber-900 leading-relaxed">
-                        {submitState === 'rate_limited'
-                          ? content.rateLimitMessage
-                          : content.deliveryErrorMessage}
+                        {content.deliveryErrorMessage}
                       </p>
                       <div className="flex flex-wrap gap-3">
                         <button
@@ -551,33 +544,6 @@ export const UsaConsultationSection: React.FC<UsaConsultationSectionProps> = ({
                         >
                           <RotateCcw className="w-4 h-4 shrink-0" aria-hidden="true" />
                           <span>{content.retryButton}</span>
-                        </button>
-
-                        <a
-                          href={buildMailtoHref()}
-                          onClick={() =>
-                            trackAnalyticsEvent('email_click', {
-                              page_language: htmlLang,
-                              service_interest: service || undefined,
-                              cta_location: 'form_fallback_mailto',
-                              page_path: pagePath,
-                            })
-                          }
-                          className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-slate-800 bg-white border border-slate-300 hover:bg-slate-50 rounded-lg transition-colors"
-                        >
-                          <Mail className="w-4 h-4 shrink-0" aria-hidden="true" />
-                          <span>{content.openEmailClientButton}</span>
-                        </a>
-
-                        <button
-                          type="button"
-                          onClick={handleCopyBrief}
-                          className="inline-flex items-center gap-2 px-4 py-2 text-xs sm:text-sm font-semibold text-slate-800 bg-white border border-slate-300 hover:bg-slate-50 rounded-lg transition-colors"
-                        >
-                          <Copy className="w-4 h-4 shrink-0" aria-hidden="true" />
-                          <span>
-                            {copiedBrief ? content.copiedBriefLabel : content.copyBriefButton}
-                          </span>
                         </button>
                       </div>
                     </div>
