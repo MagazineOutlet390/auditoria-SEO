@@ -6,7 +6,6 @@ export interface UsaAgencyServiceItem {
   name: string;
   description: string;
   benefits: string[];
-  deliverables: string[];
   ctaLabel: string;
   relatedGuideLabel?: string;
   relatedGuidePath?: string;
@@ -41,105 +40,60 @@ export interface UsaAgencyContent {
     imageAlt: string;
     conceptualNotice: string;
   };
-  credibility: {
-    kicker: string;
-    title: string;
-    summary: string;
-    pillars: Array<{ label: string; detail: string }>;
-  };
   positioning: {
     eyebrow: string;
+    pillarsLabel: string;
     title: string;
     description: string;
-    pillarsLabel: string;
     pillars: Array<{
       code: 'SEO' | 'GEO' | 'AEO';
+      title: string;
+      detail: string;
+    }>;
+    differentiators: Array<{
       title: string;
       detail: string;
     }>;
     imageAlt: string;
     ctaLabel: string;
   };
-  challenges: {
-    kicker: string;
-    title: string;
-    subtitle: string;
-    items: Array<{
-      number: string;
-      statement: string;
-      explanation: string;
-    }>;
-  };
   services: {
     kicker: string;
     title: string;
     subtitle: string;
-    scopeNotice: string;
-    benefitsHeading: string;
-    deliverablesHeading: string;
-    items: UsaAgencyServiceItem[];
-  };
-  methodology: {
-    kicker: string;
-    title: string;
-    subtitle: string;
-    engagementClarificationTitle: string;
-    engagementClarificationText: string;
-    steps: Array<{
-      step: string;
-      title: string;
-      description: string;
-    }>;
-  };
-  auditReveal: {
-    kicker: string;
-    title: string;
-    subtitle: string;
-    tabs: Array<{
-      id: 'technical' | 'content' | 'local';
+    auditVisualTitle: string;
+    auditVisualSummary: string;
+    auditVisualAlt: string;
+    guidesLabel: string;
+    guides: Array<{
       label: string;
-      summary: string;
-      areas: Array<{ name: string; detail: string }>;
+      path: string;
     }>;
-    allAreasHeading: string;
-    screenshotCaptionTitle: string;
-    screenshotBadge: string;
-    screenshotCaptionText: string;
-    screenshotAlt: string;
+    items: UsaAgencyServiceItem[];
   };
   industries: {
     kicker: string;
     title: string;
     subtitle: string;
     note: string;
+    imageAlt: string;
     items: Array<{
+      id: 'industrial' | 'manufacturing' | 'contractors' | 'home-services' | 'technical' | 'b2b';
       name: string;
       searchContext: string;
     }>;
   };
-  experience: {
+  methodology: {
     kicker: string;
     title: string;
     subtitle: string;
-    verifiedReviewsTitle: string;
-    verifiedReviewsSubtitle: string;
-    verifiedProfileLinkLabel: string;
-    reviews: Array<{
-      author: string;
-      context: string;
-      quote: string;
-    }>;
-    frameworkTitle: string;
-    frameworkSubtitle: string;
-    frameworkSteps: Array<{
-      phase: string;
+    imageAlt: string;
+    scopeClarification: string;
+    steps: Array<{
+      step: string;
+      icon: 'audit' | 'strategy' | 'implementation' | 'growth';
       title: string;
-      detail: string;
-    }>;
-    resourcesHeading: string;
-    resources: Array<{
-      label: string;
-      path: string;
+      description: string;
     }>;
   };
   specialist: {
@@ -147,18 +101,17 @@ export interface UsaAgencyContent {
     title: string;
     name: string;
     role: string;
-    bioParagraphs: string[];
+    bio: string;
     highlights: string[];
     photoAlt: string;
     ctaLabel: string;
-  };
-  whyUs: {
-    kicker: string;
-    title: string;
-    subtitle: string;
-    items: Array<{
-      title: string;
-      description: string;
+    reviewsHeading: string;
+    reviewsSubheading: string;
+    verifiedProfileLinkLabel: string;
+    reviews: Array<{
+      author: string;
+      context: string;
+      quote: string;
     }>;
   };
   faq: {
@@ -238,7 +191,7 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       serviceName: 'SEO Audits, Technical Optimization & Local SEO Services for US Businesses',
       serviceType: 'Technical SEO Audit, On-Page SEO, Local SEO, Google Business Profile Optimization',
       schemaDescription:
-        'Independent technical SEO consultancy serving businesses across the United States with human-led SEO audits, on-page optimization, local search strategy, and ongoing SEO management.',
+        'Independent technical SEO consultancy serving businesses across the United States with human-led SEO audits, on-page optimization, local search strategy, GEO, AEO, and ongoing SEO management.',
     },
     hero: {
       eyebrow: 'SEO Agency for US Businesses',
@@ -264,356 +217,239 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       conceptualNotice:
         'Conceptual artwork representing US search visibility. Auditoria SEO is an independent consultancy not affiliated with or endorsed by Google LLC.',
     },
-    credibility: {
-      kicker: 'Institutional Profile',
-      title: 'Hands-on technical SEO consulting built for clarity and execution',
-      summary:
-        'Auditoria SEO is an independent search consultancy led directly by Wesley Vieira. We deliver human-conducted technical audits, clear engineering priorities, and structured SEO execution—serving companies remotely across the United States, Brazil, and Latin America.',
-      pillars: [
-        {
-          label: 'Human-Led Audits',
-          detail: 'Every domain review is executed manually by a specialist—never auto-generated tool PDFs.',
-        },
-        {
-          label: 'White Hat Standards',
-          detail: 'Recommendations aligned strictly with Google Search Essentials to protect long-term domain equity.',
-        },
-        {
-          label: 'Flexible Scope',
-          detail: 'Engage us for an independent one-time SEO audit or ongoing optimization and strategy.',
-        },
-        {
-          label: 'Verified Reputation',
-          detail: '5.0-star average rating across verified client reviews on our official Google Business Profile.',
-        },
-      ],
-    },
     positioning: {
-      eyebrow: 'Built for US Businesses',
-      title: 'American Visibility for Search, AI and Local Discovery',
-      description:
-        'Auditoria SEO built a dedicated consulting model tailored to companies competing across the United States. We pair hands-on technical SEO with structured GEO and AEO optimization so your business strengthens its visibility across traditional Google Search, Google Maps, and emerging AI-driven discovery experiences.',
+      eyebrow: 'US Search & AI Positioning',
       pillarsLabel: 'SEO · GEO · AEO',
+      title: 'SEO, GEO & AEO for US Businesses',
+      description:
+        'As an independent SEO Agency USA, we turn organic search visibility into qualified leads for industrial, B2B, and specialized service companies—combining human-led technical rigor with commercial priorities focused on qualified pipeline.',
       pillars: [
         {
           code: 'SEO',
-          title: 'Search Engine Optimization',
-          detail: 'Technical crawlability, URL architecture, and commercial service pages built for US Google visibility.',
+          title: 'Google & Maps Visibility',
+          detail: 'Stronger technical architecture, high-intent service pages, and regional Google Maps visibility.',
         },
         {
           code: 'GEO',
           title: 'Generative Engine Optimization',
-          detail: 'Consistent entity signals, schema clarity, and authoritative topical structure for AI search systems.',
+          detail: 'Clear entity authority so generative AI engines cite your brand during US buyer research.',
         },
         {
           code: 'AEO',
           title: 'Answer Engine Optimization',
-          detail: 'Direct, verifiable answers structured for featured results, voice search, and AI summaries.',
+          detail: 'Structured answers built for featured snippets, voice search, and direct buyer decision questions.',
+        },
+      ],
+      differentiators: [
+        {
+          title: 'Human-Led Diagnostics',
+          detail: 'Senior manual inspection of crawl, indexation, and buyer intent—never generic automated software checklists.',
+        },
+        {
+          title: 'Built for Qualified Leads',
+          detail: 'Every priority targets high-value RFQs, phone calls, and qualified service inquiries rather than vanity traffic.',
+        },
+        {
+          title: 'Flexible Engagement',
+          detail: 'Start with a standalone one-time technical SEO audit or add ongoing monthly execution as you grow.',
         },
       ],
       imageAlt:
-        'Editorial image of an American bald eagle with a US flag backdrop representing search, AI, and local visibility strategy for US businesses',
-      ctaLabel: 'Explore US SEO Services',
-    },
-    challenges: {
-      kicker: 'Common Commercial Bottlenecks',
-      title: 'Why many established US websites fail to turn search demand into qualified inquiries',
-      subtitle:
-        'A polished website rarely ranks or converts on design alone. Beneath the surface, technical blockers, misaligned search intent, and local visibility gaps quietly hand high-intent prospects to competitors.',
-      items: [
-        {
-          number: '01.',
-          statement: 'My website is not ranking on Google.',
-          explanation:
-            'Crawl barriers, thin service pages, weak internal link distribution, or unindexed URLs prevent Google from recognizing your core commercial offerings.',
-        },
-        {
-          number: '02.',
-          statement: 'My competitors appear before my business.',
-          explanation:
-            'Rivals capturing buyer queries typically pair cleaner site architecture with targeted service landing pages and stronger topical authority.',
-        },
-        {
-          number: '03.',
-          statement: 'My website gets traffic but generates few leads.',
-          explanation:
-            'Informational visits rarely convert when service pages lack clear value propositions, search-intent alignment, or friction-free inquiry paths.',
-        },
-        {
-          number: '04.',
-          statement: 'My business is difficult to find on Google Maps.',
-          explanation:
-            'Incomplete Google Business Profile categories, inconsistent business citations, or weak local page signals limit visibility in regional service searches.',
-        },
-        {
-          number: '05.',
-          statement: "I don't know which technical issues are affecting my website.",
-          explanation:
-            'Without log, crawl, canonical, and rendering inspection, broken redirects, duplicate URLs, and Core Web Vitals bottlenecks go unnoticed for months.',
-        },
-        {
-          number: '06.',
-          statement: "I'm investing in marketing without understanding my organic search performance.",
-          explanation:
-            'Paid campaigns stop producing the moment ad spend pauses. Clear organic diagnostics show where SEO can lower long-term customer acquisition reliance.',
-        },
-      ],
+        'Patriotic bald eagle emblem representing strategic search positioning across the United States market',
+      ctaLabel: 'Explore SEO Services',
     },
     services: {
-      kicker: 'Specialized SEO Services',
-      title: 'Practical SEO audits and optimization services tailored to US companies',
+      kicker: 'Commercial Capabilities',
+      title: 'Professional SEO Services',
       subtitle:
-        'Every service focuses on transparent diagnostics, clear engineering and editorial execution, and commercial alignment—without fixed generic packages or unrealistic guarantees.',
-      scopeNotice:
-        'All engagements are scoped individually after reviewing your website, market competition, and business goals—no one-size-fits-all retainers.',
-      benefitsHeading: 'Commercial impact',
-      deliverablesHeading: 'Key activities & deliverables',
+        'Tailored SEO services for US businesses—available as an independent one-time audit or ongoing monthly growth partnership.',
+      auditVisualTitle: 'Engineering-Grade SEO Audit & Performance Analysis',
+      auditVisualSummary:
+        'We pinpoint crawl bottlenecks, weak service pages, and local ranking gaps, translating technical findings into an actionable roadmap tied to business growth.',
+      auditVisualAlt:
+        'Corporate office desk with a desktop monitor displaying website architecture diagrams and organic search visibility trends',
+      guidesLabel: 'Technical Guides:',
+      guides: [
+        { label: 'Technical SEO Audit Guide', path: '/en/blog/auditoria-tecnica-seo' },
+        { label: 'On-Page SEO Guide', path: '/en/blog/auditoria-seo-on-page' },
+        { label: 'Local SEO & Google Search', path: '/en/blog/seo-local-como-aparecer-google' },
+      ],
       items: [
         {
-          number: '01.',
+          number: '01',
           id: 'technical-seo-audit',
-          name: 'Technical SEO Audit',
+          name: 'Technical SEO Audits',
           description:
-            'Deep engineering-level review of crawlability, indexation, URL architecture, JavaScript rendering, page speed, canonicalization, redirect chains, XML sitemaps, and structured data.',
+            'Standalone technical diagnostic uncovering indexation errors, speed bottlenecks, crawl waste, and structural issues holding back your organic visibility.',
           benefits: [
-            'Eliminates hidden indexing blocks holding back important revenue pages.',
-            'Gives your internal dev team or agency an exact, prioritized repair roadmap.',
+            'Faster crawling, cleaner indexation, and stronger Core Web Vitals',
+            'Prioritized implementation roadmap ready for your engineering or marketing team',
           ],
-          deliverables: [
-            'Full crawl & indexation diagnostic (Search Console + crawler inspection)',
-            'Canonical, redirect hygiene, and duplicate content mapping',
-            'Core Web Vitals, rendering, XML sitemap, and schema markup review',
-          ],
-          ctaLabel: 'Request Technical Audit',
-          relatedGuideLabel: 'Read our Technical SEO Audit Guide',
+          ctaLabel: 'Request Audit',
+          relatedGuideLabel: 'Technical Audit Guide',
           relatedGuidePath: '/en/blog/auditoria-tecnica-seo',
         },
         {
-          number: '02.',
+          number: '02',
           id: 'on-page-seo',
           name: 'On-Page SEO',
           description:
-            'Structured optimization of title tags, meta descriptions, semantic heading hierarchy, service page copy, search-intent alignment, and internal linking architecture.',
+            'Sharpen commercial service pages, semantic headings, metadata, and internal links so decision-makers and Google clearly understand every solution you offer.',
           benefits: [
-            'Clarifies each page’s primary commercial topic for both users and Google.',
-            'Strengthens internal authority flow toward high-margin service pages.',
+            'Stronger relevance and rankings for high-intent US buyer queries',
+            'Clearer commercial service pages structured to convert organic visitors',
           ],
-          deliverables: [
-            'Title tag, meta description, and H1–H3 semantic restructuring',
-            'Search-intent alignment and commercial copy refinement',
-            'Internal link architecture and anchor-text optimization',
-          ],
-          ctaLabel: 'Inquire on On-Page SEO',
-          relatedGuideLabel: 'Read our On-Page SEO Audit Guide',
+          ctaLabel: 'Optimize Pages',
+          relatedGuideLabel: 'On-Page Guide',
           relatedGuidePath: '/en/blog/auditoria-seo-on-page',
         },
         {
-          number: '03.',
+          number: '03',
           id: 'local-seo',
-          name: 'Local SEO',
+          name: 'Local SEO & Google Business Profile',
           description:
-            'Targeted search strategies designed for businesses competing across specific US cities, metropolitan areas, service territories, or multi-location footprints.',
+            'Capture regional US demand with complete Google Business Profile optimization, accurate local citations, and stronger Google Maps SEO signals.',
           benefits: [
-            'Connects regional service demand directly with dedicated local landing pages.',
-            'Builds consistent geographic relevance across organic search results.',
+            'Higher visibility across competitive Google Maps local packs in your service area',
+            'More qualified local calls, direction clicks, and service quote requests',
           ],
-          deliverables: [
-            'City, state, and service-area page architecture planning',
-            'NAP consistency and local structured data alignment',
-            'Localized keyword mapping for regional buyer intent',
-          ],
-          ctaLabel: 'Explore Local SEO',
-          relatedGuideLabel: 'Explore our Local SEO overview',
-          relatedGuidePath: '/en/local-seo',
+          ctaLabel: 'Grow Local Leads',
+          relatedGuideLabel: 'Local SEO Guide',
+          relatedGuidePath: '/en/blog/seo-local-como-aparecer-google',
         },
         {
-          number: '04.',
-          id: 'google-business-profile',
-          name: 'Google Business Profile & Google Maps',
-          description:
-            'Compliant setup, category refinement, service structuring, and relevance optimization for your Google Business Profile to strengthen visibility in Google Maps searches.',
-          benefits: [
-            'Improves how your business appears when local buyers compare providers on Maps.',
-            'Follows Google’s official eligibility and profile guidelines to protect account standing.',
-          ],
-          deliverables: [
-            'Primary & secondary category audit and service catalog setup',
-            'Profile completeness, attribute alignment, and photo/update hygiene',
-            'Review acquisition guidance and profile-to-website linking alignment',
-          ],
-          ctaLabel: 'Optimize Google Business Profile',
-          relatedGuideLabel: 'Read our Google Business Profile Guide',
-          relatedGuidePath: '/en/blog/como-criar-google-meu-negocio',
-        },
-        {
-          number: '05.',
+          number: '04',
           id: 'keyword-competitor-analysis',
           name: 'Keyword Research & Competitor Analysis',
           description:
-            'Evidence-based research identifying high-intent US commercial keywords, organic competitors winning buyer searches, and actionable content or landing-page gaps.',
+            'Map profitable US commercial search demand and uncover exactly where top regional or national competitors outrank you across high-value terms.',
           benefits: [
-            'Prioritizes search terms tied to commercial RFQs, consultations, and sales.',
-            'Prevents wasted effort on irrelevant informational traffic.',
+            'Target proven buyer keywords tied directly to contracts and RFQs',
+            'Spot high-value content, structural, and authority gaps you can win',
           ],
-          deliverables: [
-            'Commercial & local keyword mapping grouped by search intent',
-            'Organic competitor benchmark and keyword/content gap matrix',
-            'Prioritized new-page and editorial opportunity backlog',
-          ],
-          ctaLabel: 'Request Keyword & Gap Research',
+          ctaLabel: 'Map Opportunities',
         },
         {
-          number: '06.',
+          number: '05',
           id: 'ongoing-seo-management',
           name: 'Ongoing SEO Management',
           description:
-            'Continuous monthly execution combining technical monitoring, on-page improvements, strategic content creation, and transparent search performance tracking.',
+            'Monthly technical maintenance, targeted content expansion, and conversion-focused optimization designed to compound qualified organic pipeline over time.',
           benefits: [
-            'Turns audit findings into implemented improvements month after month.',
-            'Maintains technical health as your website, catalog, and competitors evolve.',
+            'Consistent senior execution without inflated agency overhead',
+            'Transparent monthly reporting focused on rankings and lead impact',
           ],
-          deliverables: [
-            'Monthly technical health checks and prioritized fix implementation',
-            'Continuous on-page optimization and strategic content roadmap',
-            'Clear monthly progress reporting tied to organic impressions, clicks, and leads',
+          ctaLabel: 'Explore Retainer',
+        },
+        {
+          number: '06',
+          id: 'geo-aeo-ai-search',
+          name: 'GEO & AEO (AI Search Visibility)',
+          description:
+            'Position your company for Generative Engine Optimization and Answer Engine Optimization so AI assistants and answer engines reference your brand.',
+          benefits: [
+            'Structured entities and concise answers built for AI citations',
+            'Future-proof commercial visibility across evolving US search experiences',
           ],
-          ctaLabel: 'Discuss Ongoing SEO Management',
+          ctaLabel: 'Strengthen AI Search',
+        },
+      ],
+    },
+    industries: {
+      kicker: 'Target US Markets',
+      title: 'SEO Solutions for Specialized and Industrial Businesses',
+      subtitle:
+        'Our industrial SEO and B2B SEO framework is built for US companies that rely on high-value contracts, commercial RFQs, and steady local service inquiries.',
+      note: 'Representative US sectors our methodology is built to serve—scoped to your specific niche, territory, and competitive landscape.',
+      imageAlt:
+        'Technicians inspecting modern CNC manufacturing equipment inside an American industrial B2B facility',
+      items: [
+        {
+          id: 'industrial',
+          name: 'Industrial Businesses',
+          searchContext: 'Industrial equipment, plant solutions, and regional procurement searches.',
+        },
+        {
+          id: 'manufacturing',
+          name: 'Manufacturing Companies',
+          searchContext: 'OEM/ODM capabilities, custom fabrication, and qualified RFQ visibility.',
+        },
+        {
+          id: 'contractors',
+          name: 'Specialized Contractors',
+          searchContext: 'Commercial construction, MEP, roofing, and licensed trade inquiries.',
+        },
+        {
+          id: 'home-services',
+          name: 'Home Service Businesses',
+          searchContext: 'HVAC, plumbing, electrical, and high-urgency local Google Maps demand.',
+        },
+        {
+          id: 'technical',
+          name: 'High-Value Technical Services',
+          searchContext: 'Engineering, laboratory testing, compliance, and specialized inspections.',
+        },
+        {
+          id: 'b2b',
+          name: 'B2B Service Providers',
+          searchContext: 'Logistics, enterprise IT, advisory, and commercial B2B operations.',
         },
       ],
     },
     methodology: {
-      kicker: 'How We Work',
-      title: 'A straightforward 4-stage workflow from diagnosis to execution',
+      kicker: 'Workflow',
+      title: 'Our SEO Process',
       subtitle:
-        'Whether you need an independent technical blueprint for your internal team or ongoing implementation support, every engagement follows a clear, documented sequence.',
-      engagementClarificationTitle: 'Standalone Audits vs. Ongoing Execution — Your Choice',
-      engagementClarificationText:
-        'You can hire Auditoria SEO strictly for a standalone one-time SEO audit with a complete action plan and zero ongoing retainer—or partner with us for implementation and monthly SEO management.',
+        'A transparent four-stage execution framework connecting technical diagnosis directly to qualified leads and sustainable US business growth.',
+      imageAlt:
+        'Minimalist architectural glass and brushed steel steps symbolizing structured SEO strategy and steady organic growth',
+      scopeClarification:
+        'Hire Step 1 as an independent one-time SEO audit or partner with us across all four stages for full implementation.',
       steps: [
         {
           step: '01',
-          title: 'Discovery & Website Assessment',
-          description:
-            'We review your business model, US target markets, commercial priorities, existing website stack, and Search Console/analytics setup.',
+          icon: 'audit',
+          title: 'Audit',
+          description: 'Pinpoint technical bottlenecks, indexation barriers, and missed commercial search opportunities across your domain.',
         },
         {
           step: '02',
-          title: 'SEO Audit & Opportunity Analysis',
-          description:
-            'We audit technical health, crawl behavior, on-page structure, local signals, and organic competitors to prioritize the highest-impact gaps.',
+          icon: 'strategy',
+          title: 'Strategy',
+          description: 'Prioritize buyer-intent keywords, competitor gaps, and a structured roadmap tied directly to commercial revenue.',
         },
         {
           step: '03',
-          title: 'Strategic Optimization',
-          description:
-            'Depending on your chosen scope, we either deliver an actionable engineering/editorial roadmap or execute improvements directly on your site.',
+          icon: 'implementation',
+          title: 'Implementation',
+          description: 'Deploy technical fixes, on-page upgrades, Google Maps signals, and AI search improvements accurately.',
         },
         {
           step: '04',
-          title: 'Monitoring & Continuous Improvement',
-          description:
-            'When ongoing management is engaged, we track indexing, keyword visibility, and lead attribution while refining pages iteratively.',
+          icon: 'growth',
+          title: 'Growth',
+          description: 'Measure organic search visibility, refine conversion pathways, and steadily scale qualified US client inquiries.',
         },
       ],
     },
-    auditReveal: {
-      kicker: 'Inside the Diagnostic',
-      title: 'What a professional SEO audit can uncover on your website',
-      subtitle:
-        'Most sites lose organic visibility due to a combination of technical friction, unclear page targeting, and overlooked local signals. Here are the 12 core areas we inspect.',
-      tabs: [
-        {
-          id: 'technical',
-          label: 'Technical Foundations',
-          summary: 'Ensuring Googlebot can crawl, render, and index your commercial pages without friction or wasted crawl budget.',
-          areas: [
-            { name: 'Crawlability', detail: 'Robots.txt rules, blocked resources, orphan URLs, and server response consistency.' },
-            { name: 'Indexability', detail: 'Unintended noindex tags, soft-404s, parameter bloat, and Search Console exclusions.' },
-            { name: 'Site architecture', detail: 'URL hierarchy, click depth, and logical grouping of core revenue pages.' },
-            { name: 'Technical performance', detail: 'Server latency, asset delivery, render-blocking scripts, and caching hygiene.' },
-          ],
-        },
-        {
-          id: 'content',
-          label: 'Experience, Content & Intent',
-          summary: 'Aligning speed, mobile usability, keywords, and internal links with what US buyers actually search for.',
-          areas: [
-            { name: 'Core Web Vitals', detail: 'LCP, INP, and CLS stability checks across mobile and desktop viewports.' },
-            { name: 'Mobile usability', detail: 'Responsive layout clarity, legible typography, and tap-target accessibility.' },
-            { name: 'Keyword opportunities', detail: 'High-intent commercial terms and missing service queries uncovered in your niche.' },
-            { name: 'Search intent', detail: 'Matching page format and messaging to transactional, local, or comparative searches.' },
-          ],
-        },
-        {
-          id: 'local',
-          label: 'Authority, Local & Conversion',
-          summary: 'Connecting internal equity, local map visibility, competitor gaps, and frictionless inquiry paths.',
-          areas: [
-            { name: 'Internal linking', detail: 'Distributing internal authority cleanly to priority service and regional pages.' },
-            { name: 'Local search visibility', detail: 'Google Business Profile accuracy, regional cues, and local landing-page structure.' },
-            { name: 'Competitor gaps', detail: 'Topics, service pages, and structural strengths helping organic rivals win clicks.' },
-            { name: 'Conversion opportunities', detail: 'CTA clarity, form friction, trust signals, and mobile contact pathways.' },
-          ],
-        },
+    specialist: {
+      kicker: 'Technical Leadership',
+      title: 'Meet Your SEO Specialist',
+      name: 'Wesley Vieira',
+      role: 'Founder of Auditoria SEO · Technical SEO & Organic Growth Strategist',
+      bio: 'Every audit and organic growth roadmap is led directly by Wesley Vieira—never outsourced to generic automated reports. We translate complex technical search behavior, local visibility signals, and AI search optimization into practical, revenue-focused actions for US business owners.',
+      highlights: [
+        'Direct senior specialist access from initial discovery through technical execution',
+        'Engineering-level fluency in rendering, structured data, and site speed optimization',
+        'Clear business English collaboration via Google Meet, Zoom, or asynchronous email',
       ],
-      allAreasHeading: 'All 12 audited diagnostic dimensions',
-      screenshotCaptionTitle: 'Sample Technical Diagnostic Interface (Illustrative Tool View)',
-      screenshotBadge: 'Demonstrative Example — Not Client Data',
-      screenshotCaptionText:
-        'Example crawler/indexation inspection view (Semrush interface) illustrating how broken 404 URLs and wasted backlink equity are identified during a technical audit. All client engagements are documented using your domain’s live Search Console and crawl telemetry.',
-      screenshotAlt:
-        'Illustrative Semrush Broken Pages diagnostic screenshot showing how 404 URLs and backlink equity issues are identified during an audit',
-    },
-    industries: {
-      kicker: 'Target Industries',
-      title: 'Businesses our technical and local SEO methodology is built to serve',
-      subtitle:
-        'Our diagnostic and execution framework adapts cleanly to US B2B, industrial, and specialized service organizations where high-value inquiries start with an online Google search.',
-      note: 'The segments below represent industries aligned with our commercial methodology and active outreach—not a claim of existing US client portfolios across every listed category.',
-      items: [
-        {
-          name: 'Industrial service providers',
-          searchContext: 'Maintenance, calibration, field engineering, and regional plant support searches.',
-        },
-        {
-          name: 'Manufacturing companies',
-          searchContext: 'OEM/ODM capabilities, custom fabrication, and technical specification queries.',
-        },
-        {
-          name: 'Specialized contractors',
-          searchContext: 'Commercial construction, MEP, roofing, and licensed specialty trade searches.',
-        },
-        {
-          name: 'Home service businesses',
-          searchContext: 'HVAC, plumbing, electrical, and high-intent local Google Maps service discovery.',
-        },
-        {
-          name: 'Engineering & technical services',
-          searchContext: 'Consulting engineers, environmental testing, compliance, and inspection RFQs.',
-        },
-        {
-          name: 'Equipment suppliers',
-          searchContext: 'Commercial machinery, parts distribution, rentals, and industrial catalog SEO.',
-        },
-        {
-          name: 'Local service businesses',
-          searchContext: 'Medical, legal, consulting, and regional service providers competing by city or metro area.',
-        },
-        {
-          name: 'B2B service providers',
-          searchContext: 'Logistics, IT, advisory, and specialized commercial solutions targeting decision-makers.',
-        },
-      ],
-    },
-    experience: {
-      kicker: 'Track Record & Delivery Standards',
-      title: 'Verified reviews and transparent engagement documentation',
-      subtitle:
-        'We earn trust with verifiable facts rather than inflated metrics. Below are real client reviews from our official Google Business Profile alongside the structured workflow used to document every project.',
-      verifiedReviewsTitle: 'Verified Client Reviews (Official Google Business Profile)',
-      verifiedReviewsSubtitle:
-        'Authentic testimonials from our established Brazilian & Portuguese-speaking client practice—verifiable directly on Google Maps.',
-      verifiedProfileLinkLabel: 'Verify Reviews on Google Maps',
+      photoAlt:
+        'Wesley Vieira, founder of Auditoria SEO, speaking on stage about Google search visibility strategies',
+      ctaLabel: 'Schedule a Consultation with Wesley',
+      reviewsHeading: 'Verified Client Feedback (Google Maps)',
+      reviewsSubheading:
+        'Authentic public reviews from our established practice—verifiable directly on our official Google Business Profile.',
+      verifiedProfileLinkLabel: 'Verify on Google Maps',
       reviews: [
         {
           author: 'Alex Caldeira · Local Guide',
@@ -634,152 +470,44 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
             'Dedicated professionals with clear execution—already seeing tangible business results from our partnership.',
         },
       ],
-      frameworkTitle: 'How We Document Every US Engagement',
-      frameworkSubtitle:
-        'As we expand US engagements, every client project follows a clean, auditable three-phase documentation format:',
-      frameworkSteps: [
-        {
-          phase: 'Phase 1',
-          title: 'Baseline Snapshot',
-          detail: 'Documented crawl errors, indexing state, Search Console impressions, and priority page rankings before changes.',
-        },
-        {
-          phase: 'Phase 2',
-          title: 'Prioritized Execution Log',
-          detail: 'Clear record of every technical fix, metadata update, internal link change, and content asset deployed.',
-        },
-        {
-          phase: 'Phase 3',
-          title: 'Measured Organic Impact',
-          detail: 'Post-implementation verification of index health, qualified search traffic, and tracked inquiry conversions.',
-        },
-      ],
-      resourcesHeading: 'Explore our existing English technical guides & services',
-      resources: [
-        { label: 'Technical SEO Audit Guide', path: '/en/blog/auditoria-tecnica-seo' },
-        { label: 'On-Page SEO Audit Guide', path: '/en/blog/auditoria-seo-on-page' },
-        { label: 'How to Appear on Google Local Search', path: '/en/blog/seo-local-como-aparecer-google' },
-        { label: 'Website Modernization & Edge Architecture', path: '/en/site-modernization' },
-      ],
-    },
-    specialist: {
-      kicker: 'Technical Leadership',
-      title: 'Meet the Specialist Behind Your SEO Strategy',
-      name: 'Wesley Vieira',
-      role: 'Founder of Auditoria SEO · Technical SEO & Organic Growth Strategist',
-      bioParagraphs: [
-        'Every audit and strategic roadmap at Auditoria SEO is led directly by Wesley Vieira alongside our technical team—never handed off to generic automated report templates.',
-        'With hands-on expertise spanning technical SEO diagnostics, semantic site architecture, on-page optimization, and local search visibility, Wesley translates complex crawl and indexing findings into plain, prioritized action plans shared seamlessly across business leadership and engineering teams.',
-      ],
-      highlights: [
-        'Direct specialist involvement from discovery through audit presentation',
-        'Deep familiarity with modern web stacks, rendering, canonicals, and edge hosting',
-        'Bilingual communication conducted in clear business English via Google Meet, Zoom, or email',
-      ],
-      photoAlt:
-        'Wesley Vieira, founder of Auditoria SEO, speaking on stage during a presentation on Google search visibility strategies',
-      ctaLabel: 'Schedule a Consultation with Wesley',
-    },
-    whyUs: {
-      kicker: 'Why Auditoria SEO',
-      title: 'The difference between automated checklists and engineering-grade SEO consulting',
-      subtitle:
-        'Automated tools flag dozens of surface warnings without business context. We focus on the structural issues and search opportunities that genuinely move commercial needle.',
-      items: [
-        {
-          title: 'Data-driven SEO analysis',
-          description:
-            'Every recommendation is grounded in live crawl diagnostics, Google Search Console telemetry, and real SERP observation.',
-        },
-        {
-          title: 'Transparent communication',
-          description:
-            'Plain-language explanations of what is broken, why it matters commercially, and how each fix works.',
-        },
-        {
-          title: 'Technical expertise',
-          description:
-            'Fluency in rendering behavior, canonical architecture, redirects, structured data, and Core Web Vitals.',
-        },
-        {
-          title: 'Actionable recommendations',
-          description:
-            'Concrete implementation specs your developers and content writers can act on immediately—not vague theory.',
-        },
-        {
-          title: 'Business-oriented SEO strategy',
-          description:
-            'Focus stays locked on commercial service pages, buyer intent, and inquiry conversion paths rather than vanity clicks.',
-        },
-        {
-          title: 'Customized solutions',
-          description:
-            'Scope adapts to your exact website size, tech stack, internal resources, and regional US competition.',
-        },
-        {
-          title: 'Clear priorities',
-          description:
-            'Tasks are ordered by expected commercial impact vs. implementation effort so your team tackles high-leverage work first.',
-        },
-        {
-          title: 'Flexible service engagements',
-          description:
-            'Start with a standalone audit or transition smoothly into hands-on optimization and ongoing SEO management.',
-        },
-      ],
     },
     faq: {
-      kicker: 'Frequently Asked Questions',
-      title: 'Straightforward answers before we speak',
-      subtitle: 'Clear details on scope, implementation options, remote collaboration across the US, and ethical SEO standards.',
+      kicker: 'FAQ',
+      title: 'Frequently Asked Questions',
+      subtitle: 'Direct answers on scope, standalone audits, and collaborating across US time zones.',
       items: [
         {
-          question: 'What is included in a professional SEO audit?',
+          question: 'Can I hire a one-time SEO Audit without a monthly contract?',
           answer:
-            'A professional SEO audit evaluates technical crawlability and indexation, URL architecture, canonical tags, redirect hygiene, mobile rendering, Core Web Vitals, on-page structure, internal linking, local search signals (when applicable), and priority keyword/competitor gaps—delivered as a clear, prioritized action plan.',
+            'Yes. Our Technical SEO Audit is a standalone project with a fixed scope and prioritized roadmap, with zero mandatory monthly retainer.',
         },
         {
-          question: 'How long does an SEO audit take?',
+          question: 'Do you also implement the SEO, Local SEO, and GEO/AEO fixes?',
           answer:
-            'Delivery timing depends on your website’s page count, technical complexity, and audit depth. During our initial consultation, we inspect your domain and confirm an exact schedule and scope in your custom proposal before work begins.',
+            'Yes. Your internal team can execute our roadmap, or you can hire Auditoria SEO for hands-on implementation and ongoing SEO management.',
         },
         {
-          question: 'Can you help implement the recommended SEO improvements?',
+          question: 'Can you improve our Google Business Profile and Google Maps visibility?',
           answer:
-            'Yes. You can either hand the audit roadmap to your internal developers and marketing team, or engage Auditoria SEO to execute technical fixes, on-page optimizations, and content improvements directly.',
+            'Yes, for eligible US businesses. We optimize categories, service areas, local landing pages, and regional signals in line with Google guidelines.',
         },
         {
-          question: 'Do you offer monthly SEO services?',
+          question: 'How do you collaborate with businesses across the United States?',
           answer:
-            'Yes. Beyond one-time SEO audits, we offer ongoing SEO management tailored to your goals—covering continuous technical monitoring, on-page refinement, strategic content development, and transparent monthly reporting.',
+            'We work remotely across all US time zones, holding discovery calls and audit walkthroughs in English via Google Meet, Zoom, and email.',
         },
         {
-          question: 'Can you help my business appear on Google Maps?',
+          question: 'What happens during the free SEO consultation?',
           answer:
-            'Yes, for businesses that meet Google Business Profile eligibility requirements. We optimize profile categories, service listings, geographic landing pages, and on-site local signals in full compliance with Google’s guidelines.',
-        },
-        {
-          question: 'Do you work with businesses across the United States?',
-          answer:
-            'Yes. We work remotely with businesses across all US time zones, conducting discovery calls, audit walkthroughs, and ongoing strategy sessions in English via Google Meet, Zoom, and email.',
-        },
-        {
-          question: 'Can I hire an SEO audit without a monthly contract?',
-          answer:
-            'Absolutely. Our SEO audits are independent one-time engagements with clear deliverables and zero mandatory monthly retainer.',
-        },
-        {
-          question: 'How do we communicate and schedule meetings?',
-          answer:
-            'You can request a consultation through the form below or email us directly at comercial@auditoriaseo.com.br. Meetings are held via Google Meet or Zoom at a time convenient for your US team.',
+            'We review your website, competitors, and commercial goals on a brief call and outline practical next steps—no high-pressure sales pitch.',
         },
       ],
     },
     consultation: {
       kicker: 'Start the Conversation',
-      title: "Ready to Improve Your Website's Visibility on Google?",
+      title: 'Schedule Your Free SEO Consultation',
       description:
-        "Let's identify what's holding your website back and uncover new opportunities for organic growth.",
+        "Let's identify what's holding your website back and uncover new opportunities for qualified US organic leads.",
       primaryCta: 'Schedule Your Free SEO Consultation',
       calendlyCta: 'Schedule a Meeting',
       schedulingNote:
@@ -794,7 +522,7 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
         'No required phone number—reach out on your schedule',
       ],
       formHeading: 'Request Your Free Consultation',
-      formSubheading: 'Share your website and priorities below. All fields except optional context take under two minutes.',
+      formSubheading: 'Share your website and priorities below. Takes under two minutes.',
       fields: {
         nameLabel: 'Full Name *',
         namePlaceholder: 'John Miller',
@@ -815,6 +543,7 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
         'Local SEO & Google Business Profile',
         'Keyword Research & Competitor Analysis',
         'Ongoing SEO Management',
+        'GEO & AEO (AI Search Visibility)',
         'Not sure yet — looking for an initial recommendation',
       ],
       errors: {
@@ -859,7 +588,7 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       serviceName: 'Auditorias de SEO, Otimização Técnica e SEO Local para Empresas nos Estados Unidos',
       serviceType: 'Auditoria Técnica de SEO, SEO On-Page, SEO Local, Google Business Profile',
       schemaDescription:
-        'Consultoria independente em SEO técnico atendendo empresas nos Estados Unidos com auditorias conduzidas por especialista, otimização on-page, SEO Local e gestão contínua.',
+        'Consultoria independente em SEO técnico atendendo empresas nos Estados Unidos com auditorias conduzidas por especialista, otimização on-page, SEO Local, GEO, AEO e gestão contínua.',
     },
     hero: {
       eyebrow: 'Agência SEO para Empresas nos EUA',
@@ -874,525 +603,308 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
         'Auditorias Técnicas de SEO',
         'Otimização SEO On-Page',
         'Estratégias de SEO Local',
-        'Otimização do Google Business Profile',
+        'Otimização de Google Business Profile',
         'Visibilidade no Google Maps',
         'Gestão Contínua de SEO',
       ],
       complementaryText:
-        'SEO Técnico. Otimização On-Page. SEO Local. Diagnósticos Mensuráveis.',
+        'SEO Técnico. Otimização On-Page. SEO Local. Resultados Mensuráveis.',
       imageAlt:
-        'Ilustração conceitual em 3D de um mascote em formato de G posicionado sobre a costa leste dos Estados Unidos visto do espaço',
+        'Ilustração conceitual em 3D de personagem inspirado na letra G sobre o território leste dos Estados Unidos visto do espaço',
       conceptualNotice:
-        'Arte conceitual representando visibilidade de busca nos Estados Unidos. A Auditoria SEO é uma consultoria independente sem afiliação ou endosso da Google LLC.',
-    },
-    credibility: {
-      kicker: 'Perfil Institucional',
-      title: 'Consultoria técnica em SEO focada em clareza diagnóstica e execução',
-      summary:
-        'A Auditoria SEO é uma consultoria independente liderada diretamente por Wesley Vieira. Entregamos auditorias conduzidas por especialista, prioridades técnicas objetivas e execução estratégica — atendendo remotamente empresas nos Estados Unidos, Brasil e América Latina.',
-      pillars: [
-        {
-          label: 'Auditorias Humanas',
-          detail: 'Cada domínio é analisado manualmente por especialista — nunca exportações automáticas de ferramentas.',
-        },
-        {
-          label: 'Critérios White Hat',
-          detail: 'Recomendações alinhadas às diretrizes oficiais do Google para proteger a autoridade do domínio.',
-        },
-        {
-          label: 'Escopo Flexível',
-          detail: 'Contrate apenas uma auditoria SEO pontual ou evolua para implementação e acompanhamento contínuo.',
-        },
-        {
-          label: 'Reputação Verificada',
-          detail: 'Nota média 5,0 estrelas em avaliações autênticas de clientes na ficha oficial no Google Maps.',
-        },
-      ],
+        'Arte conceitual representando visibilidade de busca nos EUA. A Auditoria SEO é uma consultoria independente sem vínculo ou endosso da Google LLC.',
     },
     positioning: {
-      eyebrow: 'Desenvolvido para Empresas nos EUA',
-      title: 'Visibilidade Americana em Busca Tradicional, IA e Descoberta Local',
-      description:
-        'A Auditoria SEO estruturou uma oferta dedicada para empresas que atuam ou competem nos Estados Unidos. Unimos SEO técnico rigoroso a práticas de GEO e AEO para fortalecer sua presença nos resultados orgânicos do Google, no Google Maps e nas experiências de descoberta baseadas em inteligência artificial.',
+      eyebrow: 'Posicionamento nos EUA',
       pillarsLabel: 'SEO · GEO · AEO',
+      title: 'SEO, GEO e AEO para Empresas nos EUA',
+      description:
+        'Atuamos como consultoria estratégica para empresas industriais, B2B e serviços especializados nos Estados Unidos, convertendo visibilidade orgânica em oportunidades comerciais reais com diagnóstico humano e prioridades claras de negócio.',
       pillars: [
         {
           code: 'SEO',
-          title: 'Search Engine Optimization',
-          detail: 'Rastreamento técnico, arquitetura limpa e páginas comerciais orientadas às buscas no Google EUA.',
+          title: 'Google & Google Maps',
+          detail: 'Arquitetura técnica sólida, páginas comerciais claras e presença local estratégica nos EUA.',
         },
         {
           code: 'GEO',
           title: 'Generative Engine Optimization',
-          detail: 'Sinais claros de entidade, dados estruturados e profundidade temática para descoberta generativa.',
+          detail: 'Autoridade semântica para sua empresa ser citada em respostas geradas por inteligência artificial.',
         },
         {
           code: 'AEO',
           title: 'Answer Engine Optimization',
-          detail: 'Respostas diretas e verificáveis estruturadas para snippets em destaque e motores de resposta.',
+          detail: 'Respostas estruturadas para capturar buscas diretas e dúvidas decisivas de compradores.',
+        },
+      ],
+      differentiators: [
+        {
+          title: 'Diagnóstico Manual',
+          detail: 'Inspeção técnica direta de especialista sobre rastreamento e intenção de compra, sem checklists genéricos.',
+        },
+        {
+          title: 'Foco em Leads Qualificados',
+          detail: 'Cada prioridade busca gerar pedidos de orçamento, ligações e contratos reais, nunca tráfego vazio.',
+        },
+        {
+          title: 'Contratação Flexível',
+          detail: 'Comece contratando apenas uma auditoria pontual ou avance para acompanhamento mensal contínuo.',
         },
       ],
       imageAlt:
-        'Imagem editorial de uma águia americana diante da bandeira dos Estados Unidos simbolizando posicionamento em SEO, GEO e AEO para empresas americanas',
+        'Águia patriótica americana representando posicionamento estratégico de busca no mercado dos Estados Unidos',
       ctaLabel: 'Explorar Serviços de SEO',
     },
-    challenges: {
-      kicker: 'Gargalos Comerciais Comuns',
-      title: 'Por que empresas estruturadas nos EUA não convertem buscas no Google em oportunidades reais',
-      subtitle:
-        'Um site visualmente moderno não garante posicionamento nem geração de leads. Bloqueios técnicos, desalinhamento de intenção de busca e lacunas locais entregam clientes qualificados à concorrência.',
-      items: [
-        {
-          number: '01.',
-          statement: 'Meu site não está ranqueando no Google.',
-          explanation:
-            'Falhas de rastreamento, páginas de serviços rasas, distribuição interna fraca de links ou URLs não indexadas impedem o Google de reconhecer suas soluções.',
-        },
-        {
-          number: '02.',
-          statement: 'Meus concorrentes aparecem antes da minha empresa.',
-          explanation:
-            'Concorrentes que capturam buscas comerciais combinam arquitetura limpa, páginas específicas por serviço e maior autoridade temática.',
-        },
-        {
-          number: '03.',
-          statement: 'Meu site recebe visitas, mas gera poucos contatos.',
-          explanation:
-            'Tráfego sem aderência à intenção de compra, com propostas pouco claras ou atrito nos formulários, raramente gera solicitações comerciais.',
-        },
-        {
-          number: '04.',
-          statement: 'Minha empresa é difícil de encontrar no Google Maps.',
-          explanation:
-            'Categorias incompletas no Google Business Profile, inconsistências cadastrais ou sinais locais fracos reduzem a visibilidade regional.',
-        },
-        {
-          number: '05.',
-          statement: 'Não sei quais problemas técnicos estão travando o meu site.',
-          explanation:
-            'Sem auditoria de rastreamento, canonicals, redirecionamentos e renderização, erros críticos passam meses despercebidos.',
-        },
-        {
-          number: '06.',
-          statement: 'Invisto em marketing sem entender meu desempenho orgânico.',
-          explanation:
-            'Mídia paga para de gerar retorno no instante em que o orçamento cessa. O diagnóstico orgânico mostra onde o SEO reduz a dependência de anúncios.',
-        },
-      ],
-    },
     services: {
-      kicker: 'Serviços Especializados',
-      title: 'Auditorias de SEO e otimização estratégica para empresas no mercado americano',
+      kicker: 'Soluções Comerciais',
+      title: 'Serviços Profissionais de SEO',
       subtitle:
-        'Cada frente prioriza diagnóstico transparente, execução técnica precisa e foco em conversão comercial — sem pacotes genéricos nem promessas artificiais.',
-      scopeNotice:
-        'Todo escopo é definido individualmente após análise inicial do domínio, concorrência nos EUA e metas comerciais — sem preços fixos engessados.',
-      benefitsHeading: 'Benefícios comerciais',
-      deliverablesHeading: 'Entregáveis e atividades',
+        'Auditorias pontuais independentes e gestão recorrente sob medida para empresas que atuam nos Estados Unidos.',
+      auditVisualTitle: 'Auditoria Técnica e Inteligência de Desempenho Orgânico',
+      auditVisualSummary:
+        'Identificamos gargalos de indexação, páginas comerciais subaproveitadas e lacunas locais, entregando um plano claro voltado a crescimento.',
+      auditVisualAlt:
+        'Mesa corporativa com monitor exibindo arquitetura de site, diagnóstico técnico de SEO e tendência de visibilidade orgânica',
+      guidesLabel: 'Guias Técnicos:',
+      guides: [
+        { label: 'Guia de Auditoria Técnica SEO', path: '/blog/auditoria-tecnica-seo' },
+        { label: 'Guia de SEO On-Page', path: '/blog/auditoria-seo-on-page' },
+        { label: 'SEO Local no Google', path: '/blog/seo-local-como-aparecer-google' },
+      ],
       items: [
         {
-          number: '01.',
+          number: '01',
           id: 'technical-seo-audit',
-          name: 'Technical SEO Audit',
+          name: 'Auditorias Técnicas de SEO',
           description:
-            'Auditoria técnica aprofundada de rastreamento, indexação, arquitetura de URLs, renderização, desempenho, canonicalização, redirecionamentos, sitemap XML e dados estruturados.',
+            'Projeto pontual independente para identificar erros de indexação, gargalos de velocidade, desperdício de rastreamento e falhas estruturais.',
           benefits: [
-            'Remove bloqueios técnicos que impedem a indexação de páginas comerciais estratégicas.',
-            'Entrega à sua equipe de tecnologia um plano de correção claro e priorizado.',
+            'Rastreamento limpo, indexação eficiente e melhor desempenho técnico',
+            'Plano de implementação priorizado por impacto comercial para sua equipe',
           ],
-          deliverables: [
-            'Diagnóstico completo de rastreamento e indexação (Search Console + crawler)',
-            'Auditoria de canonicals, cadeias de redirecionamento e duplicidades',
-            'Revisão de Core Web Vitals, renderização, sitemaps e Schema Markup',
-          ],
-          ctaLabel: 'Solicitar Auditoria Técnica',
-          relatedGuideLabel: 'Ler guia de Auditoria Técnica SEO',
+          ctaLabel: 'Solicitar Auditoria',
+          relatedGuideLabel: 'Ver Guia Técnico',
           relatedGuidePath: '/blog/auditoria-tecnica-seo',
         },
         {
-          number: '02.',
+          number: '02',
           id: 'on-page-seo',
-          name: 'On-Page SEO',
+          name: 'SEO On-Page',
           description:
-            'Otimização estruturada de títulos SEO, metadados, hierarquia semântica H1–H3, copy orientada à intenção de busca e arquitetura de links internos.',
+            'Aprimoramos páginas comerciais, hierarquia semântica, metadados e links internos para que compradores e buscadores compreendam sua oferta.',
           benefits: [
-            'Deixa inequívoco para usuários e algoritmos o foco comercial de cada página.',
-            'Direciona relevância interna para serviços prioritários de maior margem.',
+            'Maior relevância orgânica para termos de contratação nos EUA',
+            'Páginas de serviço objetivas e estruturadas para conversão comercial',
           ],
-          deliverables: [
-            'Reestruturação de títulos, meta descriptions e headings semânticos',
-            'Alinhamento de conteúdo à intenção de pesquisa americana',
-            'Otimização de links internos e textos-âncora',
-          ],
-          ctaLabel: 'Consultar SEO On-Page',
-          relatedGuideLabel: 'Ler guia de Auditoria SEO On-Page',
+          ctaLabel: 'Otimizar Páginas',
+          relatedGuideLabel: 'Ver Guia On-Page',
           relatedGuidePath: '/blog/auditoria-seo-on-page',
         },
         {
-          number: '03.',
+          number: '03',
           id: 'local-seo',
-          name: 'Local SEO',
+          name: 'SEO Local & Google Business Profile',
           description:
-            'Estratégias direcionadas para empresas que atendem cidades, condados, regiões metropolitanas ou áreas de cobertura específicas nos Estados Unidos.',
+            'Capte demanda regional nos Estados Unidos com otimização completa do Google Business Profile, consistência local e sinais para Google Maps.',
           benefits: [
-            'Conecta a demanda local de pesquisa diretamente a páginas regionais relevantes.',
-            'Consolida sinais geográficos consistentes nos resultados orgânicos locais.',
+            'Presença mais competitiva no pacote local e mapas da sua região',
+            'Mais ligações comerciais, rotas e pedidos de orçamento qualificados',
           ],
-          deliverables: [
-            'Arquitetura de páginas por cidade, estado e área de atuação',
-            'Padronização de NAP e dados estruturados locais',
-            'Mapeamento de palavras-chave com intenção regional nos EUA',
-          ],
-          ctaLabel: 'Explorar SEO Local',
-          relatedGuideLabel: 'Ver página de SEO Local',
-          relatedGuidePath: '/seo-local',
+          ctaLabel: 'Ampliar Busca Local',
+          relatedGuideLabel: 'Ver Guia Local',
+          relatedGuidePath: '/blog/seo-local-como-aparecer-google',
         },
         {
-          number: '04.',
-          id: 'google-business-profile',
-          name: 'Google Business Profile & Google Maps',
-          description:
-            'Configuração e otimização estratégica do perfil empresarial no Google para fortalecer a presença em buscas locais no Maps em total conformidade com as diretrizes da plataforma.',
-          benefits: [
-            'Melhora a clareza e relevância da ficha quando clientes comparam fornecedores locais.',
-            'Respeita rigorosamente as regras de elegibilidade do Google para evitar suspensões.',
-          ],
-          deliverables: [
-            'Auditoria de categorias principais/secundárias e catálogo de serviços',
-            'Higienização de atributos, mídia e consistência com o site oficial',
-            'Diretrizes éticas para captação e resposta a avaliações',
-          ],
-          ctaLabel: 'Otimizar Google Business Profile',
-          relatedGuideLabel: 'Ler guia de Google Meu Negócio',
-          relatedGuidePath: '/blog/como-criar-google-meu-negocio',
-        },
-        {
-          number: '05.',
+          number: '04',
           id: 'keyword-competitor-analysis',
-          name: 'Keyword Research & Competitor Analysis',
+          name: 'Pesquisa de Palavras-Chave e Concorrentes',
           description:
-            'Pesquisa baseada em dados para identificar palavras-chave comerciais nos EUA, mapear concorrentes orgânicos reais e revelar lacunas de conteúdo.',
+            'Mapeamos termos comerciais rentáveis nos EUA e analisamos exatamente onde os concorrentes lideram hoje em buscas de alto valor.',
           benefits: [
-            'Prioriza termos ligados a pedidos de orçamento, consultorias e contratos B2B/B2C.',
-            'Evita dispersão de recursos em pautas sem retorno comercial.',
+            'Foco em palavras-chave ligadas diretamente a cotações e contratos',
+            'Identificação prática de brechas de conteúdo, estrutura e autoridade',
           ],
-          deliverables: [
-            'Mapeamento de palavras-chave comerciais e locais por intenção',
-            'Benchmarking competitivo de concorrentes orgânicos',
-            'Matriz priorizada de novas páginas e oportunidades editoriais',
-          ],
-          ctaLabel: 'Solicitar Pesquisa Competitiva',
+          ctaLabel: 'Mapear Demanda',
         },
         {
-          number: '06.',
+          number: '05',
           id: 'ongoing-seo-management',
-          name: 'Ongoing SEO Management',
+          name: 'Gestão Contínua de SEO',
           description:
-            'Acompanhamento mensal contínuo unindo monitoramento técnico, implementação de melhorias on-page, desenvolvimento estratégico de conteúdo e análise de desempenho.',
+            'Acompanhamento técnico mensal, expansão estratégica de páginas e melhorias contínuas de conversão para sustentar geração orgânica de demanda.',
           benefits: [
-            'Transforma o diagnóstico em execução contínua mês a mês.',
-            'Mantém a saúde técnica do site conforme novas páginas e ofertas são publicadas.',
+            'Execução sênior consistente sem burocracia de agência tradicional',
+            'Relatórios transparentes focados em visibilidade e oportunidades reais',
           ],
-          deliverables: [
-            'Monitoramento técnico recorrente e execução de correções priorizadas',
-            'Otimização contínua de páginas comerciais e calendário editorial',
-            'Relatórios transparentes de indexação, impressões, cliques e conversões',
+          ctaLabel: 'Conhecer Gestão',
+        },
+        {
+          number: '06',
+          id: 'geo-aeo-ai-search',
+          name: 'GEO & AEO (Visibilidade em IA)',
+          description:
+            'Preparamos sua empresa para Generative Engine Optimization e Answer Engine Optimization para ganhar presença em respostas e buscadores de IA.',
+          benefits: [
+            'Estruturação clara de entidade e respostas diretas para citações em IA',
+            'Visibilidade comercial alinhada às novas jornadas de busca nos EUA',
           ],
-          ctaLabel: 'Conversar sobre Gestão Contínua',
+          ctaLabel: 'Ativar GEO & AEO',
+        },
+      ],
+    },
+    industries: {
+      kicker: 'Segmentos Atendidos',
+      title: 'Soluções de SEO para Empresas Industriais e Especializadas',
+      subtitle:
+        'Nossa metodologia de SEO industrial e B2B foi desenhada para empresas nos Estados Unidos que dependem de contratos, cotações comerciais e demanda regional.',
+      note: 'Segmentos representativos que nossa metodologia está preparada para atender nos EUA, com escopo adaptado ao seu nicho e território.',
+      imageAlt:
+        'Especialistas inspecionando maquinário industrial CNC moderno em fábrica B2B americana',
+      items: [
+        {
+          id: 'industrial',
+          name: 'Empresas Industriais',
+          searchContext: 'Equipamentos industriais, soluções de planta e compras B2B regionais.',
+        },
+        {
+          id: 'manufacturing',
+          name: 'Indústrias e Manufatura',
+          searchContext: 'Capacidade OEM/ODM, fabricação sob medida e pedidos de cotação.',
+        },
+        {
+          id: 'contractors',
+          name: 'Empreiteiros Especializados',
+          searchContext: 'Obras comerciais, engenharia MEP, coberturas e serviços licenciados.',
+        },
+        {
+          id: 'home-services',
+          name: 'Serviços Residenciais',
+          searchContext: 'HVAC, elétrica, hidráulica e demanda local urgente no Google Maps.',
+        },
+        {
+          id: 'technical',
+          name: 'Serviços Técnicos de Alto Valor',
+          searchContext: 'Engenharia, ensaios laboratoriais, conformidade e inspeções técnicas.',
+        },
+        {
+          id: 'b2b',
+          name: 'Prestadores B2B',
+          searchContext: 'Logística, TI corporativa, consultoria e soluções empresariais.',
         },
       ],
     },
     methodology: {
-      kicker: 'Metodologia de Trabalho',
-      title: 'Processo em 4 etapas da análise inicial à evolução contínua',
+      kicker: 'Metodologia',
+      title: 'Nosso Processo de SEO',
       subtitle:
-        'Seja para entregar um plano técnico independente ao seu time interno ou conduzir a implementação recorrente, trabalhamos com método claro e documentado.',
-      engagementClarificationTitle: 'Auditoria Pontual ou Acompanhamento Recorrente — Você Escolhe',
-      engagementClarificationText:
-        'A Auditoria SEO pode ser contratada exclusivamente como diagnóstico pontual independente (com plano de ação completo e sem mensalidade) ou integrada à implementação e gestão contínua.',
+        'Quatro etapas transparentes que conectam o diagnóstico técnico diretamente à geração de leads qualificados nos Estados Unidos.',
+      imageAlt:
+        'Composição arquitetônica minimalista com degraus em vidro e aço escovado representando estratégia e crescimento digital',
+      scopeClarification:
+        'Contrate apenas a etapa de Auditoria como projeto pontual ou avance conosco pelas quatro fases para execução completa.',
       steps: [
         {
           step: '01',
-          title: 'Discovery & Website Assessment',
-          description:
-            'Compreensão do modelo de negócio, regiões-alvo nos EUA, metas comerciais, arquitetura atual do site e instrumentação de dados.',
+          icon: 'audit',
+          title: 'Audit',
+          description: 'Mapeamos bloqueios técnicos, falhas de indexação e oportunidades comerciais perdidas em todo o domínio.',
         },
         {
           step: '02',
-          title: 'SEO Audit & Opportunity Analysis',
-          description:
-            'Mapeamento aprofundado dos gargalos técnicos, lacunas frente à concorrência e oportunidades imediatas e estruturais de ranqueamento.',
+          icon: 'strategy',
+          title: 'Strategy',
+          description: 'Priorizamos palavras-chave de compra, brechas competitivas e um plano claro ligado diretamente a receita.',
         },
         {
           step: '03',
-          title: 'Strategic Optimization',
-          description:
-            'Entrega de plano de ação técnico detalhado ou implementação direta das melhorias contratadas no código, conteúdo e estrutura.',
+          icon: 'implementation',
+          title: 'Implementation',
+          description: 'Aplicamos correções técnicas, melhorias on-page, sinais do Google Maps e otimizações para busca por IA.',
         },
         {
           step: '04',
-          title: 'Monitoring & Continuous Improvement',
-          description:
-            'Nos contratos de acompanhamento recorrente, monitoramos indicadores orgânicos e evoluímos continuamente páginas e autoridade.',
+          icon: 'growth',
+          title: 'Growth',
+          description: 'Acompanhamos posições orgânicas, refinamos caminhos de conversão e ampliamos contatos comerciais nos EUA.',
         },
       ],
     },
-    auditReveal: {
-      kicker: 'O Que a Auditoria Revela',
-      title: 'As 12 áreas técnicas e estratégicas inspecionadas no seu domínio',
-      subtitle:
-        'Identificamos desde falhas invisíveis de rastreamento até oportunidades de intenção de busca que impedem seu site de gerar negócios.',
-      tabs: [
-        {
-          id: 'technical',
-          label: 'Fundamentos Técnicos',
-          summary: 'Garantia de que o Googlebot consiga rastrear, renderizar e indexar suas páginas comerciais sem atritos.',
-          areas: [
-            { name: 'Crawlability', detail: 'Regras de robots.txt, bloqueios de recursos, páginas órfãs e respostas HTTP.' },
-            { name: 'Indexability', detail: 'Tags noindex indevidas, soft-404, parâmetros duplicados e exclusões no Search Console.' },
-            { name: 'Site architecture', detail: 'Hierarquia de URLs, profundidade de cliques e organização de silos comerciais.' },
-            { name: 'Technical performance', detail: 'Latência do servidor, carregamento de ativos e recursos bloqueadores.' },
-          ],
-        },
-        {
-          id: 'content',
-          label: 'Experiência, Conteúdo e Intenção',
-          summary: 'Alinhamento entre velocidade, usabilidade móvel, palavras-chave e intenção real do comprador.',
-          areas: [
-            { name: 'Core Web Vitals', detail: 'Análise de estabilidade visual (CLS), LCP e interatividade (INP).' },
-            { name: 'Mobile usability', detail: 'Legibilidade, responsividade e conforto de navegação em smartphones.' },
-            { name: 'Keyword opportunities', detail: 'Termos comerciais e de serviço com demanda qualificada no mercado-alvo.' },
-            { name: 'Search intent', detail: 'Adequação da página à expectativa transacional ou local de quem pesquisa.' },
-          ],
-        },
-        {
-          id: 'local',
-          label: 'Autoridade, Local e Conversão',
-          summary: 'Conexão entre autoridade interna, presença no mapa, brechas competitivas e pontos de contato.',
-          areas: [
-            { name: 'Internal linking', detail: 'Distribuição estratégica de relevância interna para páginas de maior valor.' },
-            { name: 'Local search visibility', detail: 'Estrutura de SEO Local e aderência às diretrizes do Google Business Profile.' },
-            { name: 'Competitor gaps', detail: 'Lacunas de conteúdo e estrutura exploradas pelos principais concorrentes orgânicos.' },
-            { name: 'Conversion opportunities', detail: 'Clareza de CTAs, atrito em formulários e sinais de credibilidade.' },
-          ],
-        },
+    specialist: {
+      kicker: 'Direção Técnica',
+      title: 'Conheça Seu Especialista em SEO',
+      name: 'Wesley Vieira',
+      role: 'Fundador da Auditoria SEO · Especialista em SEO Técnico e Tráfego Orgânico',
+      bio: 'Todas as auditorias e planos de crescimento são conduzidos pessoalmente por Wesley Vieira — nunca terceirizados para relatórios automáticos genéricos. Traduzimos comportamento técnico de busca, SEO local e otimização para IA em ações práticas para empresários nos EUA.',
+      highlights: [
+        'Atuação direta do especialista sênior do diagnóstico inicial à execução',
+        'Domínio prático de renderização, dados estruturados, velocidade e arquitetura web',
+        'Colaboração em inglês ou português via Google Meet, Zoom e e-mail',
       ],
-      allAreasHeading: 'Todas as 12 dimensões analisadas na auditoria',
-      screenshotCaptionTitle: 'Exemplo Ilustrativo de Interface Diagnóstica (Semrush)',
-      screenshotBadge: 'Material Demonstrativo — Não Representa Cliente Real',
-      screenshotCaptionText:
-        'Captura ilustrativa de inspeção técnica de páginas quebradas (HTTP 404) e perda de autoridade de backlinks. Em projetos reais, toda documentação utiliza a telemetria do seu próprio domínio no Google Search Console e crawlers.',
-      screenshotAlt:
-        'Captura ilustrativa da ferramenta Semrush exibindo identificação de páginas quebradas 404 durante uma auditoria técnica',
-    },
-    industries: {
-      kicker: 'Segmentos Compatíveis',
-      title: 'Empresas que podem se beneficiar da nossa metodologia nos Estados Unidos',
-      subtitle:
-        'Nossa estrutura técnica e comercial se adapta especialmente a empresas B2B, industriais e prestadores especializados que dependem de descoberta online qualificada.',
-      note: 'Os segmentos abaixo representam perfis de mercado compatíveis com a atuação da consultoria e prospecção nos EUA — sem implicar portfólio prévio em todas as categorias listadas.',
-      items: [
-        {
-          name: 'Prestadores de serviços industriais',
-          searchContext: 'Buscas por manutenção, calibração, engenharia de campo e suporte fabril.',
-        },
-        {
-          name: 'Indústrias e manufatura',
-          searchContext: 'Capacidades OEM/ODM, usinagem sob medida e especificações técnicas.',
-        },
-        {
-          name: 'Empreiteiros especializados',
-          searchContext: 'Construção comercial, climatização industrial, engenharia elétrica e obras.',
-        },
-        {
-          name: 'Serviços residenciais locais',
-          searchContext: 'HVAC, elétrica, hidráulica e buscas locais de alta intenção no Google Maps.',
-        },
-        {
-          name: 'Engenharia e serviços técnicos',
-          searchContext: 'Consultorias de engenharia, laudos, inspeções e conformidade regulatória.',
-        },
-        {
-          name: 'Fornecedores de equipamentos',
-          searchContext: 'Máquinas comerciais, distribuição de peças, locação e catálogos técnicos.',
-        },
-        {
-          name: 'Negócios locais de serviço',
-          searchContext: 'Empresas e escritórios regionais que competem por visibilidade municipal.',
-        },
-        {
-          name: 'Empresas de serviços B2B',
-          searchContext: 'Logística, tecnologia, assessoria e soluções corporativas de alto valor.',
-        },
-      ],
-    },
-    experience: {
-      kicker: 'Experiência e Padrão de Entrega',
-      title: 'Avaliações verificáveis e formato estruturado de documentação',
-      subtitle:
-        'Preservamos total transparência: apresentamos abaixo avaliações reais da nossa ficha oficial no Google Maps (atuação no Brasil) junto ao modelo modular utilizado para documentar novos projetos nos EUA.',
-      verifiedReviewsTitle: 'Avaliações Reais (Ficha Oficial no Google Maps)',
-      verifiedReviewsSubtitle:
-        'Depoimentos autênticos publicados diretamente por clientes atendidos no Brasil, verificáveis na ficha pública da Auditoria SEO.',
-      verifiedProfileLinkLabel: 'Conferir Avaliações no Google Maps',
+      photoAlt:
+        'Wesley Vieira, fundador da Auditoria SEO, palestrando em palco sobre estratégias de visibilidade no Google',
+      ctaLabel: 'Agendar Reunião com Wesley',
+      reviewsHeading: 'Avaliações Reais Verificáveis (Google Maps)',
+      reviewsSubheading:
+        'Depoimentos autênticos da nossa operação no Brasil — públicos e verificáveis diretamente no Google Business Profile.',
+      verifiedProfileLinkLabel: 'Verificar no Google Maps',
       reviews: [
         {
           author: 'Alex Caldeira · Local Guide',
-          context: 'Avaliação verificada no Google Maps (Brasil)',
+          context: 'Avaliação no Google Maps (Brasil)',
           quote:
             'Colocou meu consultório sempre entre os primeiros no Google e trouxe bastante clientes qualificados.',
         },
         {
           author: 'Jose Diniz · Local Guide',
-          context: 'Avaliação verificada no Google Maps (Brasil)',
+          context: 'Avaliação no Google Maps (Brasil)',
           quote:
-            'Comprometidos em ajudar de fato o nosso negócio, aprimorando a presença digital e aproximando clientes.',
+            'Comprometidos em ajudar de fato o nosso negócio, aprimorando a presença digital e aproximando mais clientes.',
         },
         {
           author: 'Lauro dos Santos',
-          context: 'Avaliação verificada no Google Maps (Brasil)',
+          context: 'Avaliação no Google Maps (Brasil)',
           quote:
-            'Profissionais dedicados e atendimento claro — já colhendo frutos concretos da parceria.',
-        },
-      ],
-      frameworkTitle: 'Como Documentamos Cada Projeto',
-      frameworkSubtitle:
-        'Estrutura modular pronta para registrar novos estudos de caso nos Estados Unidos sem métricas fabricadas:',
-      frameworkSteps: [
-        {
-          phase: 'Etapa 1',
-          title: 'Linha de Base Técnica',
-          detail: 'Registro inicial de erros de rastreamento, indexação e impressões no Search Console.',
-        },
-        {
-          phase: 'Etapa 2',
-          title: 'Log de Implementação',
-          detail: 'Histórico objetivo das correções técnicas, ajustes on-page e links internos aplicados.',
-        },
-        {
-          phase: 'Etapa 3',
-          title: 'Evolução Mensurável',
-          detail: 'Verificação pós-implantação da saúde de indexação, cliques qualificados e conversões.',
-        },
-      ],
-      resourcesHeading: 'Conteúdos técnicos existentes na Auditoria SEO',
-      resources: [
-        { label: 'Guia de Auditoria Técnica SEO', path: '/blog/auditoria-tecnica-seo' },
-        { label: 'Guia de Auditoria SEO On-Page', path: '/blog/auditoria-seo-on-page' },
-        { label: 'SEO Local: Como Aparecer no Google', path: '/blog/seo-local-como-aparecer-google' },
-        { label: 'Modernização e Arquitetura Web', path: '/modernizacao-sites' },
-      ],
-    },
-    specialist: {
-      kicker: 'Liderança Técnica',
-      title: 'Conheça o Especialista por Trás da Sua Estratégia de SEO',
-      name: 'Wesley Vieira',
-      role: 'Fundador da Auditoria SEO · Especialista em SEO Técnico e Tráfego Orgânico',
-      bioParagraphs: [
-        'Todas as auditorias e planejamentos estratégicos da Auditoria SEO são conduzidos diretamente por Wesley Vieira e pela equipe técnica — nunca terceirizados para relatórios automáticos genéricos.',
-        'Com atuação prática em diagnósticos técnicos, arquitetura semântica, SEO on-page e visibilidade local, Wesley traduz achados complexos de rastreamento e indexação em planos de ação objetivos para gestores e desenvolvedores.',
-      ],
-      highlights: [
-        'Participação direta do especialista do diagnóstico inicial à reunião de apresentação',
-        'Domínio prático de renderização, canonicals, redirecionamentos e infraestrutura web',
-        'Reuniões em inglês ou português via Google Meet, Zoom e comunicação por e-mail',
-      ],
-      photoAlt:
-        'Wesley Vieira, fundador da Auditoria SEO, palestrando em palco sobre estratégias de visibilidade no Google',
-      ctaLabel: 'Agendar Reunião com Wesley',
-    },
-    whyUs: {
-      kicker: 'Por Que Contratar a Auditoria SEO',
-      title: 'A diferença entre um checklist automático e uma auditoria conduzida por especialista',
-      subtitle:
-        'Ferramentas apontam alertas isolados sem contexto comercial. Nossa análise conecta problemas técnicos diretamente às prioridades de crescimento da empresa.',
-      items: [
-        {
-          title: 'Análise baseada em dados',
-          description: 'Diagnósticos sustentados por rastreamento real, Search Console e análise direta das páginas.',
-        },
-        {
-          title: 'Comunicação transparente',
-          description: 'Explicações diretas sobre o que precisa de correção e qual o impacto prático esperado.',
-        },
-        {
-          title: 'Profundidade técnica',
-          description: 'Experiência real em HTML semântico, renderização, canonicalização, sitemaps e performance.',
-        },
-        {
-          title: 'Recomendações acionáveis',
-          description: 'Especificações claras que sua equipe de TI e conteúdo consegue executar imediatamente.',
-        },
-        {
-          title: 'Visão orientada a negócios',
-          description: 'Foco em páginas comerciais, intenções de contratação e conversão em oportunidades.',
-        },
-        {
-          title: 'Soluções personalizadas',
-          description: 'Escopo adaptado ao tamanho do domínio, plataforma e realidade competitiva do seu setor.',
-        },
-        {
-          title: 'Priorização clara',
-          description: 'Ordenação por impacto comercial versus esforço técnico para gerar ganhos ordenados.',
-        },
-        {
-          title: 'Contratação flexível',
-          description: 'Comece com uma auditoria pontual ou conte conosco na implementação e gestão contínua.',
+            'Excelentes profissionais, dedicados e com execução clara — já colhendo frutos consistentes dessa parceria.',
         },
       ],
     },
     faq: {
-      kicker: 'Perguntas Frequentes',
-      title: 'Dúvidas objetivas sobre atuação nos EUA, escopo e contratação',
-      subtitle: 'Respostas diretas sem promessas irreais ou condições ocultas.',
+      kicker: 'FAQ',
+      title: 'Perguntas Frequentes',
+      subtitle: 'Respostas diretas sobre escopo, auditoria pontual e atendimento remoto nos EUA.',
       items: [
         {
-          question: 'O que está incluído em uma auditoria profissional de SEO?',
+          question: 'Posso contratar apenas a Auditoria Técnica de SEO sem mensalidade?',
           answer:
-            'Analisamos rastreamento, indexação, arquitetura de URLs, tags canônicas, redirecionamentos, usabilidade mobile, Core Web Vitals, estrutura on-page, links internos, sinais locais (quando aplicável) e lacunas competitivas, entregando um plano de ação priorizado.',
+            'Sim. Nossa auditoria é um projeto pontual independente, com escopo definido e plano de ação completo, sem fidelidade mensal.',
         },
         {
-          question: 'Quanto tempo leva para concluir uma auditoria SEO?',
+          question: 'Vocês também implementam as melhorias de SEO, Local e GEO/AEO?',
           answer:
-            'O prazo varia conforme a quantidade de URLs, a complexidade técnica da plataforma e a profundidade contratada. Confirmamos o cronograma exato na proposta comercial após a conversa inicial.',
+            'Sim. Sua equipe pode executar o plano técnico ou você pode contratar a Auditoria SEO para implementação direta e gestão contínua.',
         },
         {
-          question: 'Vocês também implementam as melhorias recomendadas?',
+          question: 'Vocês ajudam a empresa a aparecer no Google Maps nos EUA?',
           answer:
-            'Sim. Sua equipe interna pode executar as ações a partir do nosso plano técnico, ou você pode contratar a Auditoria SEO para implementar correções técnicas, on-page e melhorias de conteúdo.',
+            'Sim, para negócios elegíveis no Google Business Profile. Otimizamos categorias, regiões atendidas e sinais locais conforme as diretrizes oficiais.',
         },
         {
-          question: 'Vocês oferecem gestão mensal contínua de SEO?',
+          question: 'Como funciona o atendimento para empresas nos Estados Unidos?',
           answer:
-            'Sim. Além das auditorias pontuais, oferecemos acompanhamento mensal sob medida com monitoramento técnico, otimizações contínuas, produção estratégica e relatórios transparentes.',
+            'Atendemos 100% remotamente em qualquer fuso horário americano, com reuniões em inglês ou português via Google Meet, Zoom e e-mail.',
         },
         {
-          question: 'Vocês ajudam empresas a aparecer no Google Maps nos EUA?',
+          question: 'O que acontece na consultoria gratuita inicial?',
           answer:
-            'Sim, desde que o modelo de negócio atenda aos critérios de elegibilidade do Google Business Profile. Otimizamos categorias, serviços, sinais locais e páginas regionais em conformidade com as diretrizes oficiais.',
-        },
-        {
-          question: 'Vocês atendem empresas em todo o território dos Estados Unidos?',
-          answer:
-            'Sim. O atendimento é 100% remoto para empresas em qualquer fuso horário americano, com reuniões conduzidas em inglês ou português via Google Meet, Zoom e e-mail.',
-        },
-        {
-          question: 'Posso contratar apenas a auditoria sem contrato mensal?',
-          answer:
-            'Sim. A auditoria SEO é um projeto pontual independente com escopo e entrega definidos, sem exigência de fidelidade ou mensalidade.',
-        },
-        {
-          question: 'Como funciona a comunicação e o agendamento de reuniões?',
-          answer:
-            'Envie sua solicitação pelo formulário abaixo ou escreva diretamente para comercial@auditoriaseo.com.br. As reuniões acontecem por Google Meet ou Zoom conforme a disponibilidade da sua equipe.',
+            'Analisamos seu site, concorrentes e metas comerciais em uma conversa objetiva e mostramos os próximos passos práticos, sem pressão de venda.',
         },
       ],
     },
     consultation: {
       kicker: 'Próximo Passo',
-      title: 'Pronto para Melhorar a Visibilidade do Seu Site no Google nos EUA?',
+      title: 'Agende Sua Consultoria Gratuita de SEO',
       description:
-        'Vamos identificar o que está limitando o crescimento orgânico do seu domínio e mapear novas oportunidades comerciais.',
+        'Vamos identificar o que está limitando o crescimento orgânico do seu domínio e mapear novas oportunidades comerciais nos EUA.',
       primaryCta: 'Agendar Consultoria Gratuita de SEO',
       calendlyCta: 'Agendar Reunião',
       schedulingNote:
@@ -1428,6 +940,7 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
         'SEO Local e Google Business Profile',
         'Pesquisa de Palavras-Chave e Concorrentes',
         'Gestão Contínua de SEO',
+        'GEO & AEO (Visibilidade em IA)',
         'Ainda não sei — quero uma recomendação inicial',
       ],
       errors: {
@@ -1472,7 +985,7 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       serviceName: 'Auditorías SEO, Optimización Técnica y SEO Local para Empresas en Estados Unidos',
       serviceType: 'Auditoría Técnica SEO, SEO On-Page, SEO Local, Google Business Profile',
       schemaDescription:
-        'Consultora independiente de SEO técnico orientada a empresas en Estados Unidos con auditorías humanas, optimización on-page, SEO Local y gestión continua.',
+        'Consultora independiente de SEO técnico orientada a empresas en Estados Unidos con auditorías humanas, optimización on-page, SEO Local, GEO, AEO y gestión continua.',
     },
     hero: {
       eyebrow: 'Agencia SEO para Empresas en EE. UU.',
@@ -1496,516 +1009,299 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
       imageAlt:
         'Ilustración conceptual en 3D de un personaje con forma de letra G sobre la costa este de Estados Unidos desde el espacio',
       conceptualNotice:
-        'Ilustración conceptual sobre visibilidad en buscadores en EE. UU. Auditoria SEO es una consultora independiente sin afiliación ni respaldo de Google LLC.',
-    },
-    credibility: {
-      kicker: 'Respaldo Institucional',
-      title: 'Consultoría técnica SEO enfocada en claridad diagnóstica y ejecución real',
-      summary:
-        'Auditoria SEO es una consultora independiente dirigida por Wesley Vieira. Realizamos auditorías técnicas conducidas por especialistas, definimos prioridades prácticas para su equipo de desarrollo y ejecutamos estrategias orgánicas de forma remota para empresas en EE. UU. y Latinoamérica.',
-      pillars: [
-        {
-          label: 'Auditorías por Especialista',
-          detail: 'Cada sitio es inspeccionado manualmente — nunca reportes automáticos genéricos.',
-        },
-        {
-          label: 'Criterios White Hat',
-          detail: 'Buenas prácticas alineadas con Google Search Essentials para proteger la reputación del dominio.',
-        },
-        {
-          label: 'Contratación Flexible',
-          detail: 'Contrate una auditoría puntual independiente o avance hacia implementación y gestión mensual.',
-        },
-        {
-          label: 'Reseñas Verificadas',
-          detail: 'Calificación promedio de 5.0 estrellas en reseñas auténticas dentro de nuestra ficha oficial en Google Maps.',
-        },
-      ],
+        'Arte conceptual que representa visibilidad de búsqueda en EE. UU. Auditoria SEO es una consultora independiente sin afiliación ni respaldo de Google LLC.',
     },
     positioning: {
-      eyebrow: 'Diseñado para Empresas en EE. UU.',
-      title: 'Visibilidad en EE. UU. para Buscadores, IA y Búsqueda Local',
-      description:
-        'Auditoria SEO desarrolló un enfoque comercial pensado para empresas que compiten en Estados Unidos. Combinamos SEO técnico de precisión con optimización GEO y AEO para consolidar su presencia en Google Search, Google Maps y los nuevos entornos de descubrimiento asistidos por IA.',
+      eyebrow: 'Posicionamiento en EE. UU.',
       pillarsLabel: 'SEO · GEO · AEO',
+      title: 'SEO, GEO y AEO para Empresas en EE. UU.',
+      description:
+        'Ayudamos a empresas industriales, B2B y servicios especializados en Estados Unidos a transformar su visibilidad orgánica en oportunidades comerciales calificadas, uniendo ingeniería SEO real con prioridades claras de negocio.',
       pillars: [
         {
           code: 'SEO',
-          title: 'Search Engine Optimization',
-          detail: 'Rastreo técnico, arquitectura web y páginas comerciales orientadas al mercado de Google en EE. UU.',
+          title: 'Google y Google Maps',
+          detail: 'Arquitectura técnica sólida, páginas comerciales claras y presencia local estratégica en EE. UU.',
         },
         {
           code: 'GEO',
           title: 'Generative Engine Optimization',
-          detail: 'Señales consistentes de entidad, Schema claro y profundidad temática para motores generativos.',
+          detail: 'Autoridad semántica para que los motores de inteligencia artificial citen su marca en EE. UU.',
         },
         {
           code: 'AEO',
           title: 'Answer Engine Optimization',
-          detail: 'Respuestas claras y verificables preparadas para fragmentos destacados y motores de respuesta.',
+          detail: 'Respuestas estructuradas para captar búsquedas directas y dudas clave de compradores.',
+        },
+      ],
+      differentiators: [
+        {
+          title: 'Diagnóstico Humano',
+          detail: 'Inspección técnica directa de especialista sobre rastreo e intención de compra, sin listas genéricas.',
+        },
+        {
+          title: 'Enfoque en Leads',
+          detail: 'Cada prioridad apunta a cotizaciones, llamadas y contratos comerciales, nunca tráfico vacío.',
+        },
+        {
+          title: 'Alcance Flexible',
+          detail: 'Inicie con una auditoría puntual independiente o sume gestión mensual continua.',
         },
       ],
       imageAlt:
-        'Imagen editorial de un águila americana con la bandera de Estados Unidos detrás, simbolizando visibilidad en SEO, GEO y AEO para empresas en EE. UU.',
+        'Águila patriótica estadounidense que representa el posicionamiento estratégico en búsquedas de Estados Unidos',
       ctaLabel: 'Explorar Servicios SEO',
     },
-    challenges: {
-      kicker: 'Obstáculos Comerciales Frecuentes',
-      title: 'Por qué muchos sitios en EE. UU. no logran transformar búsquedas en clientes potenciales',
-      subtitle:
-        'Un diseño atractivo no basta para posicionar ni convertir. Errores técnicos ocultos, páginas desconectadas de la intención de búsqueda y brechas locales desvían compradores hacia la competencia.',
-      items: [
-        {
-          number: '01.',
-          statement: 'Mi sitio web no posiciona en Google.',
-          explanation:
-            'Bloqueos de rastreo, páginas de servicio débiles, enlaces internos deficientes o URLs sin indexar impiden que Google comprenda su oferta comercial.',
-        },
-        {
-          number: '02.',
-          statement: 'Mis competidores aparecen antes que mi empresa.',
-          explanation:
-            'Quienes lideran las búsquedas combinan arquitectura clara, páginas orientadas a servicios y mayor cobertura semántica.',
-        },
-        {
-          number: '03.',
-          statement: 'Mi web recibe tráfico pero genera pocos leads.',
-          explanation:
-            'Las visitas sin alineación comercial, con propuestas difusas o formularios con fricción rara vez derivan en contactos reales.',
-        },
-        {
-          number: '04.',
-          statement: 'Es difícil encontrar mi negocio en Google Maps.',
-          explanation:
-            'Categorías incompletas en Google Business Profile, datos inconsistentes o señales locales débiles reducen su presencia regional.',
-        },
-        {
-          number: '05.',
-          statement: 'No sé qué problemas técnicos afectan a mi sitio web.',
-          explanation:
-            'Sin auditoría de rastreo, canonicals, redirecciones y renderizado, los fallos técnicos persisten durante meses sin ser detectados.',
-        },
-        {
-          number: '06.',
-          statement: 'Invierto en marketing sin comprender mi rendimiento orgánico.',
-          explanation:
-            'Los anuncios dejan de generar contactos cuando se pausa la inversión. Un diagnóstico SEO muestra cómo reducir la dependencia exclusiva de pauta paga.',
-        },
-      ],
-    },
     services: {
-      kicker: 'Servicios Especializados',
-      title: 'Auditorías SEO y servicios de optimización para empresas en Estados Unidos',
+      kicker: 'Soluciones Comerciales',
+      title: 'Servicios Profesionales de SEO',
       subtitle:
-        'Cada línea prioriza diagnóstico transparente, ejecución técnica rigurosa y foco comercial — sin promesas garantizadas de primer lugar ni tarifas genéricas.',
-      scopeNotice:
-        'Cada propuesta se adapta al tamaño del sitio, competencia en Estados Unidos y objetivos comerciales tras una evaluación inicial.',
-      benefitsHeading: 'Valor comercial',
-      deliverablesHeading: 'Actividades y entregables clave',
+        'Auditorías puntuales independientes y gestión mensual continua adaptada a empresas en Estados Unidos.',
+      auditVisualTitle: 'Auditoría Técnica y Análisis de Desempeño Orgánico',
+      auditVisualSummary:
+        'Detectamos bloqueos de rastreo, páginas comerciales débiles y brechas locales, convirtiendo los hallazgos en una hoja de ruta enfocada en ventas.',
+      auditVisualAlt:
+        'Escritorio corporativo con monitor mostrando diagramas de arquitectura web y tendencias de visibilidad orgánica',
+      guidesLabel: 'Guías Técnicas:',
+      guides: [
+        { label: 'Guía de Auditoría Técnica SEO', path: '/es/blog/auditoria-tecnica-seo' },
+        { label: 'Guía de SEO On-Page', path: '/es/blog/auditoria-seo-on-page' },
+        { label: 'SEO Local en Google', path: '/es/blog/seo-local-como-aparecer-google' },
+      ],
       items: [
         {
-          number: '01.',
+          number: '01',
           id: 'technical-seo-audit',
-          name: 'Technical SEO Audit',
+          name: 'Auditorías Técnicas de SEO',
           description:
-            'Revisión técnica integral de rastreo, indexación, arquitectura de URLs, renderizado, velocidad, canonicalización, redirecciones, sitemaps XML y datos estructurados.',
+            'Diagnóstico puntual independiente para detectar errores de indexación, cuellos de botella de velocidad y fallos de rastreo.',
           benefits: [
-            'Elimina bloqueos técnicos que frenan la indexación de páginas clave.',
-            'Entrega a su equipo técnico una hoja de ruta ordenada por prioridad.',
+            'Rastreo limpio, indexación eficiente y mejor rendimiento técnico',
+            'Hoja de ruta priorizada por impacto comercial para su equipo',
           ],
-          deliverables: [
-            'Diagnóstico de rastreo e indexación (Search Console + crawler)',
-            'Higiene de etiquetas canonical, redirecciones y duplicidades',
-            'Revisión de Core Web Vitals, renderizado, sitemaps y Schema',
-          ],
-          ctaLabel: 'Solicitar Auditoría Técnica',
-          relatedGuideLabel: 'Leer guía de Auditoría Técnica SEO',
+          ctaLabel: 'Solicitar Auditoría',
+          relatedGuideLabel: 'Ver Guía Técnica',
           relatedGuidePath: '/es/blog/auditoria-tecnica-seo',
         },
         {
-          number: '02.',
+          number: '02',
           id: 'on-page-seo',
-          name: 'On-Page SEO',
+          name: 'SEO On-Page',
           description:
-            'Optimización de títulos SEO, meta descripciones, jerarquía semántica H1–H3, contenido comercial, intención de búsqueda y enlazado interno.',
+            'Optimizamos páginas comerciales, encabezados semánticos, metadatos y enlaces internos para que compradores y Google entiendan su propuesta.',
           benefits: [
-            'Comunica con claridad el enfoque de cada servicio a usuarios y buscadores.',
-            'Concentra relevancia interna en las páginas comerciales estratégicas.',
+            'Mayor relevancia orgánica para búsquedas con intención de compra en EE. UU.',
+            'Páginas de servicio más claras y preparadas para convertir visitas',
           ],
-          deliverables: [
-            'Optimización semántica de encabezados, títulos y meta tags',
-            'Alineación editorial con la intención de búsqueda en EE. UU.',
-            'Arquitectura de enlaces internos y textos ancla',
-          ],
-          ctaLabel: 'Consultar SEO On-Page',
-          relatedGuideLabel: 'Leer guía de Auditoría SEO On-Page',
+          ctaLabel: 'Optimizar Páginas',
+          relatedGuideLabel: 'Ver Guía On-Page',
           relatedGuidePath: '/es/blog/auditoria-seo-on-page',
         },
         {
-          number: '03.',
+          number: '03',
           id: 'local-seo',
-          name: 'Local SEO',
+          name: 'SEO Local y Google Business Profile',
           description:
-            'Estrategias enfocadas en empresas que compiten por visibilidad geográfica en ciudades, áreas metropolitanas o territorios específicos de Estados Unidos.',
+            'Capte demanda regional en Estados Unidos con optimización de Google Business Profile, consistencia local y señales fuertes para Google Maps.',
           benefits: [
-            'Conecta búsquedas locales con páginas de servicio adaptadas a cada región.',
-            'Fortalece señales geográficas consistentes en resultados orgánicos.',
+            'Mayor visibilidad en el paquete local y mapas de su zona de servicio',
+            'Más llamadas comerciales, clics de ruta y solicitudes de presupuesto',
           ],
-          deliverables: [
-            'Arquitectura de páginas locales por ciudad, estado o área de servicio',
-            'Consistencia NAP y datos estructurados locales',
-            'Mapeo de palabras clave con intención local estadounidense',
-          ],
-          ctaLabel: 'Explorar SEO Local',
-          relatedGuideLabel: 'Ver página de SEO Local',
-          relatedGuidePath: '/es/seo-local',
+          ctaLabel: 'Impulsar SEO Local',
+          relatedGuideLabel: 'Ver Guía Local',
+          relatedGuidePath: '/es/blog/seo-local-como-aparecer-google',
         },
         {
-          number: '04.',
-          id: 'google-business-profile',
-          name: 'Google Business Profile & Google Maps',
-          description:
-            'Optimización estratégica de su perfil empresarial en Google conforme a las normas de la plataforma para fortalecer su presencia en búsquedas locales.',
-          benefits: [
-            'Mejora la claridad de su ficha cuando clientes locales comparan proveedores.',
-            'Cumple estrictamente los lineamientos de elegibilidad de Google.',
-          ],
-          deliverables: [
-            'Auditoría de categorías, servicios y completitud del perfil',
-            'Coherencia técnica entre la ficha empresarial y el sitio web',
-            'Buenas prácticas para gestión y obtención ética de reseñas',
-          ],
-          ctaLabel: 'Optimizar Google Business Profile',
-          relatedGuideLabel: 'Leer guía de Google Business Profile',
-          relatedGuidePath: '/es/blog/como-criar-google-meu-negocio',
-        },
-        {
-          number: '05.',
+          number: '04',
           id: 'keyword-competitor-analysis',
-          name: 'Keyword Research & Competitor Analysis',
+          name: 'Palabras Clave y Análisis Competitivo',
           description:
-            'Investigación basada en datos para detectar palabras clave comerciales en EE. UU., analizar competidores orgánicos reales e identificar brechas de contenido.',
+            'Mapeamos búsquedas comerciales rentables en EE. UU. y analizamos exactamente dónde los líderes actuales superan a su empresa.',
           benefits: [
-            'Enfoca esfuerzos en búsquedas vinculadas a cotizaciones y contrataciones.',
-            'Evita invertir recursos en términos sin potencial de negocio.',
+            'Enfoque en palabras clave vinculadas a contratos y cotizaciones reales',
+            'Detección práctica de brechas de contenido, estructura y autoridad',
           ],
-          deliverables: [
-            'Mapa de palabras clave comerciales y locales por intención',
-            'Análisis de competidores orgánicos y brechas de contenido',
-            'Listado priorizado de nuevas páginas y mejoras editoriales',
-          ],
-          ctaLabel: 'Solicitar Análisis Competitivo',
+          ctaLabel: 'Mapear Demanda',
         },
         {
-          number: '06.',
+          number: '05',
           id: 'ongoing-seo-management',
-          name: 'Ongoing SEO Management',
+          name: 'Gestión Continua de SEO',
           description:
-            'Gestión mensual continua que integra monitoreo técnico, implementación de mejoras, optimización de páginas y seguimiento de desempeño orgánico.',
+            'Mantenimiento técnico mensual, expansión estratégica de páginas y optimización continua enfocada en generar prospectos calificados.',
           benefits: [
-            'Convierte los hallazgos de la auditoría en avances sostenidos cada mes.',
-            'Mantiene la salud técnica mientras su sitio y oferta comercial evolucionan.',
+            'Ejecución sénior constante sin burocracia ni costos de agencia tradicional',
+            'Informes transparentes orientados a visibilidad y oportunidades de venta',
           ],
-          deliverables: [
-            'Monitoreo técnico continuo y ejecución de correcciones prioritarias',
-            'Optimización on-page periódica y desarrollo de contenido',
-            'Reportes claros de indexación, visibilidad y oportunidades generadas',
+          ctaLabel: 'Ver Gestión Mensual',
+        },
+        {
+          number: '06',
+          id: 'geo-aeo-ai-search',
+          name: 'GEO y AEO (Visibilidad en IA)',
+          description:
+            'Posicionamos su empresa para Generative Engine Optimization y Answer Engine Optimization en buscadores conversacionales con IA.',
+          benefits: [
+            'Entidades claras y respuestas estructuradas para citas en IA',
+            'Visibilidad comercial preparada para las nuevas búsquedas en EE. UU.',
           ],
-          ctaLabel: 'Consultar Gestión Mensual',
+          ctaLabel: 'Activar GEO y AEO',
+        },
+      ],
+    },
+    industries: {
+      kicker: 'Sectores en EE. UU.',
+      title: 'Soluciones SEO para Empresas Industriales y Especializadas',
+      subtitle:
+        'Nuestra estrategia de SEO industrial y B2B está diseñada para empresas en Estados Unidos que dependen de contratos, cotizaciones y consultas locales.',
+      note: 'Sectores representativos que nuestra metodología está preparada para atender según cada mercado y territorio.',
+      imageAlt:
+        'Técnicos inspeccionando maquinaria CNC moderna dentro de una planta industrial B2B estadounidense',
+      items: [
+        {
+          id: 'industrial',
+          name: 'Empresas Industriales',
+          searchContext: 'Equipos industriales, soluciones de planta y compras B2B regionales.',
+        },
+        {
+          id: 'manufacturing',
+          name: 'Empresas de Manufactura',
+          searchContext: 'Capacidades OEM/ODM, fabricación a medida y pedidos de cotización.',
+        },
+        {
+          id: 'contractors',
+          name: 'Contratistas Especializados',
+          searchContext: 'Construcción comercial, MEP, techado y servicios con licencia.',
+        },
+        {
+          id: 'home-services',
+          name: 'Servicios para el Hogar',
+          searchContext: 'HVAC, plomería, electricidad y demanda local urgente en Google Maps.',
+        },
+        {
+          id: 'technical',
+          name: 'Servicios Técnicos de Alto Valor',
+          searchContext: 'Ingeniería, ensayos de laboratorio, cumplimiento e inspecciones técnicas.',
+        },
+        {
+          id: 'b2b',
+          name: 'Proveedores B2B',
+          searchContext: 'Logística, TI empresarial, consultoría y soluciones corporativas.',
         },
       ],
     },
     methodology: {
-      kicker: 'Metodología de Trabajo',
-      title: 'Proceso claro en 4 etapas desde el diagnóstico hasta la mejora continua',
+      kicker: 'Metodología',
+      title: 'Nuestro Proceso de SEO',
       subtitle:
-        'Podemos entregar una auditoría independiente para su equipo interno o encargarnos de la implementación y acompañamiento continuo.',
-      engagementClarificationTitle: 'Auditoría Independiente o Gestión Continua — Según su Necesidad',
-      engagementClarificationText:
-        'Contrate únicamente una auditoría SEO puntual con hoja de ruta accionable y sin mensualidades, o incorpore nuestro soporte para implementación y seguimiento continuo.',
+        'Cuatro etapas transparentes que conectan el diagnóstico técnico directamente con oportunidades comerciales sostenidas en Estados Unidos.',
+      imageAlt:
+        'Composición arquitectónica minimalista en vidrio y acero cepillado que simboliza estrategia y crecimiento digital',
+      scopeClarification:
+        'Contrate solo la etapa de Auditoría de forma puntual o avance con nosotros en todo el ciclo de implementación.',
       steps: [
         {
           step: '01',
-          title: 'Discovery & Website Assessment',
-          description:
-            'Comprensión del negocio, mercados objetivo en Estados Unidos, prioridades comerciales e infraestructura web actual.',
+          icon: 'audit',
+          title: 'Audit',
+          description: 'Detectamos bloqueos técnicos, fallos de indexación y oportunidades comerciales perdidas en su dominio.',
         },
         {
           step: '02',
-          title: 'SEO Audit & Opportunity Analysis',
-          description:
-            'Detección de errores técnicos, oportunidades de palabras clave, brechas competitivas y orden de prioridades.',
+          icon: 'strategy',
+          title: 'Strategy',
+          description: 'Priorizamos palabras clave de compra, brechas competitivas y una hoja de ruta vinculada a ventas.',
         },
         {
           step: '03',
-          title: 'Strategic Optimization',
-          description:
-            'Entrega de plan de acción técnico detallado o ejecución directa de las mejoras acordadas en el alcance.',
+          icon: 'implementation',
+          title: 'Implementation',
+          description: 'Aplicamos mejoras técnicas, optimización on-page, señales de Google Maps y preparación para IA.',
         },
         {
           step: '04',
-          title: 'Monitoring & Continuous Improvement',
-          description:
-            'Seguimiento continuo de indicadores orgánicos y evolución estratégica cuando se contrata gestión recurrente.',
+          icon: 'growth',
+          title: 'Growth',
+          description: 'Medimos posiciones orgánicas, refinamos rutas de conversión y escalamos contactos calificados en EE. UU.',
         },
-      ],
-    },
-    auditReveal: {
-      kicker: 'Alcance del Diagnóstico',
-      title: 'Las 12 áreas clave que una auditoría profesional puede revelar',
-      subtitle:
-        'Combinamos inspección técnica profunda, análisis de contenido y señales locales para identificar qué frena su visibilidad orgánica.',
-      tabs: [
-        {
-          id: 'technical',
-          label: 'Base Técnica',
-          summary: 'Asegurar que Googlebot pueda rastrear, renderizar e indexar sus páginas comerciales sin obstáculos.',
-          areas: [
-            { name: 'Crawlability', detail: 'Robots.txt, recursos bloqueados, URLs huérfanas y códigos de estado HTTP.' },
-            { name: 'Indexability', detail: 'Etiquetas noindex indebidas, soft-404 y exclusiones en Search Console.' },
-            { name: 'Site architecture', detail: 'Jerarquía de URLs, profundidad de clics y estructura comercial.' },
-            { name: 'Technical performance', detail: 'Latencia de servidor, carga de recursos y bloqueo de renderizado.' },
-          ],
-        },
-        {
-          id: 'content',
-          label: 'Experiencia e Intención',
-          summary: 'Alinear velocidad, experiencia móvil, palabras clave y contenido con la búsqueda del comprador.',
-          areas: [
-            { name: 'Core Web Vitals', detail: 'Evaluación de LCP, INP y CLS en dispositivos móviles y escritorio.' },
-            { name: 'Mobile usability', detail: 'Legibilidad, diseño adaptable y accesibilidad táctil.' },
-            { name: 'Keyword opportunities', detail: 'Oportunidades comerciales y de servicio en su mercado estadounidense.' },
-            { name: 'Search intent', detail: 'Coherencia entre la página de destino y la intención del usuario.' },
-          ],
-        },
-        {
-          id: 'local',
-          label: 'Autoridad, Local y Conversión',
-          summary: 'Conectar autoridad interna, visibilidad en mapas, brechas competitivas y captación comercial.',
-          areas: [
-            { name: 'Internal linking', detail: 'Distribución estratégica de autoridad interna hacia páginas prioritarias.' },
-            { name: 'Local search visibility', detail: 'Señales locales y alineación con Google Business Profile.' },
-            { name: 'Competitor gaps', detail: 'Oportunidades aprovechadas por competidores orgánicos en EE. UU.' },
-            { name: 'Conversion opportunities', detail: 'Claridad de llamados a la acción, formularios y confianza comercial.' },
-          ],
-        },
-      ],
-      allAreasHeading: 'Las 12 dimensiones evaluadas en la auditoría',
-      screenshotCaptionTitle: 'Vista Ilustrativa de Diagnóstico Técnico (Semrush)',
-      screenshotBadge: 'Material Demostrativo — No Son Datos de Clientes',
-      screenshotCaptionText:
-        'Captura ilustrativa de inspección de páginas rotas (HTTP 404) y pérdida de enlaces. En proyectos reales documentamos su dominio con datos propios de Search Console y rastreo técnico.',
-      screenshotAlt:
-        'Captura ilustrativa de Semrush mostrando cómo se detectan URLs con error 404 durante una auditoría técnica SEO',
-    },
-    industries: {
-      kicker: 'Sectores Compatibles',
-      title: 'Empresas en Estados Unidos a las que podemos ayudar',
-      subtitle:
-        'Metodología adaptable a empresas B2B, industriales y de servicios especializados que dependen de la búsqueda en Google para captar nuevos clientes.',
-      note: 'Estos segmentos reflejan perfiles compatibles con nuestra propuesta comercial y prospección — sin declarar casos previos en todas las industrias listadas.',
-      items: [
-        {
-          name: 'Proveedores de servicios industriales',
-          searchContext: 'Búsquedas de mantenimiento, calibración, soporte técnico y servicios en planta.',
-        },
-        {
-          name: 'Empresas manufactureras',
-          searchContext: 'Capacidades OEM/ODM, fabricación a medida y especificaciones técnicas.',
-        },
-        {
-          name: 'Contratistas especializados',
-          searchContext: 'Construcción comercial, instalaciones técnicas, climatización y obras.',
-        },
-        {
-          name: 'Servicios locales para el hogar',
-          searchContext: 'Plomería, electricidad, HVAC y búsquedas de alta intención en Google Maps.',
-        },
-        {
-          name: 'Ingeniería y servicios técnicos',
-          searchContext: 'Consultoría de ingeniería, inspecciones, ensayos y cumplimiento normativo.',
-        },
-        {
-          name: 'Proveedores de equipamiento',
-          searchContext: 'Maquinaria industrial, repuestos, alquiler y catálogos B2B.',
-        },
-        {
-          name: 'Negocios locales de servicios',
-          searchContext: 'Empresas y firmas regionales que compiten por ciudad o área metropolitana.',
-        },
-        {
-          name: 'Proveedores de servicios B2B',
-          searchContext: 'Logística, tecnología, consultoría y soluciones corporativas de alto valor.',
-        },
-      ],
-    },
-    experience: {
-      kicker: 'Trayectoria y Evidencia',
-      title: 'Reseñas verificables y estructura transparente de documentación',
-      subtitle:
-        'Presentamos reseñas reales de nuestra ficha oficial en Google Maps (práctica en Brasil) junto con el formato modular con el que documentaremos proyectos en Estados Unidos.',
-      verifiedReviewsTitle: 'Reseñas Verificadas (Ficha Oficial en Google Maps)',
-      verifiedReviewsSubtitle:
-        'Testimonios auténticos publicados directamente por clientes en nuestra ficha verificada de Google.',
-      verifiedProfileLinkLabel: 'Verificar Reseñas en Google Maps',
-      reviews: [
-        {
-          author: 'Alex Caldeira · Local Guide',
-          context: 'Reseña verificada en Google Maps (Brasil)',
-          quote:
-            'Posicionó mi consultorio de forma constante entre los primeros resultados de Google y trajo clientes nuevos.',
-        },
-        {
-          author: 'Jose Diniz · Local Guide',
-          context: 'Reseña verificada en Google Maps (Brasil)',
-          quote:
-            'Comprometidos en ayudar realmente a nuestro negocio, mejorando nuestra presencia y acercando más clientes.',
-        },
-        {
-          author: 'Lauro dos Santos',
-          context: 'Reseña verificada en Google Maps (Brasil)',
-          quote:
-            'Profesionales dedicados y claros — ya obteniendo resultados concretos de esta alianza.',
-        },
-      ],
-      frameworkTitle: 'Cómo Documentamos Cada Proyecto',
-      frameworkSubtitle:
-        'Estructura modular lista para incorporar nuevos casos en EE. UU. con datos reales:',
-      frameworkSteps: [
-        {
-          phase: 'Fase 1',
-          title: 'Línea Base Inicial',
-          detail: 'Registro previo de errores de rastreo, indexación e impresiones en Search Console.',
-        },
-        {
-          phase: 'Fase 2',
-          title: 'Registro de Ejecución',
-          detail: 'Detalle de cada mejora técnica, actualización on-page y ajuste arquitectónico.',
-        },
-        {
-          phase: 'Fase 3',
-          title: 'Impacto Verificado',
-          detail: 'Validación posterior en salud de indexación, tráfico cualificado y oportunidades generadas.',
-        },
-      ],
-      resourcesHeading: 'Recursos técnicos publicados en español',
-      resources: [
-        { label: 'Guía de Auditoría Técnica SEO', path: '/es/blog/auditoria-tecnica-seo' },
-        { label: 'Guía de Auditoría SEO On-Page', path: '/es/blog/auditoria-seo-on-page' },
-        { label: 'SEO Local: Cómo Aparecer en Google', path: '/es/blog/seo-local-como-aparecer-google' },
-        { label: 'Modernización y Arquitectura Web', path: '/es/modernizacion-sitios' },
       ],
     },
     specialist: {
       kicker: 'Dirección Técnica',
-      title: 'Conozca al Especialista Detrás de Su Estrategia SEO',
+      title: 'Conozca a Su Especialista en SEO',
       name: 'Wesley Vieira',
       role: 'Fundador de Auditoria SEO · Especialista en SEO Técnico y Crecimiento Orgánico',
-      bioParagraphs: [
-        'Cada auditoría y plan estratégico de Auditoria SEO es dirigido personalmente por Wesley Vieira junto al equipo técnico, evitando reportes automatizados sin criterio.',
-        'Especializado en auditorías técnicas, arquitectura semántica, optimización on-page y SEO local, traduce hallazgos complejos de rastreo e indexación en prioridades claras para dirección comercial y desarrollo.',
-      ],
+      bio: 'Cada auditoría y plan de crecimiento es dirigido personalmente por Wesley Vieira, nunca delegado a reportes automáticos genéricos. Convertimos el SEO técnico, la presencia local y la optimización para IA en acciones claras para captar clientes en EE. UU.',
       highlights: [
-        'Acompañamiento directo del especialista desde la evaluación inicial hasta la presentación',
-        'Dominio técnico de renderizado, canonicals, redirecciones y arquitectura web',
-        'Reuniones en inglés, español o portugués por Google Meet, Zoom y correo electrónico',
+        'Acompañamiento directo del especialista sénior desde el diagnóstico hasta la ejecución',
+        'Dominio técnico de renderizado, datos estructurados, velocidad y arquitectura web',
+        'Colaboración fluida en inglés, español o portugués vía Google Meet, Zoom o correo',
       ],
       photoAlt:
         'Wesley Vieira, fundador de Auditoria SEO, exponiendo estrategias de visibilidad en Google sobre un escenario',
       ctaLabel: 'Agendar Reunión con Wesley',
-    },
-    whyUs: {
-      kicker: 'Por Qué Elegir Auditoria SEO',
-      title: 'La diferencia entre un reporte automático y una consultoría técnica real',
-      subtitle:
-        'Las herramientas muestran alertas aisladas. Nosotros priorizamos los ajustes técnicos y estratégicos que impactan en sus oportunidades comerciales.',
-      items: [
+      reviewsHeading: 'Reseñas Reales Verificables (Google Maps)',
+      reviewsSubheading:
+        'Opiniones reales de nuestra práctica consolidada, verificables directamente en nuestro perfil oficial de Google Business Profile.',
+      verifiedProfileLinkLabel: 'Verificar en Google Maps',
+      reviews: [
         {
-          title: 'Análisis basado en datos',
-          description: 'Recomendaciones apoyadas en rastreo real, Search Console y análisis directo de SERP.',
+          author: 'Alex Caldeira · Local Guide',
+          context: 'Reseña en Google Maps (Brasil)',
+          quote:
+            'Posicionó mi consulta de forma constante entre los primeros resultados en Google y atrajo numerosos clientes calificados.',
         },
         {
-          title: 'Comunicación transparente',
-          description: 'Explicaciones claras sobre qué falla, por qué importa y cómo implementarlo.',
+          author: 'Jose Diniz · Local Guide',
+          context: 'Reseña en Google Maps (Brasil)',
+          quote:
+            'Realmente comprometidos con ayudar a nuestro negocio a mejorar su presencia digital y conectar con más clientes.',
         },
         {
-          title: 'Experiencia técnica',
-          description: 'Dominio de HTML semántico, renderizado, canonicalización, sitemaps y rendimiento.',
-        },
-        {
-          title: 'Recomendaciones accionables',
-          description: 'Especificaciones listas para ejecutar por su equipo técnico o de contenidos.',
-        },
-        {
-          title: 'Estrategia orientada al negocio',
-          description: 'Enfoque directo en páginas comerciales, intención de compra y conversión.',
-        },
-        {
-          title: 'Soluciones a medida',
-          description: 'Alcance ajustado al tamaño de su sitio, tecnología y competencia en EE. UU.',
-        },
-        {
-          title: 'Prioridades claras',
-          description: 'Ordenamos cada acción por impacto comercial frente a esfuerzo técnico.',
-        },
-        {
-          title: 'Modalidades flexibles',
-          description: 'Contrate una auditoría puntual o sume implementación y gestión mensual continua.',
+          author: 'Lauro dos Santos',
+          context: 'Reseña en Google Maps (Brasil)',
+          quote:
+            'Profesionales dedicados y con ejecución clara; ya vemos resultados comerciales concretos de esta alianza.',
         },
       ],
     },
     faq: {
-      kicker: 'Preguntas Frecuentes',
-      title: 'Respuestas claras antes de conversar',
-      subtitle: 'Detalles directos sobre alcance, plazos, colaboración remota con EE. UU. y estándares éticos.',
+      kicker: 'FAQ',
+      title: 'Preguntas Frecuentes',
+      subtitle: 'Respuestas claras sobre alcance, auditoría puntual y colaboración remota en EE. UU.',
       items: [
         {
-          question: '¿Qué incluye una auditoría SEO profesional?',
+          question: '¿Puedo contratar una Auditoría Técnica SEO sin contrato mensual?',
           answer:
-            'Incluye análisis de rastreo e indexación, arquitectura de URLs, etiquetas canonical, redirecciones, usabilidad móvil, Core Web Vitals, estructura on-page, enlaces internos, señales locales (cuando aplique) y brechas competitivas, todo organizado en un plan de acción priorizado.',
+            'Sí. La auditoría es un proyecto puntual independiente con entregables claros y sin permanencia ni mensualidad obligatoria.',
         },
         {
-          question: '¿Cuánto tiempo toma completar una auditoría SEO?',
+          question: '¿También implementan las mejoras técnicas, locales y GEO/AEO?',
           answer:
-            'El plazo depende de la cantidad de URLs, la plataforma tecnológica y la profundidad solicitada. Confirmamos el cronograma exacto en la propuesta tras la evaluación inicial.',
+            'Sí. Su equipo interno puede ejecutar la hoja de ruta o podemos encargarnos directamente de la implementación y gestión mensual.',
         },
         {
-          question: '¿Pueden ayudar a implementar las mejoras recomendadas?',
+          question: '¿Pueden mejorar nuestra visibilidad en Google Maps en EE. UU.?',
           answer:
-            'Sí. Su equipo interno puede ejecutar las recomendaciones con nuestra hoja de ruta, o podemos encargarnos de implementar ajustes técnicos, on-page y editoriales.',
+            'Sí, para empresas elegibles en Google Business Profile. Optimizamos categorías, áreas de servicio y señales locales siguiendo las directrices oficiales.',
         },
         {
-          question: '¿Ofrecen servicios mensuales de SEO?',
+          question: '¿Cómo colaboran con empresas en Estados Unidos?',
           answer:
-            'Sí. Además de auditorías puntuales, ofrecemos gestión continua de SEO con monitoreo técnico, mejoras on-page, desarrollo estratégico de contenido e informes claros.',
+            'Trabajamos de forma remota en todas las zonas horarias de EE. UU. con reuniones en inglés o español vía Google Meet, Zoom y correo.',
         },
         {
-          question: '¿Pueden ayudar a que mi empresa aparezca en Google Maps?',
+          question: '¿Qué ocurre en la consultoría SEO gratuita?',
           answer:
-            'Sí, siempre que la empresa cumpla los criterios oficiales de Google Business Profile. Optimizamos categorías, servicios y señales locales cumpliendo estrictamente las directrices.',
-        },
-        {
-          question: '¿Trabajan con empresas en todo Estados Unidos?',
-          answer:
-            'Sí. Colaboramos de forma remota con empresas en todas las zonas horarias de Estados Unidos mediante Google Meet, Zoom y correo electrónico.',
-        },
-        {
-          question: '¿Puedo contratar una auditoría SEO sin compromiso mensual?',
-          answer:
-            'Por supuesto. Las auditorías SEO son proyectos puntuales independientes sin mensualidades obligatorias.',
-        },
-        {
-          question: '¿Cómo nos comunicamos y agendamos reuniones?',
-          answer:
-            'Complete el formulario de contacto o escriba directamente a comercial@auditoriaseo.com.br para coordinar una videollamada por Google Meet o Zoom.',
+            'Revisamos su sitio web, competencia y metas comerciales en una llamada breve y compartimos los próximos pasos prácticos, sin presiones.',
         },
       ],
     },
     consultation: {
       kicker: 'Contacto Comercial',
-      title: '¿Listo para Mejorar la Visibilidad de Su Sitio Web en Google?',
+      title: 'Agenda Tu Consultoría SEO Gratuita',
       description:
-        'Identifiquemos qué frena el crecimiento orgánico de su sitio y descubramos nuevas oportunidades comerciales en EE. UU.',
+        'Identifiquemos qué frena el crecimiento orgánico de su sitio y descubramos nuevas oportunidades de clientes calificados en EE. UU.',
       primaryCta: 'Agendar Su Consultoría SEO Gratuita',
       calendlyCta: 'Agendar Reunión',
       schedulingNote:
@@ -2041,6 +1337,7 @@ export const USA_AGENCY_DATA: Record<Language, UsaAgencyContent> = {
         'Local SEO & Google Business Profile',
         'Keyword Research & Competitor Analysis',
         'Ongoing SEO Management',
+        'GEO & AEO (Visibilidad en IA)',
         'Aún no estoy seguro — busco recomendación inicial',
       ],
       errors: {

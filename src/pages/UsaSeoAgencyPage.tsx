@@ -20,6 +20,7 @@ const SERVICE_ID_TO_OPTION_INDEX: Record<string, number> = {
   'google-business-profile': 2,
   'keyword-competitor-analysis': 3,
   'ongoing-seo-management': 4,
+  'geo-aeo-ai-search': 5,
 };
 
 export const UsaSeoAgencyPage: React.FC = () => {
